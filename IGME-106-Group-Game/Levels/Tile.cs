@@ -10,6 +10,9 @@ namespace IGME106GroupGame.Levels
     {
         // Fields
         private Texture2D sprite;
+
+        // Properties
+        public Texture2D Sprite => sprite;
         
         // Constructor
         public Tile(Texture2D sprite)
