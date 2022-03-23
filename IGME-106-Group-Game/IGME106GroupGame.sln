@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IGME106GroupGame", "IGME106GroupGame.csproj", "{3872CF87-0238-4BBE-85F8-E168A31360C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LevelEditor", "..\..\106-personal-repo-LegendaryMaskedMan\Homework\HW2\LevelEditor.csproj", "{B682DA5B-F477-4EDD-914C-3608405F8974}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{3872CF87-0238-4BBE-85F8-E168A31360C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3872CF87-0238-4BBE-85F8-E168A31360C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3872CF87-0238-4BBE-85F8-E168A31360C5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B682DA5B-F477-4EDD-914C-3608405F8974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B682DA5B-F477-4EDD-914C-3608405F8974}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B682DA5B-F477-4EDD-914C-3608405F8974}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B682DA5B-F477-4EDD-914C-3608405F8974}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
