@@ -16,25 +16,43 @@ namespace IGME106GroupGame.Levels
         private string filePath;
 
         // Tile sprites
-        private Texture2D baseTileSprite;
-        private Texture2D wallTileSprite;
-        private Texture2D floorTileSprite;
+        private Texture2D[] cornerSprites;
+        private Texture2D[] wallSprites;
+        private Texture2D floorSprite;
+        private Texture2D baseSprite;
 
         // Tile information
         private const int TileHeight = 18;
         private const int TileWidth = 32;
         private const int TileSize = 60;
 
-        // Test
-
         // Constructor
         public Map(ContentManager content, string filePath)
         {
-            baseTileSprite = content.Load<Texture2D>("base");
-            wallTileSprite = content.Load<Texture2D>("wall");
-            floorTileSprite = content.Load<Texture2D>("floor");
+            LoadContent(content);
             this.filePath = filePath;
             InitializeMap();
+        }
+
+        private void LoadContent(ContentManager content)
+        {
+            cornerSprites = new Texture2D[4];
+            string[] cornerImages= Directory.GetFiles("content\\corner");
+            for(int i = 0; i < cornerImages.Length; i++)
+            {
+                string filePath = cornerImages[i].Remove(0, "content\\".Length).Substring(0, cornerImages[i].Length - 4);
+                cornerSprites[i] = content.Load<Texture2D>(filePath);
+            }
+
+            wallSprites = new Texture2D[4];
+            string[] wallImages = Directory.GetFiles("content\\wall");
+            for (int i = 0; i < wallImages.Length; i++)
+            {
+                cornerSprites[i] = content.Load<Texture2D>(wallImages[i].Remove(0, "content\\".Length).Remove(wallImages[i].Length - 3, wallImages[i].Length));
+            }
+
+            floorSprite = content.Load<Texture2D>("floor");
+            baseSprite = content.Load<Texture2D>("base");
         }
 
         // Methods
@@ -80,18 +98,43 @@ namespace IGME106GroupGame.Levels
             }
         }
 
+        /*
+         * 1 -> top right corner
+         * 2 -> top left corner
+         * 3 -> bottom right corner
+         * 4 -> bottom left corner
+         * 
+         * A -> north wall
+         * B -> east wall
+         * C -> south wall
+         * D -> west wall
+         * 
+         * - -> floor
+         */
         private Texture2D GetTileSprite(char tileRepresentative)
         {
             switch (tileRepresentative)
             {
+                case '1':
+                    return cornerSprites[3];
+                case '2':
+                    return cornerSprites[2];
+                case '3':
+                    return cornerSprites[1];
+                case '4':
+                    return cornerSprites[0];
+                case 'A':
+                    return wallSprites[1];
+                case 'B':
+                    return wallSprites[0];
+                case 'C':
+                    return wallSprites[2];
+                case 'D':
+                    return wallSprites[3];
                 case '-':
-                    return baseTileSprite;
-                case 'W':
-                    return wallTileSprite;
-                case 'F':
-                    return floorTileSprite;
+                    return floorSprite;
                 default:
-                    return baseTileSprite;
+                    return baseSprite;
             }
         }
     }
