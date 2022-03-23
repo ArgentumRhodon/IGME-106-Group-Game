@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace IGME_106_Group_Game
+namespace IGME106GroupGame
 {
     public class Game1 : Game
     {

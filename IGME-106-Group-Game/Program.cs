@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IGME_106_Group_Game
+namespace IGME106GroupGame
 {
     public static class Program
     {
