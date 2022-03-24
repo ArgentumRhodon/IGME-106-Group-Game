@@ -34,13 +34,15 @@ namespace IGME106GroupGame.Levels
             InitializeMap();
         }
 
+        // Loads content from the wall and corner folders under \Content\
         private void LoadContent(ContentManager content)
         {
             cornerSprites = new Texture2D[4];
             string[] cornerImages= Directory.GetFiles("content\\corner");
             for(int i = 0; i < cornerImages.Length; i++)
             {
-                string filePath = cornerImages[i].Remove(0, "content\\".Length).Substring(0, cornerImages[i].Length - 4);
+                string filePath = cornerImages[i].Remove(0, "content\\".Length);
+                filePath = filePath.Substring(0, filePath.Length - 4);
                 cornerSprites[i] = content.Load<Texture2D>(filePath);
             }
 
@@ -48,7 +50,9 @@ namespace IGME106GroupGame.Levels
             string[] wallImages = Directory.GetFiles("content\\wall");
             for (int i = 0; i < wallImages.Length; i++)
             {
-                cornerSprites[i] = content.Load<Texture2D>(wallImages[i].Remove(0, "content\\".Length).Remove(wallImages[i].Length - 3, wallImages[i].Length));
+                string filePath = wallImages[i].Remove(0, "content\\".Length);
+                filePath = filePath.Substring(0, filePath.Length - 4);
+                wallSprites[i] = content.Load<Texture2D>(filePath);
             }
 
             floorSprite = content.Load<Texture2D>("floor");
