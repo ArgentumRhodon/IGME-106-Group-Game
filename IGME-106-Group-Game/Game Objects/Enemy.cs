@@ -7,6 +7,5 @@ namespace IGME106GroupGame
     class Enemy : Entity
     {
         //Fields
-        //EnemyController controller;
     }
 }

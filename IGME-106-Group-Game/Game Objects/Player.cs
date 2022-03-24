@@ -7,7 +7,6 @@ namespace IGME106GroupGame
     class Player : Entity
     {
         //Fields
-        //private PlayerController playerController;
 
     }
 }
