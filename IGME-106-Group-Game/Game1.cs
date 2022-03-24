@@ -1,4 +1,5 @@
-﻿using IGME106GroupGame.States;
+﻿using IGME106GroupGame.GameObjects;
+using IGME106GroupGame.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
