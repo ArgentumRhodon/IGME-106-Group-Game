@@ -1,4 +1,5 @@
 ﻿using IGME_106_Group_Game;
+using IGME106GroupGame.GameObjects;
 using IGME106GroupGame.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -14,12 +15,15 @@ namespace IGME106GroupGame.States
         // Fields
         // private Player player;
         private Level level;
+        private GenericEntity genericEntity;
+
 
         // Constructor
         public GameState(Game1 game)
             : base(game)
         {
             level = new Level(game.Content);
+            genericEntity = new GenericEntity(game.Content.Load<Texture2D>("base"), new Vector2(300, 300));
         }
 
         // Methods
@@ -29,6 +33,7 @@ namespace IGME106GroupGame.States
 
             //GameState logic
             level.Update();
+            genericEntity.Update();
         }
 
         public override void Draw(SpriteBatch _spriteBatch)
@@ -37,6 +42,7 @@ namespace IGME106GroupGame.States
 
             // GameState rendering
             level.Draw(_spriteBatch);
+            genericEntity.Draw(_spriteBatch);
         }
     }
 }
