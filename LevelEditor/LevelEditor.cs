@@ -58,7 +58,7 @@ namespace LevelEditor
         /// This method will set the colors of each tile to the corresponding color in the array
         /// </summary>
         /// <param name="colors">An array of argb ints</param>
-        public void CreateMap(char[] images)
+        public void CreateMap(String[] tiles)
         {
             for (int y = 0; y < mapHeight; y++)
             {
@@ -69,9 +69,57 @@ namespace LevelEditor
                     //pb.Size = new Size(groupBoxMap.Size.Width / mapWidth, groupBoxMap.Size.Height / mapHeight);
                     pb.Size = new Size(tileSize, tileSize);
 
-                    // Set the color to the corresponding image in the array
-                    
-                    
+                    // Set the image to the corresponding image in the array
+                    switch (tiles[y][x])
+                    {
+                        case '-': // Floor
+                            pb.Image = buttonFloor.Image;
+                            pb.Tag = buttonFloor.Tag;
+                            break;
+
+                        case '1': // Top Right Corner
+                            pb.Image = buttonTopRightCorner.Image;
+                            pb.Tag = buttonTopRightCorner.Tag;
+                            break;
+
+                        case '2': // Top Left Corner
+                            pb.Image = buttonTopLeftCorner.Image;
+                            pb.Tag = buttonTopLeftCorner.Tag;
+                            break;
+
+                        case '3': // Bottom Right Corner
+                            pb.Image = buttonBottomRightCorner.Image;
+                            pb.Tag = buttonBottomRightCorner.Tag;
+                            break;
+
+                        case '4': // Bottom Left Corner
+                            pb.Image = buttonBottomLeftCorner.Image;
+                            pb.Tag = buttonBottomLeftCorner.Tag;
+                            break;
+
+                        case 'A': // North Wall
+                            pb.Image = buttonNorthWall.Image;
+                            pb.Tag = buttonNorthWall.Tag;
+                            break;
+
+                        case 'B': // East Wall
+                            pb.Image = buttonEastWall.Image;
+                            pb.Tag = buttonEastWall.Tag;
+                            break;
+
+                        case 'C': // South Wall
+                            pb.Image = buttonSouthWall.Image;
+                            pb.Tag = buttonSouthWall.Tag;
+                            break;
+
+                        case 'D': // West Wall
+                            pb.Image = buttonWestWall.Image;
+                            pb.Tag = buttonWestWall.Tag;
+                            break;
+                        default: // Show error to user
+                            break;
+                    }
+
                     // Changing the location of each PictureBox to where it should be on the window
                     Point loc = pb.Location;
                     loc.X = x * (pb.Width);
@@ -92,7 +140,7 @@ namespace LevelEditor
         /// This overload of CreateMap will fill the map with a default tile for every square
         /// </summary>
         /// <param name="color"></param>
-        public void CreateMap() // todo: set every tile to default floor tile
+        public void CreateMap()
         {
             for (int y = 0; y < mapHeight; y++)
             {
@@ -181,7 +229,7 @@ namespace LevelEditor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonLoad_Click(object sender, EventArgs e)
+        private void buttonLoad_Click(object sender, EventArgs e) // check for unsaved changes, then load file, close previous file window
         {
             form.LoadFile();
         }
@@ -189,7 +237,7 @@ namespace LevelEditor
         private void buttonSave_Click(object sender, EventArgs e)
         {
             // Get all the PictureBox char values from images
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelEditor));
+            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelEditor));
             String[] images = new String[mapWidth * mapHeight];
             for (int y = 0; y < mapHeight; y++)
             {

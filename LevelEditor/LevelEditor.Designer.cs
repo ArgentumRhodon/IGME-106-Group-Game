@@ -31,14 +31,14 @@ namespace LevelEditor
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelEditor));
             this.groupBoxTileSelector = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.buttonSouthEastWall = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.buttonNorthWestWall = new System.Windows.Forms.Button();
-            this.buttonBlue = new System.Windows.Forms.Button();
-            this.buttonRed = new System.Windows.Forms.Button();
-            this.buttonTopLeftWall = new System.Windows.Forms.Button();
-            this.buttonGray = new System.Windows.Forms.Button();
+            this.buttonBottomLeftCorner = new System.Windows.Forms.Button();
+            this.buttonEastWall = new System.Windows.Forms.Button();
+            this.buttonSouthWall = new System.Windows.Forms.Button();
+            this.buttonNorthWall = new System.Windows.Forms.Button();
+            this.buttonWestWall = new System.Windows.Forms.Button();
+            this.buttonBottomRightCorner = new System.Windows.Forms.Button();
+            this.buttonTopLeftCorner = new System.Windows.Forms.Button();
+            this.buttonTopRightCorner = new System.Windows.Forms.Button();
             this.buttonFloor = new System.Windows.Forms.Button();
             this.groupBoxCurrentTile = new System.Windows.Forms.GroupBox();
             this.buttonCurrentTile = new System.Windows.Forms.Button();
@@ -51,14 +51,14 @@ namespace LevelEditor
             // 
             // groupBoxTileSelector
             // 
-            this.groupBoxTileSelector.Controls.Add(this.button3);
-            this.groupBoxTileSelector.Controls.Add(this.buttonSouthEastWall);
-            this.groupBoxTileSelector.Controls.Add(this.button1);
-            this.groupBoxTileSelector.Controls.Add(this.buttonNorthWestWall);
-            this.groupBoxTileSelector.Controls.Add(this.buttonBlue);
-            this.groupBoxTileSelector.Controls.Add(this.buttonRed);
-            this.groupBoxTileSelector.Controls.Add(this.buttonTopLeftWall);
-            this.groupBoxTileSelector.Controls.Add(this.buttonGray);
+            this.groupBoxTileSelector.Controls.Add(this.buttonBottomLeftCorner);
+            this.groupBoxTileSelector.Controls.Add(this.buttonEastWall);
+            this.groupBoxTileSelector.Controls.Add(this.buttonSouthWall);
+            this.groupBoxTileSelector.Controls.Add(this.buttonNorthWall);
+            this.groupBoxTileSelector.Controls.Add(this.buttonWestWall);
+            this.groupBoxTileSelector.Controls.Add(this.buttonBottomRightCorner);
+            this.groupBoxTileSelector.Controls.Add(this.buttonTopLeftCorner);
+            this.groupBoxTileSelector.Controls.Add(this.buttonTopRightCorner);
             this.groupBoxTileSelector.Controls.Add(this.buttonFloor);
             this.groupBoxTileSelector.Location = new System.Drawing.Point(12, 12);
             this.groupBoxTileSelector.Name = "groupBoxTileSelector";
@@ -67,92 +67,96 @@ namespace LevelEditor
             this.groupBoxTileSelector.TabStop = false;
             this.groupBoxTileSelector.Text = "Tile Selector";
             // 
-            // button3
+            // buttonBottomLeftCorner
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button3.Location = new System.Drawing.Point(0, 72);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(50, 44);
-            this.button3.TabIndex = 8;
-            this.button3.Tag = "BottomLeftCorner";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.buttonColor_Click);
+            this.buttonBottomLeftCorner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.buttonBottomLeftCorner.Location = new System.Drawing.Point(0, 72);
+            this.buttonBottomLeftCorner.Name = "buttonBottomLeftCorner";
+            this.buttonBottomLeftCorner.Size = new System.Drawing.Size(50, 44);
+            this.buttonBottomLeftCorner.TabIndex = 8;
+            this.buttonBottomLeftCorner.Tag = "BottomLeftCorner";
+            this.buttonBottomLeftCorner.UseVisualStyleBackColor = false;
+            this.buttonBottomLeftCorner.Click += new System.EventHandler(this.buttonColor_Click);
             // 
-            // buttonSouthEastWall
+            // buttonEastWall
             // 
-            this.buttonSouthEastWall.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.buttonSouthEastWall.Image = ((System.Drawing.Image)(resources.GetObject("buttonSouthEastWall.Image")));
-            this.buttonSouthEastWall.Location = new System.Drawing.Point(57, 172);
-            this.buttonSouthEastWall.Name = "buttonSouthEastWall";
-            this.buttonSouthEastWall.Size = new System.Drawing.Size(50, 44);
-            this.buttonSouthEastWall.TabIndex = 7;
-            this.buttonSouthEastWall.UseVisualStyleBackColor = false;
-            this.buttonSouthEastWall.Click += new System.EventHandler(this.buttonColor_Click);
+            this.buttonEastWall.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.buttonEastWall.Image = ((System.Drawing.Image)(resources.GetObject("buttonEastWall.Image")));
+            this.buttonEastWall.Location = new System.Drawing.Point(57, 172);
+            this.buttonEastWall.Name = "buttonEastWall";
+            this.buttonEastWall.Size = new System.Drawing.Size(50, 44);
+            this.buttonEastWall.TabIndex = 7;
+            this.buttonEastWall.Tag = "EastWall";
+            this.buttonEastWall.UseVisualStyleBackColor = false;
+            this.buttonEastWall.Click += new System.EventHandler(this.buttonColor_Click);
             // 
-            // button1
+            // buttonSouthWall
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button1.Location = new System.Drawing.Point(0, 172);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 44);
-            this.button1.TabIndex = 6;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.buttonColor_Click);
+            this.buttonSouthWall.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.buttonSouthWall.Location = new System.Drawing.Point(0, 172);
+            this.buttonSouthWall.Name = "buttonSouthWall";
+            this.buttonSouthWall.Size = new System.Drawing.Size(50, 44);
+            this.buttonSouthWall.TabIndex = 6;
+            this.buttonSouthWall.Tag = "SouthWall";
+            this.buttonSouthWall.UseVisualStyleBackColor = false;
+            this.buttonSouthWall.Click += new System.EventHandler(this.buttonColor_Click);
             // 
-            // buttonNorthWestWall
+            // buttonNorthWall
             // 
-            this.buttonNorthWestWall.BackColor = System.Drawing.Color.Black;
-            this.buttonNorthWestWall.Image = ((System.Drawing.Image)(resources.GetObject("buttonNorthWestWall.Image")));
-            this.buttonNorthWestWall.Location = new System.Drawing.Point(57, 123);
-            this.buttonNorthWestWall.Name = "buttonNorthWestWall";
-            this.buttonNorthWestWall.Size = new System.Drawing.Size(50, 44);
-            this.buttonNorthWestWall.TabIndex = 5;
-            this.buttonNorthWestWall.UseVisualStyleBackColor = false;
-            this.buttonNorthWestWall.Click += new System.EventHandler(this.buttonColor_Click);
+            this.buttonNorthWall.BackColor = System.Drawing.Color.Black;
+            this.buttonNorthWall.Image = ((System.Drawing.Image)(resources.GetObject("buttonNorthWall.Image")));
+            this.buttonNorthWall.Location = new System.Drawing.Point(57, 123);
+            this.buttonNorthWall.Name = "buttonNorthWall";
+            this.buttonNorthWall.Size = new System.Drawing.Size(50, 44);
+            this.buttonNorthWall.TabIndex = 5;
+            this.buttonNorthWall.Tag = "NorthWall";
+            this.buttonNorthWall.UseVisualStyleBackColor = false;
+            this.buttonNorthWall.Click += new System.EventHandler(this.buttonColor_Click);
             // 
-            // buttonBlue
+            // buttonWestWall
             // 
-            this.buttonBlue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.buttonBlue.Location = new System.Drawing.Point(0, 122);
-            this.buttonBlue.Name = "buttonBlue";
-            this.buttonBlue.Size = new System.Drawing.Size(50, 44);
-            this.buttonBlue.TabIndex = 4;
-            this.buttonBlue.UseVisualStyleBackColor = false;
-            this.buttonBlue.Click += new System.EventHandler(this.buttonColor_Click);
+            this.buttonWestWall.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.buttonWestWall.Location = new System.Drawing.Point(0, 122);
+            this.buttonWestWall.Name = "buttonWestWall";
+            this.buttonWestWall.Size = new System.Drawing.Size(50, 44);
+            this.buttonWestWall.TabIndex = 4;
+            this.buttonWestWall.Tag = "WestWall";
+            this.buttonWestWall.UseVisualStyleBackColor = false;
+            this.buttonWestWall.Click += new System.EventHandler(this.buttonColor_Click);
             // 
-            // buttonRed
+            // buttonBottomRightCorner
             // 
-            this.buttonRed.BackColor = System.Drawing.Color.Red;
-            this.buttonRed.Location = new System.Drawing.Point(57, 72);
-            this.buttonRed.Name = "buttonRed";
-            this.buttonRed.Size = new System.Drawing.Size(50, 44);
-            this.buttonRed.TabIndex = 3;
-            this.buttonRed.Tag = "BottomRightCorner";
-            this.buttonRed.UseVisualStyleBackColor = false;
-            this.buttonRed.Click += new System.EventHandler(this.buttonColor_Click);
+            this.buttonBottomRightCorner.BackColor = System.Drawing.Color.Red;
+            this.buttonBottomRightCorner.Location = new System.Drawing.Point(57, 72);
+            this.buttonBottomRightCorner.Name = "buttonBottomRightCorner";
+            this.buttonBottomRightCorner.Size = new System.Drawing.Size(50, 44);
+            this.buttonBottomRightCorner.TabIndex = 3;
+            this.buttonBottomRightCorner.Tag = "BottomRightCorner";
+            this.buttonBottomRightCorner.UseVisualStyleBackColor = false;
+            this.buttonBottomRightCorner.Click += new System.EventHandler(this.buttonColor_Click);
             // 
-            // buttonTopLeftWall
+            // buttonTopLeftCorner
             // 
-            this.buttonTopLeftWall.BackColor = System.Drawing.Color.SaddleBrown;
-            this.buttonTopLeftWall.Image = ((System.Drawing.Image)(resources.GetObject("buttonTopLeftWall.Image")));
-            this.buttonTopLeftWall.Location = new System.Drawing.Point(0, 22);
-            this.buttonTopLeftWall.Name = "buttonTopLeftWall";
-            this.buttonTopLeftWall.Size = new System.Drawing.Size(50, 44);
-            this.buttonTopLeftWall.TabIndex = 2;
-            this.buttonTopLeftWall.Tag = "TopLeftCorner";
-            this.buttonTopLeftWall.UseVisualStyleBackColor = false;
-            this.buttonTopLeftWall.Click += new System.EventHandler(this.buttonColor_Click);
+            this.buttonTopLeftCorner.BackColor = System.Drawing.Color.SaddleBrown;
+            this.buttonTopLeftCorner.Image = ((System.Drawing.Image)(resources.GetObject("buttonTopLeftCorner.Image")));
+            this.buttonTopLeftCorner.Location = new System.Drawing.Point(0, 22);
+            this.buttonTopLeftCorner.Name = "buttonTopLeftCorner";
+            this.buttonTopLeftCorner.Size = new System.Drawing.Size(50, 44);
+            this.buttonTopLeftCorner.TabIndex = 2;
+            this.buttonTopLeftCorner.Tag = "TopLeftCorner";
+            this.buttonTopLeftCorner.UseVisualStyleBackColor = false;
+            this.buttonTopLeftCorner.Click += new System.EventHandler(this.buttonColor_Click);
             // 
-            // buttonGray
+            // buttonTopRightCorner
             // 
-            this.buttonGray.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.buttonGray.Location = new System.Drawing.Point(57, 22);
-            this.buttonGray.Name = "buttonGray";
-            this.buttonGray.Size = new System.Drawing.Size(50, 44);
-            this.buttonGray.TabIndex = 1;
-            this.buttonGray.Tag = "TopRightCorner";
-            this.buttonGray.UseVisualStyleBackColor = false;
-            this.buttonGray.Click += new System.EventHandler(this.buttonColor_Click);
+            this.buttonTopRightCorner.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.buttonTopRightCorner.Location = new System.Drawing.Point(57, 22);
+            this.buttonTopRightCorner.Name = "buttonTopRightCorner";
+            this.buttonTopRightCorner.Size = new System.Drawing.Size(50, 44);
+            this.buttonTopRightCorner.TabIndex = 1;
+            this.buttonTopRightCorner.Tag = "TopRightCorner";
+            this.buttonTopRightCorner.UseVisualStyleBackColor = false;
+            this.buttonTopRightCorner.Click += new System.EventHandler(this.buttonColor_Click);
             // 
             // buttonFloor
             // 
@@ -244,19 +248,19 @@ namespace LevelEditor
         #endregion
 
         private System.Windows.Forms.GroupBox groupBoxTileSelector;
-        private System.Windows.Forms.Button buttonNorthWestWall;
-        private System.Windows.Forms.Button buttonBlue;
-        private System.Windows.Forms.Button buttonRed;
-        private System.Windows.Forms.Button buttonTopLeftWall;
-        private System.Windows.Forms.Button buttonGray;
+        private System.Windows.Forms.Button buttonNorthWall;
+        private System.Windows.Forms.Button buttonWestWall;
+        private System.Windows.Forms.Button buttonBottomRightCorner;
+        private System.Windows.Forms.Button buttonTopLeftCorner;
+        private System.Windows.Forms.Button buttonTopRightCorner;
         private System.Windows.Forms.Button buttonFloor;
         private System.Windows.Forms.GroupBox groupBoxCurrentTile;
         private System.Windows.Forms.Button buttonCurrentTile;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonLoad;
         private System.Windows.Forms.GroupBox groupBoxMap;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button buttonSouthEastWall;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonBottomLeftCorner;
+        private System.Windows.Forms.Button buttonEastWall;
+        private System.Windows.Forms.Button buttonSouthWall;
     }
 }
