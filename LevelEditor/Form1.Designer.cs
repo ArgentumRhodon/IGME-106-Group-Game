@@ -1,5 +1,5 @@
 ﻿
-namespace HW2
+namespace LevelEditor
 {
     partial class Form1
     {

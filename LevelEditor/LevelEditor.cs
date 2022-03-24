@@ -10,11 +10,11 @@ using System.Windows.Forms;
 using System.IO;
 
 /*-----Notes-----
- * True tile size in the game is 60px by 60px, here it is lowered to 30px by 30x to fit the editor on the screen
+ * True tile size in the game is 60px by 60px, here it is lowered to 60px by 30x to fit the editor on the screen
  * 
  */
 
-namespace HW2
+namespace LevelEditor
 {
     public partial class LevelEditor : Form
     {
@@ -23,6 +23,9 @@ namespace HW2
         int mapHeight;
         bool changes;
         Form1 form;
+
+        // Ease of use variables
+        private int tileSize = 60; // For easy manipulation of tile size
 
         // Properties
         /// <summary>
@@ -46,7 +49,7 @@ namespace HW2
             this.mapHeight = mapHeight;
             changes = false;
             this.form = form;
-            Size = new Size(30 * MapWidth + 175, 30 * MapHeight + 75); // temp
+            Size = new Size(tileSize * MapWidth + 175, tileSize * MapHeight + 75); // temp
             //Size = new Size(((mapWidth / mapHeight)) * 300 + 327, 489);
         }
 
@@ -55,7 +58,7 @@ namespace HW2
         /// This method will set the colors of each tile to the corresponding color in the array
         /// </summary>
         /// <param name="colors">An array of argb ints</param>
-        public void CreateMap(int[] colors)
+        public void CreateMap(char[] images)
         {
             for (int y = 0; y < mapHeight; y++)
             {
@@ -64,10 +67,10 @@ namespace HW2
                     // Creating the PictureBox
                     PictureBox pb = new PictureBox();
                     //pb.Size = new Size(groupBoxMap.Size.Width / mapWidth, groupBoxMap.Size.Height / mapHeight);
-                    pb.Size = new Size(30, 30);
+                    pb.Size = new Size(tileSize, tileSize);
 
-                    // Set the color to the corresponding color in the array
-                    pb.BackColor = Color.FromArgb(colors[(y * mapWidth) + x]);
+                    // Set the color to the corresponding image in the array
+                    
                     
                     // Changing the location of each PictureBox to where it should be on the window
                     Point loc = pb.Location;
@@ -76,7 +79,7 @@ namespace HW2
                     pb.Location = loc;
 
                     // Letting the Window know the PictureBox exists
-                    this.groupBoxMap.Controls.Add(pb);
+                    groupBoxMap.Controls.Add(pb);
 
                     // Hooking up the PictureBox's Click event to pictureBoxColorAssign and DetectChanges
                     pb.Click += pictureBoxImageAssign;
@@ -89,7 +92,7 @@ namespace HW2
         /// This overload of CreateMap will fill the map with a default tile for every square
         /// </summary>
         /// <param name="color"></param>
-        public void CreateMap(Color color) // todo: set every tile to default floor tile
+        public void CreateMap() // todo: set every tile to default floor tile
         {
             for (int y = 0; y < mapHeight; y++)
             {
@@ -98,10 +101,11 @@ namespace HW2
                     // Creating the PictureBox
                     PictureBox pb = new PictureBox();
                     //pb.Size = new Size(groupBoxMap.Size.Width / mapWidth, groupBoxMap.Size.Height / mapHeight);
-                    pb.Size = new Size(30, 30);
+                    pb.Size = new Size(tileSize, tileSize);
 
-                    // Set the color to the corresponding color in the 
-                    pb.BackColor = color;
+                    // Set the image to the corresponding tile
+                    pb.Image = buttonFloor.Image;
+                    pb.Tag = "Floor";
 
                     // Changing the location of each PictureBox to where it should be on the window
                     Point loc = pb.Location;
@@ -110,7 +114,7 @@ namespace HW2
                     pb.Location = loc;
 
                     // Letting the Window know the PictureBox exists
-                    this.groupBoxMap.Controls.Add(pb);
+                    groupBoxMap.Controls.Add(pb);
 
                     // Hooking up the PictureBox's Click event to pictureBoxColorAssign 
                     pb.Click += pictureBoxImageAssign;
@@ -120,14 +124,15 @@ namespace HW2
         }
 
         /// <summary>
-        /// This method will make the selected color the color that was clicked on
+        /// This method will make the selected image the image that was clicked on
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void buttonColor_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            buttonCurrentTile.BackColor = button.BackColor;
+            buttonCurrentTile.Image = button.Image;
+            buttonCurrentTile.Tag = button.Tag;
         }
 
         /// <summary>
@@ -139,6 +144,7 @@ namespace HW2
         {
             PictureBox pb = (PictureBox)sender;
             pb.Image = buttonCurrentTile.Image;
+            pb.Tag = buttonCurrentTile.Tag;
         }
 
         /// <summary>
@@ -148,7 +154,7 @@ namespace HW2
         {
             if (!changes)
             {
-                this.Text += "*";
+                Text += "*";
                 changes = true;
             }
         }
@@ -182,19 +188,31 @@ namespace HW2
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            // Get all the PictureBox color values
-            int[] colors = new int[mapWidth * mapHeight];
+            // Get all the PictureBox char values from images
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelEditor));
+            String[] images = new String[mapWidth * mapHeight];
             for (int y = 0; y < mapHeight; y++)
             {
                 for (int x = 0; x < mapWidth; x++)
                 {
-                    PictureBox pb = (PictureBox)groupBoxMap.GetChildAtPoint(new Point(x * groupBoxMap.Size.Width / mapWidth, y * groupBoxMap.Size.Height / mapHeight));
-                    colors[(y * mapWidth) + x] = pb.BackColor.ToArgb();
+                    PictureBox pb = (PictureBox)groupBoxMap.GetChildAtPoint(new Point(x * tileSize, y * tileSize));
+
+                    // Convert images of tiles to characters (see key for more details)
+                    if ((String)pb.Tag == "Floor") images[(y * mapWidth) + x] = "-"; // floor
+                    else if ((String)pb.Tag == "TopRightCorner") images[(y * mapWidth) + x] = "1"; // top right corner
+                    else if ((String)pb.Tag == "TopLeftCorner") images[(y * mapWidth) + x] = "2"; // top left corner
+                    else if ((String)pb.Tag == "BottomRightCorner") images[(y * mapWidth) + x] = "3"; // bottom right corner
+                    else if ((String)pb.Tag == "BottomLeftCorner") images[(y * mapWidth) + x] = "4"; // bottom left corner
+
+                    else if ((String)pb.Tag == "NorthWall") images[(y * mapWidth) + x] = "A"; // north wall
+                    else if ((String)pb.Tag == "EastWall") images[(y * mapWidth) + x] = "B"; // east wall
+                    else if ((String)pb.Tag == "SouthWall") images[(y * mapWidth) + x] = "C"; // south wall
+                    else if ((String)pb.Tag == "WestWall") images[(y * mapWidth) + x] = "D"; // west wall
                 }
             }
             // Prompt user for file location choice
             SaveFileDialog prompt = new SaveFileDialog();
-            prompt.Filter = "Level Files|*.level";
+            prompt.Filter = "Text Files|*.txt"; // SUBJECT TO CHANGE
             prompt.Title = "Choose a place to save the file";
             if (prompt.ShowDialog() == DialogResult.OK)
             {
@@ -204,11 +222,11 @@ namespace HW2
                 {
                     output = new StreamWriter(prompt.FileName);
 
-                    output.WriteLine($"{mapWidth},{mapHeight}");
-                    for (int i = 0; i < colors.Length; i++)
+                    //output.WriteLine($"{mapWidth},{mapHeight}");
+                    for (int i = 0; i < images.Length; i++)
                     {
-                        if (colors.Length - 1 == i) output.Write($"{colors[i]}");
-                        else output.Write($"{colors[i]},");
+                        if (i % mapWidth != mapWidth - 1) output.Write($"{images[i]}");
+                        else output.Write($"{images[i]}\n");
                     }
                     MessageBox.Show("Save successful.", "File Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     String[] splitDirectory = prompt.FileName.Split('\\');

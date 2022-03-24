@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace HW2
+namespace LevelEditor
 {
     public partial class Form1 : Form
     {
@@ -56,15 +56,16 @@ namespace HW2
                     input = new StreamReader(prompt.FileName);
 
                     // Get the width and height and instantiate the LevelEditor with the correct dimensions before reading in tiles
-                    data = input.ReadLine().Split(',');
-                    level = new LevelEditor(int.Parse(data[0]), int.Parse(data[1]), this);
-                    data = input.ReadLine().Split(',');
+                    //data = input.ReadLine().Split(',');
+                    //level = new LevelEditor(int.Parse(data[0]), int.Parse(data[1]), this);
+                    level = new LevelEditor(32, 18, this);
+                    data = input.ReadLine().Split("\n");
 
-                    // Converting the String[] to an int[]
-                    int[] parsedData = new int[data.Length];
+                    // Converting the String[] to an char[]
+                    char[] parsedData = new char[data.Length];
                     for (int i = 0; i < data.Length; i++)
                     {
-                        parsedData[i] = int.Parse(data[i]);
+                        parsedData[i] = char.Parse(data[i]);
                     }
 
                     level.CreateMap(parsedData);
@@ -121,7 +122,7 @@ namespace HW2
             {
                 // Create the new map
                 LevelEditor level = new LevelEditor(width, height, this);
-                level.CreateMap(Color.FromArgb(192, 192, 255));
+                level.CreateMap();
                 level.ShowDialog();
             }
         }
