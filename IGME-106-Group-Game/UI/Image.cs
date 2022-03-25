@@ -37,7 +37,13 @@ namespace IGME106GroupGame.UI
             get { return rectangle; }
         }
 
-        // - Constructor -
+        // - Constructors -
+        public Image(Texture2D texture, int x, int y)
+            : this(texture, x, y, texture.Width, texture.Height, Color.White)
+        {
+
+        }
+
         /// <summary>
         /// The constuctor used if a width and height is not given. Sets values based on texture
         /// </summary>
@@ -45,6 +51,12 @@ namespace IGME106GroupGame.UI
             : this(texture, x, y, texture.Width, texture.Height, tint)
         {
             
+        }
+
+        public Image(Texture2D texture, int x, int y, int width, int height)
+            : this(texture, x, y, width, height, Color.White)
+        {
+
         }
 
         public Image(Texture2D texture, int x, int y, int width, int height, Color tint)

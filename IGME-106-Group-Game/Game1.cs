@@ -1,5 +1,6 @@
 ﻿using IGME106GroupGame.GameObjects;
 using IGME106GroupGame.States;
+using IGME106GroupGame.UI.Menus;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -19,7 +20,8 @@ namespace IGME_106_Group_Game
         private SpriteBatch _spriteBatch;
 
         // Fields
-        private State state;
+        //private State state;
+        private TitleUI titleUI;
 
         // Constructor
         public Game1()
@@ -36,7 +38,8 @@ namespace IGME_106_Group_Game
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.ApplyChanges();
 
-            state = new MenuState(this);
+            //state = new MenuState(this);
+            titleUI = new TitleUI(this, _graphics);
 
             base.Initialize();
         }
@@ -54,7 +57,7 @@ namespace IGME_106_Group_Game
                 Exit();
 
             // TODO: Add your update logic here
-            state.Update();
+            //state.Update();
 
             base.Update(gameTime);
         }
@@ -66,7 +69,7 @@ namespace IGME_106_Group_Game
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
-            state.Draw(_spriteBatch);
+            //state.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
@@ -75,7 +78,7 @@ namespace IGME_106_Group_Game
 
         public void SetState(State nextState)
         {
-            this.state = nextState;
+            //this.state = nextState;
         }
     }
 }
