@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 
 /*-----Notes-----
- * True tile size in the game is 60px by 60px, here it is lowered to 60px by 30x to fit the editor on the screen
+ * True tile size in the game is 60px by 60px, here it is lowered to 30px by 30px to fit the editor on the screen
  * 
  */
 
@@ -25,7 +25,7 @@ namespace LevelEditor
         Form1 form;
 
         // Ease of use variables
-        private int tileSize = 60; // For easy manipulation of tile size
+        private int tileSize = 30; // For easy manipulation of tile size
 
         // Properties
         /// <summary>
@@ -50,7 +50,6 @@ namespace LevelEditor
             changes = false;
             this.form = form;
             Size = new Size(tileSize * MapWidth + 175, tileSize * MapHeight + 75); // temp
-            //Size = new Size(((mapWidth / mapHeight)) * 300 + 327, 489);
         }
 
         // Methods

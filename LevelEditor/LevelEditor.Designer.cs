@@ -69,7 +69,8 @@ namespace LevelEditor
             // 
             // buttonBottomLeftCorner
             // 
-            this.buttonBottomLeftCorner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.buttonBottomLeftCorner.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.buttonBottomLeftCorner.Image = ((System.Drawing.Image)(resources.GetObject("buttonBottomLeftCorner.Image")));
             this.buttonBottomLeftCorner.Location = new System.Drawing.Point(0, 72);
             this.buttonBottomLeftCorner.Name = "buttonBottomLeftCorner";
             this.buttonBottomLeftCorner.Size = new System.Drawing.Size(50, 44);
@@ -80,7 +81,7 @@ namespace LevelEditor
             // 
             // buttonEastWall
             // 
-            this.buttonEastWall.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.buttonEastWall.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.buttonEastWall.Image = ((System.Drawing.Image)(resources.GetObject("buttonEastWall.Image")));
             this.buttonEastWall.Location = new System.Drawing.Point(57, 172);
             this.buttonEastWall.Name = "buttonEastWall";
@@ -92,7 +93,8 @@ namespace LevelEditor
             // 
             // buttonSouthWall
             // 
-            this.buttonSouthWall.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.buttonSouthWall.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.buttonSouthWall.Image = ((System.Drawing.Image)(resources.GetObject("buttonSouthWall.Image")));
             this.buttonSouthWall.Location = new System.Drawing.Point(0, 172);
             this.buttonSouthWall.Name = "buttonSouthWall";
             this.buttonSouthWall.Size = new System.Drawing.Size(50, 44);
@@ -103,7 +105,7 @@ namespace LevelEditor
             // 
             // buttonNorthWall
             // 
-            this.buttonNorthWall.BackColor = System.Drawing.Color.Black;
+            this.buttonNorthWall.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.buttonNorthWall.Image = ((System.Drawing.Image)(resources.GetObject("buttonNorthWall.Image")));
             this.buttonNorthWall.Location = new System.Drawing.Point(57, 123);
             this.buttonNorthWall.Name = "buttonNorthWall";
@@ -115,7 +117,8 @@ namespace LevelEditor
             // 
             // buttonWestWall
             // 
-            this.buttonWestWall.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.buttonWestWall.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.buttonWestWall.Image = ((System.Drawing.Image)(resources.GetObject("buttonWestWall.Image")));
             this.buttonWestWall.Location = new System.Drawing.Point(0, 122);
             this.buttonWestWall.Name = "buttonWestWall";
             this.buttonWestWall.Size = new System.Drawing.Size(50, 44);
@@ -126,7 +129,8 @@ namespace LevelEditor
             // 
             // buttonBottomRightCorner
             // 
-            this.buttonBottomRightCorner.BackColor = System.Drawing.Color.Red;
+            this.buttonBottomRightCorner.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.buttonBottomRightCorner.Image = ((System.Drawing.Image)(resources.GetObject("buttonBottomRightCorner.Image")));
             this.buttonBottomRightCorner.Location = new System.Drawing.Point(57, 72);
             this.buttonBottomRightCorner.Name = "buttonBottomRightCorner";
             this.buttonBottomRightCorner.Size = new System.Drawing.Size(50, 44);
@@ -137,7 +141,7 @@ namespace LevelEditor
             // 
             // buttonTopLeftCorner
             // 
-            this.buttonTopLeftCorner.BackColor = System.Drawing.Color.SaddleBrown;
+            this.buttonTopLeftCorner.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.buttonTopLeftCorner.Image = ((System.Drawing.Image)(resources.GetObject("buttonTopLeftCorner.Image")));
             this.buttonTopLeftCorner.Location = new System.Drawing.Point(0, 22);
             this.buttonTopLeftCorner.Name = "buttonTopLeftCorner";
@@ -150,6 +154,7 @@ namespace LevelEditor
             // buttonTopRightCorner
             // 
             this.buttonTopRightCorner.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.buttonTopRightCorner.Image = ((System.Drawing.Image)(resources.GetObject("buttonTopRightCorner.Image")));
             this.buttonTopRightCorner.Location = new System.Drawing.Point(57, 22);
             this.buttonTopRightCorner.Name = "buttonTopRightCorner";
             this.buttonTopRightCorner.Size = new System.Drawing.Size(50, 44);
@@ -160,7 +165,7 @@ namespace LevelEditor
             // 
             // buttonFloor
             // 
-            this.buttonFloor.BackColor = System.Drawing.Color.Green;
+            this.buttonFloor.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.buttonFloor.Image = ((System.Drawing.Image)(resources.GetObject("buttonFloor.Image")));
             this.buttonFloor.Location = new System.Drawing.Point(1, 222);
             this.buttonFloor.Name = "buttonFloor";
@@ -182,7 +187,7 @@ namespace LevelEditor
             // 
             // buttonCurrentTile
             // 
-            this.buttonCurrentTile.BackColor = System.Drawing.Color.Green;
+            this.buttonCurrentTile.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.buttonCurrentTile.Image = ((System.Drawing.Image)(resources.GetObject("buttonCurrentTile.Image")));
             this.buttonCurrentTile.Location = new System.Drawing.Point(20, 22);
             this.buttonCurrentTile.Name = "buttonCurrentTile";
