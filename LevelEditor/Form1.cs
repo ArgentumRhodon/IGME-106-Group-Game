@@ -40,6 +40,7 @@ namespace LevelEditor
         /// </summary>
         public void LoadFile()
         {
+            
             // Prompt user for file choice
             OpenFileDialog prompt = new OpenFileDialog();
             prompt.Filter = "Text Files|*.txt"; // SUBJECT TO CHANGE
