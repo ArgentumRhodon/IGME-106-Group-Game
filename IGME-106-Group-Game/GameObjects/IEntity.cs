@@ -11,7 +11,6 @@ namespace IGME106GroupGame.GameObjects
     interface IEntity
     {
         int Health { get; set; }
-        // Uncomment when the Weapon class is created
         // Weapon EquippedWeapon { get; set; }
     }
 }

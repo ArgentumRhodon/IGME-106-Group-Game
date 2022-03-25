@@ -20,6 +20,7 @@ namespace IGME_106_Group_Game
 
         // Fields
         private State state;
+        private Player player;
 
         // Constructor
         public Game1()
@@ -37,13 +38,15 @@ namespace IGME_106_Group_Game
             _graphics.ApplyChanges();
 
             state = new MenuState(this);
-
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            //Texture2D playerSprite = Content.Load<Texture2D>("nameOfPlayerSprite");
+            //Texture2D enemySprite = Content.Load<Texture2D>("nameOfEnemSprite");
+            //player = new Player(playerSprite, new Vector2(960, 540));
 
             // TODO: use this.Content to load your game content here
         }
@@ -55,6 +58,7 @@ namespace IGME_106_Group_Game
 
             // TODO: Add your update logic here
             state.Update();
+            //player.Update();
 
             base.Update(gameTime);
         }
@@ -67,6 +71,7 @@ namespace IGME_106_Group_Game
             _spriteBatch.Begin();
 
             state.Draw(_spriteBatch);
+            //player.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
