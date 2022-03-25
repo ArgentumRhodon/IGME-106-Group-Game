@@ -76,22 +76,22 @@ namespace LevelEditor
                             pb.Tag = buttonFloor.Tag;
                             break;
 
-                        case '1': // Top Right Corner
+                        case '2': // Top Right Corner
                             pb.Image = buttonTopRightCorner.Image;
                             pb.Tag = buttonTopRightCorner.Tag;
                             break;
 
-                        case '2': // Top Left Corner
+                        case '1': // Top Left Corner
                             pb.Image = buttonTopLeftCorner.Image;
                             pb.Tag = buttonTopLeftCorner.Tag;
                             break;
 
-                        case '3': // Bottom Right Corner
+                        case '4': // Bottom Right Corner
                             pb.Image = buttonBottomRightCorner.Image;
                             pb.Tag = buttonBottomRightCorner.Tag;
                             break;
 
-                        case '4': // Bottom Left Corner
+                        case '3': // Bottom Left Corner
                             pb.Image = buttonBottomLeftCorner.Image;
                             pb.Tag = buttonBottomLeftCorner.Tag;
                             break;
@@ -246,10 +246,10 @@ namespace LevelEditor
 
                     // Convert images of tiles to characters (see key for more details)
                     if ((String)pb.Tag == "Floor") images[(y * mapWidth) + x] = "-"; // floor
-                    else if ((String)pb.Tag == "TopRightCorner") images[(y * mapWidth) + x] = "1"; // top right corner
-                    else if ((String)pb.Tag == "TopLeftCorner") images[(y * mapWidth) + x] = "2"; // top left corner
-                    else if ((String)pb.Tag == "BottomRightCorner") images[(y * mapWidth) + x] = "3"; // bottom right corner
-                    else if ((String)pb.Tag == "BottomLeftCorner") images[(y * mapWidth) + x] = "4"; // bottom left corner
+                    else if ((String)pb.Tag == "TopRightCorner") images[(y * mapWidth) + x] = "2"; // top right corner
+                    else if ((String)pb.Tag == "TopLeftCorner") images[(y * mapWidth) + x] = "1"; // top left corner
+                    else if ((String)pb.Tag == "BottomRightCorner") images[(y * mapWidth) + x] = "4"; // bottom right corner
+                    else if ((String)pb.Tag == "BottomLeftCorner") images[(y * mapWidth) + x] = "3"; // bottom left corner
 
                     else if ((String)pb.Tag == "NorthWall") images[(y * mapWidth) + x] = "A"; // north wall
                     else if ((String)pb.Tag == "EastWall") images[(y * mapWidth) + x] = "B"; // east wall
