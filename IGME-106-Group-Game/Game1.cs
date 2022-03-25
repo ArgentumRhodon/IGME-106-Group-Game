@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
  * tile size (width/height).
  */
 
-namespace IGME_106_Group_Game
+namespace IGME106GroupGame
 {
     public class Game1 : Game
     {
