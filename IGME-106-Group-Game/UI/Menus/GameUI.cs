@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IGME106GroupGame.UI.Menus
 {
-    class GameUI
+    class GameUI : UserInterface
     {
     }
 }

@@ -20,8 +20,10 @@ namespace IGME106GroupGame
         private SpriteBatch _spriteBatch;
 
         // Fields
-        //private State state;
-        private TitleUI titleUI;
+        private State state;
+
+        // Properties
+        public GraphicsDeviceManager Graphics => _graphics;
 
         // Constructor
         public Game1()
@@ -38,8 +40,7 @@ namespace IGME106GroupGame
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.ApplyChanges();
 
-            //state = new MenuState(this);
-            titleUI = new TitleUI(this, _graphics);
+            state = new MenuState(this);
 
             base.Initialize();
         }
@@ -49,7 +50,6 @@ namespace IGME106GroupGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            titleUI.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
@@ -58,8 +58,7 @@ namespace IGME106GroupGame
                 Exit();
 
             // TODO: Add your update logic here
-            //state.Update();
-            titleUI.Update();
+            state.Update();
 
             base.Update(gameTime);
         }
@@ -71,8 +70,7 @@ namespace IGME106GroupGame
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
-            //state.Draw(_spriteBatch);
-            titleUI.Draw(_spriteBatch);
+            state.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
@@ -81,7 +79,7 @@ namespace IGME106GroupGame
 
         public void SetState(State nextState)
         {
-            //this.state = nextState;
+            this.state = nextState;
         }
     }
 }

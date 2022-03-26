@@ -1,5 +1,6 @@
 ﻿using IGME106GroupGame.GameObjects;
 using IGME106GroupGame.Levels;
+using IGME106GroupGame.UI.Menus;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,6 +24,8 @@ namespace IGME106GroupGame.States
         {
             level = new Level(game.Content);
             genericEntity = new GenericEntity(game.Content.Load<Texture2D>("base"), new Vector2(300, 300));
+
+            ui = new GameUI();
         }
 
         // Methods

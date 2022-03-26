@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using IGME106GroupGame.UI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,17 @@ namespace IGME106GroupGame.States
     public abstract class State
     {
         // Fields
-        // protected List<UI> userInterfaces;
+        protected UserInterface ui;
         protected State nextState;
         protected Game1 game;
 
+        // Properties
+        public State NextState
+        {
+            get => nextState;
+            set => nextState = value;
+        }
+        
         // Constructor
         public State(Game1 game)
         {
@@ -27,18 +35,18 @@ namespace IGME106GroupGame.States
             {
                 game.SetState(nextState);
             }
-            //foreach(UI ui in unserInterfaces)
-            //{
-            //    ui.Update();
-            //}
+
+            ui.Update(this);
         }
 
         public virtual void Draw(SpriteBatch _spriteBatch)
         {
-            //foreach(UI ui in userInterfaces)
-            //{
-            //    ui.Draw();
-            //}
+            ui.Draw(_spriteBatch);
+        }
+
+        public void SetNextState(State nextState)
+        {
+            this.nextState = nextState;
         }
 
     }

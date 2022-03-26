@@ -6,7 +6,7 @@ using System.Text;
 
 namespace IGME106GroupGame.UI
 {
-    class Image
+    public class Image
     {
         // - Fields -
         private HAlign hAlign;
@@ -14,6 +14,7 @@ namespace IGME106GroupGame.UI
 
         private Texture2D texture;
         private Rectangle rectangle;
+        private Rectangle drawingRect;
         private Color tint;
 
         // - Properties -
@@ -37,7 +38,7 @@ namespace IGME106GroupGame.UI
 
         public Rectangle CollisionBox
         {
-            get { return rectangle; }
+            get { return drawingRect; }
         }
 
         // - Constructors -
@@ -75,9 +76,9 @@ namespace IGME106GroupGame.UI
         /// <summary>
         /// Draws the image
         /// </summary>
-        public void Draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb, Color tint)
         {
-            Rectangle drawingRect = rectangle;
+            drawingRect = rectangle;
 
             switch(hAlign)
             {

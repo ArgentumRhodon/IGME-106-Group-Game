@@ -6,12 +6,12 @@ using System.Text;
 
 namespace IGME106GroupGame.UI
 {
-    class Label
+    public class Label
     {
         // - Fields -
         private HAlign hAlign;
         private VAlign vAlign;
-
+        
         private string text;
         private SpriteFont font;
         private Vector2 position;
