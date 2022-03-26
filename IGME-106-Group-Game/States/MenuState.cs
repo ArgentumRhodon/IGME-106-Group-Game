@@ -11,14 +11,11 @@ namespace IGME106GroupGame.States
     class MenuState : State
     {
         // Fields
-        private SpriteFont font;
 
         // Constructor
         public MenuState(Game1 game)
             : base(game)
         {
-            font = game.Content.Load<SpriteFont>("font");
-
             ui = new TitleUI(game);
         }
 
@@ -26,12 +23,6 @@ namespace IGME106GroupGame.States
         public override void Update()
         {
             base.Update();
-
-            // Press Space for GameState
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-            {
-                game.SetState(new GameState(game));
-            }
         }
 
         public override void Draw(SpriteBatch _spriteBatch)
