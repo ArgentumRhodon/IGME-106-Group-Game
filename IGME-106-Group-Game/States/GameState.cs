@@ -18,11 +18,16 @@ namespace IGME106GroupGame.States
         private Level level;
         private GenericEntity genericEntity;
         private bool paused;
+        private PauseUI pauseUI;
 
         private KeyboardState currentKeyboardState;
         private KeyboardState previousKeyboardState;
 
-
+        public bool IsPaused
+        {
+            get => paused;
+            set => paused = value;
+        }
 
         // Constructor
         public GameState(Game1 game)
@@ -33,6 +38,7 @@ namespace IGME106GroupGame.States
             genericEntity = new GenericEntity(game.Content.Load<Texture2D>("base"), new Vector2(300, 300));
 
             ui = new GameUI();
+            pauseUI = new PauseUI(game);
         }
 
         // Methods
@@ -53,6 +59,10 @@ namespace IGME106GroupGame.States
                 level.Update();
                 genericEntity.Update();
             }
+            else
+            {
+                pauseUI.Update(this);
+            }
 
             previousKeyboardState = currentKeyboardState;
         }
@@ -69,6 +79,12 @@ namespace IGME106GroupGame.States
             // GameState rendering
             level.Draw(_spriteBatch);
             genericEntity.Draw(_spriteBatch);
+
+            if (paused)
+            {
+                _spriteBatch.Draw(game.Content.Load<Texture2D>("base"), new Rectangle(0, 0, 1920, 1080), new Color(0,0,0,150));
+                pauseUI.Draw(_spriteBatch);
+            }
         }
     }
 }

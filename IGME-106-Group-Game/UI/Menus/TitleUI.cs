@@ -31,6 +31,14 @@ namespace IGME106GroupGame.UI.Menus
         }
 
         // - Methods -
+        public override void LoadContent()
+        {
+            LoadImages();
+
+            images.Add(new Image(titleTexture, game.Graphics.PreferredBackBufferWidth / 2, game.Graphics.PreferredBackBufferHeight / 4, HAlign.Center, VAlign.Middle));
+            buttons.Add(new Button(new Image(startButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 435, HAlign.Center, VAlign.Top), (State state) => { state.SetNextState(new GameState(game)); }));
+        }
+
         public void LoadImages()
         {
             titleTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleTexture");
@@ -38,14 +46,6 @@ namespace IGME106GroupGame.UI.Menus
             optionsButtonTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\optionsText");
             levelEditorButtonTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\levelEditorText");
             quitButtonTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\quitText");
-        }
-
-        public override void LoadContent()
-        {
-            LoadImages();
-
-            images.Add(new Image(titleTexture, game.Graphics.PreferredBackBufferWidth / 2, game.Graphics.PreferredBackBufferHeight / 4, HAlign.Center, VAlign.Middle));
-            buttons.Add(new Button(new Image(startButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 400, HAlign.Center, VAlign.Top), (State state) => { state.SetNextState(new GameState(game)); }));
         }
     }
 }

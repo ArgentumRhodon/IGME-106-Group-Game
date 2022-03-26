@@ -50,13 +50,13 @@ namespace IGME106GroupGame.UI
         {
             mouseManager.Update();
 
-            
+            bool buttonHasFocus = false;
             foreach (Button b in buttons)
             {
                 if (b.IsIntersecting(mouseManager.MousePosition))
                 {
-                    mouseManager.CursorStyle = Microsoft.Xna.Framework.Input.MouseCursor.Hand;
-                    b.Tint = Color.LightBlue;
+                    buttonHasFocus = true;
+                    b.Tint = Color.Cyan;
                     if (mouseManager.LeftButton)
                     {
                         b.OnClick(state);
@@ -65,6 +65,14 @@ namespace IGME106GroupGame.UI
                 else
                 {
                     b.Tint = Color.White;
+                }
+
+                if (buttonHasFocus)
+                {
+                    mouseManager.CursorStyle = Microsoft.Xna.Framework.Input.MouseCursor.Hand;
+                }
+                else
+                {
                     mouseManager.CursorStyle = Microsoft.Xna.Framework.Input.MouseCursor.Arrow;
                 }
             }

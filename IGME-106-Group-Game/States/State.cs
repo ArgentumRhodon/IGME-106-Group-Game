@@ -20,7 +20,7 @@ namespace IGME106GroupGame.States
             get => nextState;
             set => nextState = value;
         }
-        
+
         // Constructor
         public State(Game1 game)
         {
