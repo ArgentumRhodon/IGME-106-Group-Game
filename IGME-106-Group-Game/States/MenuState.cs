@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using IGME_106_Group_Game;
 using Microsoft.Xna.Framework.Input;
 
 namespace IGME106GroupGame.States

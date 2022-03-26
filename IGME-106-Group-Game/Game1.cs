@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Input;
  * tile size (width/height).
  */
 
-namespace IGME_106_Group_Game
+namespace IGME106GroupGame
 {
     public class Game1 : Game
     {
@@ -49,6 +49,7 @@ namespace IGME_106_Group_Game
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            titleUI.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
@@ -58,6 +59,7 @@ namespace IGME_106_Group_Game
 
             // TODO: Add your update logic here
             //state.Update();
+            titleUI.Update();
 
             base.Update(gameTime);
         }
@@ -70,6 +72,7 @@ namespace IGME_106_Group_Game
             _spriteBatch.Begin();
 
             //state.Draw(_spriteBatch);
+            titleUI.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

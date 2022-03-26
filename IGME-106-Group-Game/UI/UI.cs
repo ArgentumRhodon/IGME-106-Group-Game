@@ -8,6 +8,20 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace IGME106GroupGame.UI
 {
+    public enum HAlign
+    {
+        Left,
+        Center,
+        Right
+    }
+
+    public enum VAlign
+    {
+        Top,
+        Middle,
+        Bottom
+    }
+
     class UI
     {
         // - Fields -
@@ -24,11 +38,6 @@ namespace IGME106GroupGame.UI
         }
 
         // - Methods -
-        public virtual void Initialize()
-        {
-
-        }
-
         public virtual void LoadContent()
         {
 

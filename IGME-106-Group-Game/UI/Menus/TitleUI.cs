@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using IGME_106_Group_Game;
 
 namespace IGME106GroupGame.UI.Menus
 {
@@ -15,6 +14,7 @@ namespace IGME106GroupGame.UI.Menus
         // - Fields -
         private Game1 game;
         private GraphicsDeviceManager _graphics;
+
         private Texture2D titleTexture;
         
         // - Constuctor -
@@ -25,14 +25,10 @@ namespace IGME106GroupGame.UI.Menus
         }
 
         // - Methods -
-        public override void Initialize()
-        {
-            images.Add(new Image(titleTexture, _graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 4));
-        }
-
         public override void LoadContent()
         {
             titleTexture = game.Content.Load<Texture2D>("titleTexture");
+            images.Add(new Image(titleTexture, _graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 4, HAlign.Center, VAlign.Middle));
         }
     }
 }

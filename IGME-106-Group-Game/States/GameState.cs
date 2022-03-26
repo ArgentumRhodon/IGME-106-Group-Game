@@ -1,5 +1,4 @@
-﻿using IGME_106_Group_Game;
-using IGME106GroupGame.GameObjects;
+﻿using IGME106GroupGame.GameObjects;
 using IGME106GroupGame.Levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
