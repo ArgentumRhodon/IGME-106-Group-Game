@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace IGME106GroupGame.UI.Menus
 {
-    class PauseUI
+    class PauseUI : UserInterface
     {
+
     }
 }

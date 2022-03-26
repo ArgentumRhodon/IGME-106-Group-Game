@@ -26,8 +26,8 @@ namespace IGME106GroupGame.GameObjects
         // Methods
         public void Update()
         {
-            //movement.Update();
-            //position += movement.Vector;
+            movement.Update();
+            position += movement.Vector;
         }
 
         public void Draw(SpriteBatch _spriteBatch)
