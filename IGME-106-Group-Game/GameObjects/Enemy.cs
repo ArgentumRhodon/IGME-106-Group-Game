@@ -10,6 +10,7 @@ namespace IGME106GroupGame.GameObjects
     {
         //Fields
         private int health;
+        private Rectangle rect;
 
         //Properties
         public int Health { get => Health; set => Health = value; }
@@ -18,7 +19,22 @@ namespace IGME106GroupGame.GameObjects
         public Enemy (Texture2D sprite, Vector2 startPos) : 
             base(sprite, startPos)
         {
-            //not done yet
+            //the projectile's dimensions
+            rect.X = (int)startPos.X;
+            rect.Y = (int)startPos.Y;
+            //have to convert to int to set them equal
+            rect.Width = sprite.Width;
+            rect.Height = sprite.Height;
+        }
+
+        //Methods
+        public void TakeDamage(Projectile projectile)
+        {
+            if (projectile.PosRect.Intersects(rect))
+            {
+                health -= projectile.Damage;
+                projectile.Health--;
+            }
         }
     }
 }

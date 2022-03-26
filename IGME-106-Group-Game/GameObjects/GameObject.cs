@@ -16,6 +16,10 @@ namespace IGME106GroupGame.GameObjects
         protected Vector2 position;
         protected Movement movement;
 
+        public Texture2D Sprite { get => sprite; set => sprite = value; }
+        public Vector2 Position { get => position; set => position = value; }
+        public Movement Move { get => movement; set => movement = value; }
+
         // Constructor
         public GameObject(Texture2D sprite, Vector2 startingPosition)
         {
