@@ -1,5 +1,6 @@
 ﻿using IGME106GroupGame.GameObjects;
 using IGME106GroupGame.States;
+using IGME106GroupGame.UI.Menus;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,7 +12,7 @@ using Microsoft.Xna.Framework.Input;
  * tile size (width/height).
  */
 
-namespace IGME_106_Group_Game
+namespace IGME106GroupGame
 {
     public class Game1 : Game
     {
@@ -21,6 +22,9 @@ namespace IGME_106_Group_Game
         // Fields
         private State state;
         private Player player;
+
+        // Properties
+        public GraphicsDeviceManager Graphics => _graphics;
 
         // Constructor
         public Game1()
@@ -65,7 +69,7 @@ namespace IGME_106_Group_Game
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
