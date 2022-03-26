@@ -236,7 +236,6 @@ namespace LevelEditor
         private void buttonSave_Click(object sender, EventArgs e)
         {
             // Get all the PictureBox char values from images
-            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelEditor));
             String[] images = new String[mapWidth * mapHeight];
             for (int y = 0; y < mapHeight; y++)
             {
@@ -257,18 +256,19 @@ namespace LevelEditor
                     else if ((String)pb.Tag == "WestWall") images[(y * mapWidth) + x] = "D"; // west wall
                 }
             }
-            // Prompt user for file location choice
+            // Prompt user for file location choice ** Commented code is for if choice of directory is desired **
             SaveFileDialog prompt = new SaveFileDialog();
             prompt.Filter = "Text Files|*.txt"; // SUBJECT TO CHANGE
-            prompt.Title = "Choose a place to save the file";
+            prompt.Title = "Choose a name of the file to save to the Content Folder";
             if (prompt.ShowDialog() == DialogResult.OK)
             {
                 // Save the File
                 StreamWriter output = null;
                 try
                 {
-                    output = new StreamWriter(prompt.FileName);
-
+                    //output = new StreamWriter(prompt.FileName); ** For choice of directory
+                    String[] splitDirectory = prompt.FileName.Split('\\');
+                    output = new StreamWriter($"../../../../IGME-106-Group-Game/Content/{splitDirectory[splitDirectory.Length - 1]}");
                     //output.WriteLine($"{mapWidth},{mapHeight}");
                     for (int i = 0; i < images.Length; i++)
                     {
@@ -276,7 +276,6 @@ namespace LevelEditor
                         else output.Write($"{images[i]}\n");
                     }
                     MessageBox.Show("Save successful.", "File Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    String[] splitDirectory = prompt.FileName.Split('\\');
                     Text = $"Level Editor - {splitDirectory[splitDirectory.Length - 1]}";
                     changes = false;
                 }

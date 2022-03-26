@@ -104,6 +104,11 @@
 /processorParam:TextureFormat=Color
 /build:heart.png
 
+#begin level.txt
+/importer:
+/processor:
+/build:level.txt
+
 #begin uiAssets/titleScreen/levelEditorText.png
 /importer:TextureImporter
 /processor:TextureProcessor
