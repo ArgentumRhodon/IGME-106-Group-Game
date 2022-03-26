@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
+using IGME106GroupGame.UI.Menus;
 
 namespace IGME106GroupGame.States
 {
@@ -17,6 +18,8 @@ namespace IGME106GroupGame.States
             : base(game)
         {
             font = game.Content.Load<SpriteFont>("font");
+
+            ui = new TitleUI(game);
         }
 
         // Methods
@@ -34,8 +37,6 @@ namespace IGME106GroupGame.States
         public override void Draw(SpriteBatch _spriteBatch)
         {
             base.Draw(_spriteBatch);
-
-            _spriteBatch.DrawString(font, "Press Space for Game State", new Vector2(200, 200), Color.Black);
         }
     }
 }

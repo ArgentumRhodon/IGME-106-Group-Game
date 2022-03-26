@@ -1,5 +1,6 @@
 ﻿using IGME106GroupGame.GameObjects;
 using IGME106GroupGame.States;
+using IGME106GroupGame.UI.Menus;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -21,6 +22,9 @@ namespace IGME106GroupGame
         // Fields
         private State state;
         private Player player;
+
+        // Properties
+        public GraphicsDeviceManager Graphics => _graphics;
 
         // Constructor
         public Game1()

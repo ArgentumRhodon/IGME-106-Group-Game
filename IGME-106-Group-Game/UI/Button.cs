@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using IGME106GroupGame.States;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -6,11 +7,13 @@ using System.Text;
 
 namespace IGME106GroupGame.UI
 {
-    class Button
+    public class Button
     {
         // - Fields -
         private Image image;
         private Label label;
+        private readonly Action<State> clickAction;
+        private Color tint;
 
         // - Properties -
         /// <summary>
@@ -39,11 +42,18 @@ namespace IGME106GroupGame.UI
             }
         }
 
+        public Color Tint
+        {
+            get => tint;
+            set => tint = value;
+        }
+
         // - Constructor -
-        public Button(Image image, Label label = null)
+        public Button(Image image, Action<State> clickAction, Label label = null)
         {
             this.image = image;
             this.label = label;
+            this.clickAction = clickAction;
         }
 
         // - Methods -
@@ -52,8 +62,11 @@ namespace IGME106GroupGame.UI
         /// </summary>
         public void Draw(SpriteBatch sb)
         {
-            image.Draw(sb);
-            label.Draw(sb);
+            image.Draw(sb, tint);
+            if(label != null)
+            {
+                label.Draw(sb);
+            }
         }
 
         /// <summary>
@@ -64,6 +77,11 @@ namespace IGME106GroupGame.UI
             Rectangle rectangle = image.CollisionBox;
             return point.X > rectangle.X && point.X < rectangle.X + rectangle.Width
                 && point.Y > rectangle.Y && point.Y < rectangle.Y + rectangle.Height;
+        }
+
+        public void OnClick(State state)
+        {
+            clickAction(state);
         }
     }
 }
