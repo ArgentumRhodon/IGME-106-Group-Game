@@ -13,13 +13,14 @@ namespace IGME106GroupGame.GameObjects
         private int health;
 
         //Properties
-        public int Health { get => Health; set => Health = value; }
+        public int Health { get => health; set => health = value; }
 
         //Constructor
         public Player(Texture2D sprite, Vector2 startPos) :
             base(sprite, startPos)
         {
             movement = new Movement(9);
+            health = 10;
         }
     }
 }
