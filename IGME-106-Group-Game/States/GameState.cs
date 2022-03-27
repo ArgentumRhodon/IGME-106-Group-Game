@@ -144,7 +144,11 @@ namespace IGME106GroupGame.States
 
                 if(enemies[i].CollisionBox.Intersects(player.CollisionBox))
                 {
-                    player.Health--;
+                    if(!(player.IFrames > 0))
+                    {
+                        player.Health--;
+                    }
+                    player.ActivateIFrames(60);
                 }
             }
         }

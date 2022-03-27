@@ -11,9 +11,22 @@ namespace IGME106GroupGame.GameObjects
     {
         //Fields
         private int health;
+        private int iFrames;
 
         //Properties
         public int Health { get => health; set => health = value; }
+        public int IFrames
+        {
+            get => iFrames;
+            set
+            {
+                if(iFrames > 0)
+                {
+                    return;
+                }
+                iFrames = value;
+            }
+        }
         public Rectangle CollisionBox
         {
             get => new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
@@ -25,6 +38,19 @@ namespace IGME106GroupGame.GameObjects
         {
             movement = new Movement(9);
             health = 10;
+            iFrames = 0;
+        }
+
+        public void ActivateIFrames(int numFrames)
+        {
+            IFrames = numFrames;
+        }
+
+        public override void Update(Vector2 targetPosition = default)
+        {
+            base.Update(targetPosition);
+
+            iFrames--;
         }
     }
 }
