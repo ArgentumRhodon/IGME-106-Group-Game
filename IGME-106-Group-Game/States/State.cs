@@ -15,6 +15,9 @@ namespace IGME106GroupGame.States
         protected Game1 game;
 
         // Properties
+        /// <summary>
+        /// This property allows the easy transitioning between states by storing the next state
+        /// </summary>
         public State NextState
         {
             get => nextState;
@@ -22,6 +25,10 @@ namespace IGME106GroupGame.States
         }
 
         // Constructor
+        /// <summary>
+        /// This constructor will instantiate a new State object
+        /// </summary>
+        /// <param name="game"></param>
         public State(Game1 game)
         {
             // userInterfaces = new List<UI>();
@@ -29,6 +36,9 @@ namespace IGME106GroupGame.States
         }
 
         // Methods
+        /// <summary>
+        /// This method will update the state
+        /// </summary>
         public virtual void Update()
         {
             if(nextState != null)
@@ -39,11 +49,19 @@ namespace IGME106GroupGame.States
             ui.Update(this);
         }
 
+        /// <summary>
+        /// This method will draw the state
+        /// </summary>
+        /// <param name="_spriteBatch"></param>
         public virtual void Draw(SpriteBatch _spriteBatch)
         {
             ui.Draw(_spriteBatch);
         }
 
+        /// <summary>
+        /// This method will set the next state
+        /// </summary>
+        /// <param name="nextState">The next state to set</param>
         public void SetNextState(State nextState)
         {
             this.nextState = nextState;

@@ -49,7 +49,7 @@ namespace LevelEditor
             this.mapHeight = mapHeight;
             changes = false;
             this.form = form;
-            Size = new Size(tileSize * MapWidth + 175, tileSize * MapHeight + 75); // temp
+            Size = new Size(tileSize * MapWidth + 175, tileSize * MapHeight + 75);
         }
 
         // Methods
@@ -65,7 +65,6 @@ namespace LevelEditor
                 {
                     // Creating the PictureBox
                     PictureBox pb = new PictureBox();
-                    //pb.Size = new Size(groupBoxMap.Size.Width / mapWidth, groupBoxMap.Size.Height / mapHeight);
                     pb.Size = new Size(tileSize, tileSize);
 
                     // Set the image to the corresponding image in the array
@@ -191,7 +190,7 @@ namespace LevelEditor
         {
             PictureBox pb = (PictureBox)sender;
             pb.Image = buttonCurrentTile.Image;
-            pb.Tag = buttonCurrentTile.Tag;
+            pb.Tag = buttonCurrentTile.Tag; // We use tags for file IO
         }
 
         /// <summary>
@@ -230,7 +229,11 @@ namespace LevelEditor
         /// <param name="e"></param>
         private void buttonLoad_Click(object sender, EventArgs e) // check for unsaved changes, then load file, close previous file window
         {
-            form.LoadFile();
+            if (changes)
+            {
+                DialogResult = MessageBox.Show("There are unsaved changes. Are you sure you want to quit?", "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (DialogResult == DialogResult.Yes) form.LoadFile();
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -243,7 +246,7 @@ namespace LevelEditor
                 {
                     PictureBox pb = (PictureBox)groupBoxMap.GetChildAtPoint(new Point(x * tileSize, y * tileSize));
 
-                    // Convert images of tiles to characters (see key for more details)
+                    // Convert images of tiles to characters
                     if ((String)pb.Tag == "Floor") images[(y * mapWidth) + x] = "-"; // floor
                     else if ((String)pb.Tag == "TopRightCorner") images[(y * mapWidth) + x] = "2"; // top right corner
                     else if ((String)pb.Tag == "TopLeftCorner") images[(y * mapWidth) + x] = "1"; // top left corner

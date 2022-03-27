@@ -27,6 +27,11 @@ namespace IGME106GroupGame.Levels
         private const int TileSize = 60;
 
         // Constructor
+        /// <summary>
+        /// This constructor will instantiate a new Map
+        /// </summary>
+        /// <param name="content">The Content Manager</param>
+        /// <param name="filePath">The file path of the map</param>
         public Map(ContentManager content, string filePath)
         {
             LoadContent(content);
@@ -34,7 +39,11 @@ namespace IGME106GroupGame.Levels
             InitializeMap();
         }
 
-        // Loads content from the wall and corner folders under \Content\
+        // Methods
+        /// <summary>
+        /// This method loads content from the wall and corner folders under \Content\
+        /// </summary>
+        /// <param name="content"></param>
         private void LoadContent(ContentManager content)
         {
             cornerSprites = new Texture2D[4];
@@ -59,7 +68,9 @@ namespace IGME106GroupGame.Levels
             baseSprite = content.Load<Texture2D>("base");
         }
 
-        // Methods
+        /// <summary>
+        /// This method will initialize the map
+        /// </summary>
         private void InitializeMap()
         {
             tiles = new Tile[TileHeight, TileWidth];
@@ -79,6 +90,10 @@ namespace IGME106GroupGame.Levels
             }
         }
 
+        /// <summary>
+        /// This method will load the tiles from the level file
+        /// </summary>
+        /// <param name="streamReader"></param>
         private void LoadTiles(StreamReader streamReader)
         {
             for(int i = 0; i < TileHeight; i++)
@@ -91,6 +106,10 @@ namespace IGME106GroupGame.Levels
             }
         }
 
+        /// <summary>
+        /// This method will draw the map to the screen
+        /// </summary>
+        /// <param name="_spriteBatch"></param>
         public void Draw(SpriteBatch _spriteBatch)
         {
             for(int i = 0; i < TileHeight; i++)
@@ -115,6 +134,11 @@ namespace IGME106GroupGame.Levels
          * 
          * - -> floor
          */
+        /// <summary>
+        /// This method will get the tile sprites of each coordinate of the map (see key above for conversion)
+        /// </summary>
+        /// <param name="tileRepresentative">The character representing the tile</param>
+        /// <returns></returns>
         private Texture2D GetTileSprite(char tileRepresentative)
         {
             switch (tileRepresentative)
