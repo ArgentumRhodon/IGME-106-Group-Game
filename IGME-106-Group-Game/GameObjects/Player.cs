@@ -37,7 +37,7 @@ namespace IGME106GroupGame.GameObjects
             base(sprite, startPos)
         {
             movement = new Movement(9);
-            health = 10;
+            health = 6;
             iFrames = 0;
         }
 
