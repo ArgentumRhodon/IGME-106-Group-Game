@@ -14,6 +14,7 @@ namespace IGME106GroupGame.GameObjects
 
         //Properties
         public int Health { get => Health; set => Health = value; }
+        public Rectangle CollisionBox { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         //Constructor
         public Player(Texture2D sprite, Vector2 startPos) :

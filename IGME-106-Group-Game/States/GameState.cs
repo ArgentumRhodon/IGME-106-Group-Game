@@ -14,14 +14,20 @@ namespace IGME106GroupGame.States
     class GameState : State
     {
         // Fields
-        // private Player player;
+        private Player player;
+        private Texture2D enemyTexture;
+        private List<Enemy> enemies;
+        private List<Projectile> projectiles;
+
         private Level level;
-        private GenericEntity genericEntity;
         private bool paused;
         private PauseUI pauseUI;
 
         private KeyboardState currentKeyboardState;
         private KeyboardState previousKeyboardState;
+
+        private MouseState currentMouseState;
+        private MouseState previousMouseState;
 
         public bool IsPaused
         {
@@ -35,18 +41,46 @@ namespace IGME106GroupGame.States
         {
             paused = false;
             level = new Level(game.Content);
-            genericEntity = new GenericEntity(game.Content.Load<Texture2D>("base"), new Vector2(300, 300));
+            player = new Player(game.Content.Load<Texture2D>("base"), new Vector2(930, 510));
+            enemyTexture = game.Content.Load<Texture2D>("base");
+            enemies = new List<Enemy>();
+            projectiles = new List<Projectile>();
 
             ui = new GameUI();
             pauseUI = new PauseUI(game);
         }
 
         // Methods
+        private void CreateEnemies()
+        {
+            Rectangle leftSpawn = new Rectangle(0, 0, (int)player.Position.X - 200, 1080);
+            Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 0, 1920, 1080);
+            
+            while(enemies.Count < 15)
+            {
+                Vector2 randomPosition = new Vector2(-1,-1);
+
+                while(
+                      !leftSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
+                      && !rightSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
+                    )
+                {
+                    randomPosition.X = (new Random()).Next(0, 1860);
+                    randomPosition.Y = (new Random()).Next(0, 1020);
+                }
+
+                enemies.Add(new Enemy(enemyTexture, randomPosition));
+            }
+        }
+
         public override void Update()
         {
             base.Update();
 
+            HandleCollisions();
+
             currentKeyboardState = Keyboard.GetState();
+            currentMouseState = Mouse.GetState();
 
             if (NewKeyPressed(Keys.E))
             {
@@ -56,20 +90,68 @@ namespace IGME106GroupGame.States
             //GameState logic
             if (!paused)
             {
+                if (LeftMouseNewlyClicked())
+                {
+                    projectiles.Add(new Projectile(game.Content.Load<Texture2D>("base"),
+                                                   player.Position,
+                                                   new Vector2(currentMouseState.X, currentMouseState.Y) - player.Position - new Vector2(30, 30)));
+                }
+
                 level.Update();
-                genericEntity.Update();
+                player.Update();
+
+                foreach(Enemy enemy in enemies)
+                {
+                    enemy.Update(player.Position);
+                }
+                foreach (Enemy enemy in enemies)
+                {
+                    enemy.Update(player.Position);
+                }
+                foreach (Projectile proj in projectiles)
+                {
+                    proj.Update();
+                }
             }
             else
-            {
+            { 
                 pauseUI.Update(this);
             }
 
+            CreateEnemies();
+
             previousKeyboardState = currentKeyboardState;
+            previousMouseState = currentMouseState;
+        }
+
+        private void HandleCollisions()
+        {
+            for(int i = 0; i < enemies.Count; i++)
+            {
+                for(int j = 0; j < projectiles.Count; j++)
+                {
+                    if (enemies[i].CollisionBox.Intersects(projectiles[j].CollisionBox))
+                    {
+                        enemies[i].TakeDamage(projectiles[j].Damage);
+                        projectiles.RemoveAt(j);
+                        if(enemies[i].Health <= 0)
+                        {
+                            enemies.RemoveAt(i);
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         private bool NewKeyPressed(Keys key)
         {
             return currentKeyboardState.IsKeyDown(key) && !previousKeyboardState.IsKeyDown(key);
+        }
+
+        private bool LeftMouseNewlyClicked()
+        {
+            return currentMouseState.LeftButton == ButtonState.Pressed && !(previousMouseState.LeftButton == ButtonState.Pressed);
         }
 
         public override void Draw(SpriteBatch _spriteBatch)
@@ -78,7 +160,16 @@ namespace IGME106GroupGame.States
 
             // GameState rendering
             level.Draw(_spriteBatch);
-            genericEntity.Draw(_spriteBatch);
+            player.Draw(_spriteBatch);
+
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Draw(_spriteBatch);
+            }
+            foreach (Projectile proj in projectiles)
+            {
+                proj.Draw(_spriteBatch);
+            }
 
             if (paused)
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace IGME106GroupGame.GameObjects
     interface IEntity
     {
         int Health { get; set; }
+        Rectangle CollisionBox { get; }
         // Weapon EquippedWeapon { get; set; }
     }
 }

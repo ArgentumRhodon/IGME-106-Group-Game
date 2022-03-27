@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using IGME106GroupGame.MovementAndAI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,31 +11,30 @@ namespace IGME106GroupGame.GameObjects
     {
         //Fields
         private int health;
-        private Rectangle rect;
 
         //Properties
-        public int Health { get => Health; set => Health = value; }
+        public int Health { get => health; set => health = value; }
+        public Rectangle CollisionBox
+        { 
+            get => new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
+        }
 
         //Constructor
         public Enemy (Texture2D sprite, Vector2 startPos) : 
             base(sprite, startPos)
         {
-            //the projectile's dimensions
-            rect.X = (int)startPos.X;
-            rect.Y = (int)startPos.Y;
-            //have to convert to int to set them equal
-            rect.Width = sprite.Width;
-            rect.Height = sprite.Height;
+            movement = new Movement(1);
         }
 
         //Methods
-        public void TakeDamage(Projectile projectile)
+        public void TakeDamage(int damage)
         {
-            if (projectile.PosRect.Intersects(rect))
-            {
-                health -= projectile.Damage;
-                projectile.Health--;
-            }
+            health -= damage;
+        }
+
+        public override void Draw(SpriteBatch _spriteBatch)
+        {
+            _spriteBatch.Draw(sprite, position, Color.Red);
         }
     }
 }
