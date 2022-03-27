@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using IGME106GroupGame.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace IGME106GroupGame.UI
 {
@@ -30,6 +31,7 @@ namespace IGME106GroupGame.UI
         protected List<Image> images;
         protected List<Label> labels;
         protected MouseManager mouseManager;
+        protected MouseState previousMouseState;
 
         // - Constructor -
         public UserInterface()
@@ -50,14 +52,16 @@ namespace IGME106GroupGame.UI
         {
             mouseManager.Update();
 
-            bool buttonHasFocus = false;
-            foreach (Button b in buttons)
+            foreach(Button b in buttons)
             {
                 if (b.IsIntersecting(mouseManager.MousePosition))
                 {
-                    buttonHasFocus = true;
                     b.Tint = Color.Cyan;
                     if (mouseManager.LeftButton)
+                    {
+                        mouseManager.MouseUser = b;
+                    }
+                    if(previousMouseState.LeftButton == ButtonState.Pressed && !mouseManager.LeftButton && mouseManager.MouseUser == b)
                     {
                         b.OnClick(state);
                     }
@@ -66,17 +70,11 @@ namespace IGME106GroupGame.UI
                 {
                     b.Tint = Color.White;
                 }
-
-                if (buttonHasFocus)
-                {
-                    mouseManager.CursorStyle = Microsoft.Xna.Framework.Input.MouseCursor.Hand;
-                }
-                else
-                {
-                    mouseManager.CursorStyle = Microsoft.Xna.Framework.Input.MouseCursor.Arrow;
-                }
             }
+
+            previousMouseState = mouseManager.MouseState;
         }
+
 
         public void Draw(SpriteBatch sb)
         {
