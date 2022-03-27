@@ -137,7 +137,7 @@ namespace IGME106GroupGame.States
                         if(enemies[i].Health <= 0)
                         {
                             enemies.RemoveAt(i);
-                            break;
+                            return;
                         }
                     }
                 }
