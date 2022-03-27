@@ -21,7 +21,9 @@ namespace IGME106GroupGame.States
 
         private Level level;
         private bool paused;
+        private bool godMode;
         private PauseUI pauseUI;
+        private DeathUI deathUI;
 
         private KeyboardState currentKeyboardState;
         private KeyboardState previousKeyboardState;
@@ -36,9 +38,10 @@ namespace IGME106GroupGame.States
         }
 
         // Constructor
-        public GameState(Game1 game)
+        public GameState(Game1 game, bool godMode = false)
             : base(game)
         {
+            this.godMode = godMode;
             paused = false;
             level = new Level(game.Content);
             player = new Player(game.Content.Load<Texture2D>("base"), new Vector2(930, 510));
@@ -48,6 +51,7 @@ namespace IGME106GroupGame.States
 
             ui = new GameUI(game, player);
             pauseUI = new PauseUI(game);
+            deathUI = new DeathUI(game);
         }
 
         // Methods
@@ -82,13 +86,13 @@ namespace IGME106GroupGame.States
             currentKeyboardState = Keyboard.GetState();
             currentMouseState = Mouse.GetState();
 
-            if (NewKeyPressed(Keys.E))
+            if (NewKeyPressed(Keys.E) && player.Health > 0)
             {
                 paused = !paused;
             }
 
             //GameState logic
-            if (!paused)
+            if (!paused && player.Health > 0)
             {
                 if (LeftMouseNewlyClicked())
                 {
@@ -112,6 +116,10 @@ namespace IGME106GroupGame.States
                 {
                     proj.Update();
                 }
+            }
+            else if(!paused && player.Health <= 0)
+            {
+                deathUI.Update(this);
             }
             else
             { 
@@ -144,7 +152,7 @@ namespace IGME106GroupGame.States
 
                 if(enemies[i].CollisionBox.Intersects(player.CollisionBox))
                 {
-                    if(!(player.IFrames > 0))
+                    if(!(player.IFrames > 0) && !godMode)
                     {
                         player.Health--;
                     }
@@ -185,6 +193,12 @@ namespace IGME106GroupGame.States
             {
                 _spriteBatch.Draw(game.Content.Load<Texture2D>("base"), new Rectangle(0, 0, 1920, 1080), new Color(0,0,0,150));
                 pauseUI.Draw(_spriteBatch);
+            }
+
+            if(player.Health <= 0)
+            {
+                _spriteBatch.Draw(game.Content.Load<Texture2D>("base"), new Rectangle(0, 0, 1920, 1080), new Color(0, 0, 0, 150));
+                deathUI.Draw(_spriteBatch);
             }
         }
     }

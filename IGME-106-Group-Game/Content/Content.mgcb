@@ -200,6 +200,18 @@
 /processorParam:TextureFormat=Color
 /build:uiAssets/titleScreen/quitText.png
 
+#begin uiAssets/titleScreen/startAsGod.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:uiAssets/titleScreen/startAsGod.png
+
 #begin uiAssets/titleScreen/startText.png
 /importer:TextureImporter
 /processor:TextureProcessor
