@@ -25,6 +25,10 @@ namespace IGME106GroupGame.MovementAndAI
             this.vector = new Vector2(0, 0);
         }
 
+        /// <summary>
+        /// Updates the movement of an object with a direction vector
+        /// </summary>
+        /// <param name="direction">the direction vector with which to update the movement</param>
         public void Update(Vector2 direction = default(Vector2))
         {
             float deltaX = 0;
@@ -59,19 +63,6 @@ namespace IGME106GroupGame.MovementAndAI
 
             vector = new Vector2(deltaX, deltaY);
             if(vector.X != 0 || vector.Y != 0)
-            {
-                vector.Normalize();
-            }
-            vector *= speed;
-        }
-        public void Update(Player p)
-        {
-            int deltaX = 0;
-            int deltaY = 0;
-            MouseState mState = Mouse.GetState();
-            Vector2 playerToMouse = new Vector2(mState.Position.X);
-            vector = new Vector2(deltaX, deltaY);
-            if (vector.X != 0 || vector.Y != 0)
             {
                 vector.Normalize();
             }
