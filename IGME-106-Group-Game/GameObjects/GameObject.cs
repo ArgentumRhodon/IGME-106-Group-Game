@@ -16,6 +16,7 @@ namespace IGME106GroupGame.GameObjects
         protected Vector2 position;
         protected Movement movement;
 
+        //Properties
         public Texture2D Sprite { get => sprite; set => sprite = value; }
         public Vector2 Position { get => position; set => position = value; }
         public Movement Move { get => movement; set => movement = value; }
@@ -28,6 +29,12 @@ namespace IGME106GroupGame.GameObjects
         }
 
         // Methods
+
+        /// <summary>
+        /// Takes a target position and updates the movement of the object with said position
+        /// and 
+        /// </summary>
+        /// <param name="targetPosition">The target position of the object</param>
         public virtual void Update(Vector2 targetPosition = default(Vector2))
         {
             if (targetPosition != default(Vector2))
