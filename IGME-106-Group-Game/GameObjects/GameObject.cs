@@ -28,13 +28,20 @@ namespace IGME106GroupGame.GameObjects
         }
 
         // Methods
-        public void Update()
+        public virtual void Update(Vector2 targetPosition = default(Vector2))
         {
-            movement.Update();
+            if (targetPosition != default(Vector2))
+            {
+                movement.Update(targetPosition - position);
+            }
+            else
+            {
+                movement.Update();
+            }
             position += movement.Vector;
         }
 
-        public void Draw(SpriteBatch _spriteBatch)
+        public virtual void Draw(SpriteBatch _spriteBatch)
         {
             _spriteBatch.Draw(sprite, position, Color.White);
         }

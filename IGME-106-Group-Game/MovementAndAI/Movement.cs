@@ -25,28 +25,36 @@ namespace IGME106GroupGame.MovementAndAI
             this.vector = new Vector2(0, 0);
         }
 
-        public void Update()
+        public void Update(Vector2 direction = default(Vector2))
         {
-            KeyboardState keyboard = Keyboard.GetState();
+            float deltaX = 0;
+            float deltaY = 0;
 
-            int deltaX = 0;
-            int deltaY = 0;
+            if (direction != default(Vector2))
+            {
+                deltaX = direction.X;
+                deltaY = direction.Y;
+            }
+            else
+            {
+                KeyboardState keyboard = Keyboard.GetState();
 
-            if (keyboard.IsKeyDown(Keys.W))
-            {
-                deltaY--;
-            }
-            if (keyboard.IsKeyDown(Keys.S))
-            {
-                deltaY++;
-            }
-            if (keyboard.IsKeyDown(Keys.A))
-            {
-                deltaX--;
-            }
-            if (keyboard.IsKeyDown(Keys.D))
-            {
-                deltaX++;
+                if (keyboard.IsKeyDown(Keys.W))
+                {
+                    deltaY--;
+                }
+                if (keyboard.IsKeyDown(Keys.S))
+                {
+                    deltaY++;
+                }
+                if (keyboard.IsKeyDown(Keys.A))
+                {
+                    deltaX--;
+                }
+                if (keyboard.IsKeyDown(Keys.D))
+                {
+                    deltaX++;
+                }
             }
 
             vector = new Vector2(deltaX, deltaY);
