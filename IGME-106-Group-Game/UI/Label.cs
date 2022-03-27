@@ -49,7 +49,7 @@ namespace IGME106GroupGame.UI
 
         // - Methods -
         /// <summary>
-        /// Draws the text label
+        /// Draws the text label and aligns it based on it's horizontal and vertical alignment
         /// </summary>
         public void Draw(SpriteBatch sb)
         {

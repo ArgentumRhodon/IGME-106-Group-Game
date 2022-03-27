@@ -42,6 +42,9 @@ namespace IGME106GroupGame.UI
             }
         }
 
+        /// <summary>
+        /// The button's color tint
+        /// </summary>
         public Color Tint
         {
             get => tint;
@@ -79,6 +82,9 @@ namespace IGME106GroupGame.UI
                 && point.Y > rectangle.Y && point.Y < rectangle.Y + rectangle.Height;
         }
 
+        /// <summary>
+        /// Runs the button's action if it is clicked
+        /// </summary>
         public void OnClick(State state)
         {
             clickAction(state);

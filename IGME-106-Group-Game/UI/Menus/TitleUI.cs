@@ -32,6 +32,9 @@ namespace IGME106GroupGame.UI.Menus
         }
 
         // - Methods -
+        /// <summary>
+        /// Loads textures for the images and adds all appropriate images to the drawn list
+        /// </summary>
         public override void LoadContent()
         {
             LoadImages();
@@ -41,6 +44,9 @@ namespace IGME106GroupGame.UI.Menus
             buttons.Add(new Button(new Image(startAsGodButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 510, HAlign.Center, VAlign.Top), (State state) => { state.SetNextState(new GameState(game, true)); }));
         }
 
+        /// <summary>
+        /// Loads all of the textures used in the UI
+        /// </summary>
         public void LoadImages()
         {
             titleTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleTexture");
