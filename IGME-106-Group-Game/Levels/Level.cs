@@ -16,6 +16,10 @@ namespace IGME106GroupGame.Levels
         private OpenFileDialog openFileDialog;
         
         // Constructor
+        /// <summary>
+        /// This constructor will instantiate a new level
+        /// </summary>
+        /// <param name="content">The Content Manager</param>
         public Level(ContentManager content)
         {
             // Choose a level file
@@ -31,6 +35,9 @@ namespace IGME106GroupGame.Levels
         }
         
         // Methods
+        /// <summary>
+        /// This method will update the level (currently disabled)
+        /// </summary>
         public void Update()
         {
             //foreach(GameObject gameObject in objects)
@@ -39,6 +46,10 @@ namespace IGME106GroupGame.Levels
             //}
         }
 
+        /// <summary>
+        /// This method will draw the level to the screen
+        /// </summary>
+        /// <param name="_spriteBatch"></param>
         public void Draw(SpriteBatch _spriteBatch)
         {
             room.Draw(_spriteBatch);

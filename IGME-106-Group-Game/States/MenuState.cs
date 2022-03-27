@@ -13,6 +13,10 @@ namespace IGME106GroupGame.States
         // Fields
 
         // Constructor
+        /// <summary>
+        /// This constructor will instantiate a new MenuState object
+        /// </summary>
+        /// <param name="game"></param>
         public MenuState(Game1 game)
             : base(game)
         {
@@ -20,11 +24,18 @@ namespace IGME106GroupGame.States
         }
 
         // Methods
+        /// <summary>
+        /// This method will update the menu
+        /// </summary>
         public override void Update()
         {
             base.Update();
         }
 
+        /// <summary>
+        /// This method will draw the menu
+        /// </summary>
+        /// <param name="_spriteBatch"></param>
         public override void Draw(SpriteBatch _spriteBatch)
         {
             base.Draw(_spriteBatch);

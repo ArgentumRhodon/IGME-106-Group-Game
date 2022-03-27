@@ -40,12 +40,12 @@ namespace LevelEditor
         /// </summary>
         public void LoadFile()
         {
-            
             // Prompt user for file choice
             OpenFileDialog prompt = new OpenFileDialog();
             prompt.Filter = "Text Files|*.txt"; // SUBJECT TO CHANGE
             prompt.Title = "Open a level file.";
 
+            // If user inputs a file
             if (prompt.ShowDialog() == DialogResult.OK)
             {
                 // Load the file
@@ -59,7 +59,7 @@ namespace LevelEditor
                     // Get the width and height and instantiate the LevelEditor with the correct dimensions before reading in tiles
                     //data = input.ReadLine().Split(',');
                     //level = new LevelEditor(int.Parse(data[0]), int.Parse(data[1]), this);
-                    // Swap these two lines when level size implemented ^V
+                    // Swap the line below with the two above when level size is ready to implement
                     level = new LevelEditor(32, 18, this);
                     data = input.ReadToEnd().Split("\n");
 
