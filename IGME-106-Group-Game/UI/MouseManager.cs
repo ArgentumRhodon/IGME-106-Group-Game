@@ -13,18 +13,26 @@ namespace IGME106GroupGame.UI
         // fields
         private Vector2 mousePosition;
         private bool leftButtonClicked;
-        private MouseState mouse;
+        private MouseState mouseState;
         private MouseCursor currentCursor;
+        private Button mouseUser;
 
         // Properties
         public Vector2 MousePosition => mousePosition;
         public bool LeftButton => leftButtonClicked;
+        public Button MouseUser
+        {
+            get => mouseUser;
+            set => mouseUser = value;
+        }
 
         public MouseCursor CursorStyle
         {
             get => currentCursor;
             set => currentCursor = value;
         }
+
+        public MouseState MouseState => mouseState;
 
         // Constructor
         public MouseManager()
@@ -37,10 +45,10 @@ namespace IGME106GroupGame.UI
 
         public void Update()
         {
-            mouse = Mouse.GetState();
+            mouseState = Mouse.GetState();
 
-            mousePosition = new Vector2(mouse.X, mouse.Y);
-            leftButtonClicked = mouse.LeftButton == ButtonState.Pressed;
+            mousePosition = new Vector2(mouseState.X, mouseState.Y);
+            leftButtonClicked = mouseState.LeftButton == ButtonState.Pressed;
 
             Mouse.SetCursor(currentCursor);
             //System.Diagnostics.Debug.WriteLine($"{mouse.X}, {mouse.Y}");

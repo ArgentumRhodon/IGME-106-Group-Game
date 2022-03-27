@@ -156,7 +156,7 @@ namespace IGME106GroupGame.States
                     {
                         player.Health--;
                     }
-                    player.ActivateIFrames(60);
+                    player.ActivateIFrames(30);
                 }
             }
         }
