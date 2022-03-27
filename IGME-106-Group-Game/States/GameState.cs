@@ -141,6 +141,11 @@ namespace IGME106GroupGame.States
                         }
                     }
                 }
+
+                if(enemies[i].CollisionBox.Intersects(player.CollisionBox))
+                {
+                    player.Health--;
+                }
             }
         }
 
@@ -161,6 +166,7 @@ namespace IGME106GroupGame.States
             // GameState rendering
             level.Draw(_spriteBatch);
             player.Draw(_spriteBatch);
+            ui.Draw(_spriteBatch);
 
             foreach (Enemy enemy in enemies)
             {

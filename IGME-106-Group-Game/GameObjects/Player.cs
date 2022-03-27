@@ -13,8 +13,11 @@ namespace IGME106GroupGame.GameObjects
         private int health;
 
         //Properties
-        public int Health { get => Health; set => Health = value; }
-        public Rectangle CollisionBox { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Health { get => health; set => health = value; }
+        public Rectangle CollisionBox
+        {
+            get => new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
+        }
 
         //Constructor
         public Player(Texture2D sprite, Vector2 startPos) :

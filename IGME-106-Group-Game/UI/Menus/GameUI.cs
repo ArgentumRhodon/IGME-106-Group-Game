@@ -14,6 +14,7 @@ namespace IGME106GroupGame.UI.Menus
         // - Fields -
         private Game1 game;
         private Player player;
+        private int health;
         private List<Image> hearts;
         private Texture2D heartTexture;
         private Texture2D halfHeartTexture;
@@ -23,6 +24,7 @@ namespace IGME106GroupGame.UI.Menus
         {
             this.game = game;
             this.player = player;
+            health = player.Health;
             hearts = new List<Image>();
             
             LoadContent();
@@ -58,7 +60,35 @@ namespace IGME106GroupGame.UI.Menus
         {
             base.Update(state);
 
+            if(health != player.Health)
+            {
+                UpdateHealth();
+            }
 
+            health = player.Health;
+        }
+
+        public void UpdateHealth()
+        {
+            foreach(Image heart in hearts)
+            {
+                images.Remove(heart);
+            }
+            hearts.Clear();
+
+            for (int i = 1; i <= player.Health; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    hearts.Add(new Image(heartTexture, 20 + (110 * ((i - 1) / 2)), 20, HAlign.Left, VAlign.Top));
+                }
+                else if (i == player.Health)
+                {
+                    hearts.Add(new Image(halfHeartTexture, 20 + (110 * (i / 2)), 20, HAlign.Left, VAlign.Top));
+                }
+            }
+
+            images.AddRange(hearts);
         }
     }
 }
