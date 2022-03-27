@@ -128,6 +128,8 @@ namespace IGME106GroupGame.States
         {
             for(int i = 0; i < enemies.Count; i++)
             {
+                bool breakLoop = false;
+
                 for(int j = 0; j < projectiles.Count; j++)
                 {
                     if (enemies[i].CollisionBox.Intersects(projectiles[j].CollisionBox))
