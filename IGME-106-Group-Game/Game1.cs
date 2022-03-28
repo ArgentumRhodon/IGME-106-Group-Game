@@ -21,10 +21,15 @@ namespace IGME106GroupGame
 
         // Fields
         private State state;
-        private Player player;
 
         // Properties
         public GraphicsDeviceManager Graphics => _graphics;
+
+        public State State
+        {
+            get => state;
+            set => state = value;
+        }
 
         // Constructor
         public Game1()
@@ -80,11 +85,6 @@ namespace IGME106GroupGame
             _spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-        public void SetState(State nextState)
-        {
-            this.state = nextState;
         }
     }
 }

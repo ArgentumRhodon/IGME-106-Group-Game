@@ -54,7 +54,7 @@ namespace IGME106GroupGame.UI
 
             foreach(Button b in buttons)
             {
-                if (b.IsIntersecting(mouseManager.MousePosition))
+                if (b.ContainsPoint(mouseManager.MousePosition))
                 {
                     b.Tint = Color.Cyan;
                     if (mouseManager.LeftButton)

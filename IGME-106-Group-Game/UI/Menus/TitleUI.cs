@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LevelEditor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace IGME106GroupGame.UI.Menus
         private Texture2D levelEditorButtonTexture;
         private Texture2D quitButtonTexture;
 
+        private LevelEditor.Form1 levelEditorForm;
 
         // - Constuctor -
         public TitleUI(Game1 game)
@@ -34,12 +36,15 @@ namespace IGME106GroupGame.UI.Menus
         // - Methods -
         public override void LoadContent()
         {
+            levelEditorForm = new LevelEditor.Form1();
+
             LoadImages();
 
             images.Add(new Image(titleTexture, game.Graphics.PreferredBackBufferWidth / 2, game.Graphics.PreferredBackBufferHeight / 4, HAlign.Center, VAlign.Middle));
-            buttons.Add(new Button(new Image(startButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 435, HAlign.Center, VAlign.Top), (State state) => { state.SetNextState(new GameState(game)); }));
-            buttons.Add(new Button(new Image(startAsGodButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 510, HAlign.Center, VAlign.Top), (State state) => { state.SetNextState(new GameState(game, true)); }));
-            buttons.Add(new Button(new Image(levelEditorButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 585, HAlign.Center, VAlign.Top), (State state) => { state.SetNextState(new GameState(game, true)); }));
+            buttons.Add(new Button(new Image(startButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 435, HAlign.Center, VAlign.Top), (State state) => { state.NextState = new GameState(game); }));
+            buttons.Add(new Button(new Image(startAsGodButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 510, HAlign.Center, VAlign.Top), (State state) => { state.NextState = new GameState(game, true); }));
+            buttons.Add(new Button(new Image(levelEditorButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 585, HAlign.Center, VAlign.Top), (State state) => { levelEditorForm.Show(); }));
+            buttons.Add(new Button(new Image(quitButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 660, HAlign.Center, VAlign.Top), (State state) => { Environment.Exit(0); }));
         }
                            
         public void LoadImages()

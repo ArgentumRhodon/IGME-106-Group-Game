@@ -33,7 +33,7 @@ namespace IGME106GroupGame.States
         {
             if(nextState != null)
             {
-                game.SetState(nextState);
+                game.State = nextState;
             }
 
             ui.Update(this);
@@ -43,11 +43,5 @@ namespace IGME106GroupGame.States
         {
             ui.Draw(_spriteBatch);
         }
-
-        public void SetNextState(State nextState)
-        {
-            this.nextState = nextState;
-        }
-
     }
 }

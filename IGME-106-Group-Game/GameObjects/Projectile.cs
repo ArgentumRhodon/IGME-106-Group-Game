@@ -34,7 +34,7 @@ namespace IGME106GroupGame.GameObjects
             movement = new Movement(25);
         }
 
-        public override void Update(Vector2 targetPosition = default)
+        public override void Update(Vector2 targetPosition = default(Vector2))
         {
             movement.Update(direction);
             position += movement.Vector;

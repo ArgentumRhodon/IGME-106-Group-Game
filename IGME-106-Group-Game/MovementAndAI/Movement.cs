@@ -64,18 +64,5 @@ namespace IGME106GroupGame.MovementAndAI
             }
             vector *= speed;
         }
-        public void Update(Player p)
-        {
-            int deltaX = 0;
-            int deltaY = 0;
-            MouseState mState = Mouse.GetState();
-            Vector2 playerToMouse = new Vector2(mState.Position.X);
-            vector = new Vector2(deltaX, deltaY);
-            if (vector.X != 0 || vector.Y != 0)
-            {
-                vector.Normalize();
-            }
-            vector *= speed;
-        }
     }
 }
