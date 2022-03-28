@@ -31,6 +31,9 @@ namespace IGME106GroupGame.UI.Menus
         }
 
         // - Methods -
+        /// <summary>
+        /// Loads textures for the images and adds all appropriate images to the drawn list
+        /// </summary>
         public override void LoadContent()
         {
             LoadImages();
@@ -50,12 +53,19 @@ namespace IGME106GroupGame.UI.Menus
             images.AddRange(hearts);
         }
 
+        /// <summary>
+        /// Loads all of the textures used in the UI
+        /// </summary>
         public void LoadImages()
         {
             heartTexture = game.Content.Load<Texture2D>("uiAssets\\gameScreen\\heart");
             halfHeartTexture = game.Content.Load<Texture2D>("uiAssets\\gameScreen\\halfHeart");
         }
 
+        /// <summary>
+        /// On top of regular UI updating, it also checks if player health changed to update the displayed hearts
+        /// </summary>
+        /// <param name="state"></param>
         public override void Update(State state)
         {
             base.Update(state);
@@ -68,6 +78,9 @@ namespace IGME106GroupGame.UI.Menus
             health = player.Health;
         }
 
+        /// <summary>
+        /// Clears the hearts currently drawn and updates them to the player's current health
+        /// </summary>
         public void UpdateHealth()
         {
             foreach(Image heart in hearts)

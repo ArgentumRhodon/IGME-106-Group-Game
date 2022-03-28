@@ -43,11 +43,17 @@ namespace IGME106GroupGame.UI
         }
 
         // - Methods -
+        /// <summary>
+        /// Loads textures for the UI elements and adds said elements to their respective lists
+        /// </summary>
         public virtual void LoadContent()
         {
 
         }
 
+        /// <summary>
+        /// Checks for left mouse clicks on buttons and performs their actions if clicked
+        /// </summary>
         public virtual void Update(State state)
         {
             mouseManager.Update();
@@ -75,7 +81,9 @@ namespace IGME106GroupGame.UI
             previousMouseState = mouseManager.MouseState;
         }
 
-
+        /// <summary>
+        /// Draws all UI elements in the lists
+        /// </summary>
         public void Draw(SpriteBatch sb)
         {
             foreach(Button button in buttons)

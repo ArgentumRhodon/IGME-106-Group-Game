@@ -25,6 +25,10 @@ namespace IGME106GroupGame.MovementAndAI
             this.vector = new Vector2(0, 0);
         }
 
+        /// <summary>
+        /// Updates the movement of an object with a direction vector
+        /// </summary>
+        /// <param name="direction">the direction vector with which to update the movement</param>
         public void Update(Vector2 direction = default(Vector2))
         {
             float deltaX = 0;

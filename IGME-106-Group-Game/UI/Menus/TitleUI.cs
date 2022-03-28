@@ -34,6 +34,9 @@ namespace IGME106GroupGame.UI.Menus
         }
 
         // - Methods -
+        /// <summary>
+        /// Loads textures for the images and adds all appropriate images to the drawn list
+        /// </summary>
         public override void LoadContent()
         {
             levelEditorForm = new LevelEditor.Form1();
@@ -46,7 +49,10 @@ namespace IGME106GroupGame.UI.Menus
             buttons.Add(new Button(new Image(levelEditorButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 585, HAlign.Center, VAlign.Top), (State state) => { levelEditorForm.Show(); }));
             buttons.Add(new Button(new Image(quitButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 660, HAlign.Center, VAlign.Top), (State state) => { Environment.Exit(0); }));
         }
-                           
+
+        /// <summary>
+        /// Loads all of the textures used in the UI
+        /// </summary>
         public void LoadImages()
         {
             titleTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleTexture");
