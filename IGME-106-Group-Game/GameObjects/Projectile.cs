@@ -32,6 +32,8 @@ namespace IGME106GroupGame.GameObjects
         {
             this.direction = direction;
             movement = new Movement(25);
+            health = 1;
+            damage = 1;
         }
 
         public override void Update(Vector2 targetPosition = default(Vector2))

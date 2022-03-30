@@ -13,6 +13,7 @@ namespace IGME106GroupGame.States
         protected UserInterface ui;
         protected State nextState;
         protected Game1 game;
+        protected MouseManager mouseManager;
 
         // Properties
         /// <summary>
@@ -24,6 +25,10 @@ namespace IGME106GroupGame.States
             set => nextState = value;
         }
 
+        public MouseManager MouseManager => mouseManager;
+
+        public Game1 Game => game;
+
         // Constructor
         /// <summary>
         /// This constructor will instantiate a new State object
@@ -33,6 +38,7 @@ namespace IGME106GroupGame.States
         {
             // userInterfaces = new List<UI>();
             this.game = game;
+            mouseManager = new MouseManager();
         }
 
         // Methods
@@ -46,7 +52,8 @@ namespace IGME106GroupGame.States
                 game.State = nextState;
             }
 
-            ui.Update(this);
+            mouseManager.Update(this);
+            ui.Update(this, mouseManager);
         }
 
         /// <summary>

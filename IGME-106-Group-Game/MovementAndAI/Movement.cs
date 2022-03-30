@@ -17,7 +17,7 @@ namespace IGME106GroupGame.MovementAndAI
 
         // Properties
         public Vector2 Vector => vector;
-
+        
         // Constructor
         public Movement(float speed)
         {

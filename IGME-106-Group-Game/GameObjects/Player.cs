@@ -58,7 +58,10 @@ namespace IGME106GroupGame.GameObjects
         {
             base.Update(targetPosition);
 
-            iFrames--;
+            if(iFrames > 0)
+            {
+                iFrames--;
+            }
         }
     }
 }

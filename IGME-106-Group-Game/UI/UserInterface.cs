@@ -30,7 +30,6 @@ namespace IGME106GroupGame.UI
         protected List<Button> buttons;
         protected List<Image> images;
         protected List<Label> labels;
-        protected MouseManager mouseManager;
         protected MouseState previousMouseState;
 
         // - Constructor -
@@ -39,7 +38,6 @@ namespace IGME106GroupGame.UI
             buttons = new List<Button>();
             images = new List<Image>();
             labels = new List<Label>();
-            mouseManager = new MouseManager();
         }
 
         // - Methods -
@@ -54,31 +52,20 @@ namespace IGME106GroupGame.UI
         /// <summary>
         /// Checks for left mouse clicks on buttons and performs their actions if clicked
         /// </summary>
-        public virtual void Update(State state)
+        public virtual void Update(State state, MouseManager mouseManager)
         {
-            mouseManager.Update();
-
-            foreach(Button b in buttons)
+            foreach(Button button in buttons)
             {
-                if (b.ContainsPoint(mouseManager.MousePosition))
+                if (button.ContainsPoint(mouseManager.Position))
                 {
-                    b.Tint = Color.Cyan;
-                    if (mouseManager.LeftButton)
-                    {
-                        mouseManager.MouseUser = b;
-                    }
-                    if(previousMouseState.LeftButton == ButtonState.Pressed && !mouseManager.LeftButton && mouseManager.MouseUser == b)
-                    {
-                        b.OnClick(state);
-                    }
+                    button.Tint = Color.Cyan;
+                    mouseManager.CurrentUser = button;
                 }
                 else
                 {
-                    b.Tint = Color.White;
+                    button.Tint = Color.White;
                 }
             }
-
-            previousMouseState = mouseManager.MouseState;
         }
 
         /// <summary>

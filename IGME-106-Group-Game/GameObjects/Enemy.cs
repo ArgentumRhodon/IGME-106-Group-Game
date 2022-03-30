@@ -24,14 +24,10 @@ namespace IGME106GroupGame.GameObjects
             base(sprite, startPos)
         {
             movement = new Movement(1);
+            health = 1;
         }
 
-        //Methods
-        public void TakeDamage(int damage)
-        {
-            health -= damage;
-        }
-
+        // Methods
         public override void Draw(SpriteBatch _spriteBatch)
         {
             _spriteBatch.Draw(sprite, position, Color.Red);

@@ -66,9 +66,9 @@ namespace IGME106GroupGame.UI.Menus
         /// On top of regular UI updating, it also checks if player health changed to update the displayed hearts
         /// </summary>
         /// <param name="state"></param>
-        public override void Update(State state)
+        public override void Update(State state, MouseManager mouseManager)
         {
-            base.Update(state);
+            base.Update(state, mouseManager);
 
             if(health != player.Health)
             {

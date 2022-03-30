@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IGME106GroupGame.UI
 {
-    public class Button
+    public class Button : MouseUser
     {
         // - Fields -
         private Image image;
