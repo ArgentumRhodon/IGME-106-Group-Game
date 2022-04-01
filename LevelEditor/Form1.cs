@@ -57,10 +57,10 @@ namespace LevelEditor
                     input = new StreamReader(prompt.FileName);
 
                     // Get the width and height and instantiate the LevelEditor with the correct dimensions before reading in tiles
-                    //data = input.ReadLine().Split(',');
-                    //level = new LevelEditor(int.Parse(data[0]), int.Parse(data[1]), this);
+                    data = input.ReadLine().Split(',');
+                    level = new LevelEditor(int.Parse(data[0]), int.Parse(data[1]), this);
                     // Swap the line below with the two above when level size is ready to implement
-                    level = new LevelEditor(32, 18, this);
+                    //level = new LevelEditor(32, 18, this);
                     data = input.ReadToEnd().Split("\n");
 
                     level.CreateMap(data);

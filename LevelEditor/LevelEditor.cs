@@ -57,7 +57,7 @@ namespace LevelEditor
         /// This method will set the colors of each tile to the corresponding color in the array
         /// </summary>
         /// <param name="colors">An array of argb ints</param>
-        public void CreateMap(String[] tiles)
+        public void CreateMap(char[,] tiles)
         {
             for (int y = 0; y < mapHeight; y++)
             {
@@ -68,7 +68,7 @@ namespace LevelEditor
                     pb.Size = new Size(tileSize, tileSize);
 
                     // Set the image to the corresponding image in the array
-                    switch (tiles[y][x])
+                    switch (tiles[x,y])
                     {
                         case '-': // Floor
                             pb.Image = buttonFloor.Image;
@@ -239,7 +239,7 @@ namespace LevelEditor
         private void buttonSave_Click(object sender, EventArgs e)
         {
             // Get all the PictureBox char values from images
-            String[] images = new String[mapWidth * mapHeight];
+            String[,] images = new String[mapWidth, mapHeight];
             for (int y = 0; y < mapHeight; y++)
             {
                 for (int x = 0; x < mapWidth; x++)
@@ -247,16 +247,16 @@ namespace LevelEditor
                     PictureBox pb = (PictureBox)groupBoxMap.GetChildAtPoint(new Point(x * tileSize, y * tileSize));
 
                     // Convert images of tiles to characters
-                    if ((String)pb.Tag == "Floor") images[(y * mapWidth) + x] = "-"; // floor
-                    else if ((String)pb.Tag == "TopRightCorner") images[(y * mapWidth) + x] = "2"; // top right corner
-                    else if ((String)pb.Tag == "TopLeftCorner") images[(y * mapWidth) + x] = "1"; // top left corner
-                    else if ((String)pb.Tag == "BottomRightCorner") images[(y * mapWidth) + x] = "4"; // bottom right corner
-                    else if ((String)pb.Tag == "BottomLeftCorner") images[(y * mapWidth) + x] = "3"; // bottom left corner
+                    if ((String)pb.Tag == "Floor") images[x,y] = "-"; // floor
+                    else if ((String)pb.Tag == "TopRightCorner") images[x, y] = "2"; // top right corner
+                    else if ((String)pb.Tag == "TopLeftCorner") images[x, y] = "1"; // top left corner
+                    else if ((String)pb.Tag == "BottomRightCorner") images[x, y] = "4"; // bottom right corner
+                    else if ((String)pb.Tag == "BottomLeftCorner") images[x, y] = "3"; // bottom left corner
 
-                    else if ((String)pb.Tag == "NorthWall") images[(y * mapWidth) + x] = "A"; // north wall
-                    else if ((String)pb.Tag == "EastWall") images[(y * mapWidth) + x] = "B"; // east wall
-                    else if ((String)pb.Tag == "SouthWall") images[(y * mapWidth) + x] = "C"; // south wall
-                    else if ((String)pb.Tag == "WestWall") images[(y * mapWidth) + x] = "D"; // west wall
+                    else if ((String)pb.Tag == "NorthWall") images[x, y] = "A"; // north wall
+                    else if ((String)pb.Tag == "EastWall") images[x, y] = "B"; // east wall
+                    else if ((String)pb.Tag == "SouthWall") images[x, y] = "C"; // south wall
+                    else if ((String)pb.Tag == "WestWall") images[x, y] = "D"; // west wall
                 }
             }
             // Prompt user for file location choice ** Commented code is for if choice of directory is desired **
@@ -273,10 +273,13 @@ namespace LevelEditor
                     String[] splitDirectory = prompt.FileName.Split('\\');
                     output = new StreamWriter($"../../../../IGME-106-Group-Game/Content/{splitDirectory[splitDirectory.Length - 1]}");
                     //output.WriteLine($"{mapWidth},{mapHeight}");
-                    for (int i = 0; i < images.Length; i++)
+                    for (int i = 0; i < MapHeight; i++)
                     {
-                        if (i % mapWidth != mapWidth - 1) output.Write($"{images[i]}");
-                        else output.Write($"{images[i]}\n");
+                        for (int j = 0; j < MapWidth; j++)
+                        {
+                            if (j != MapWidth) output.Write($"{images[i,j]}");
+                            else output.Write($"{images[i,j]}\n");
+                        }
                     }
                     MessageBox.Show("Save successful.", "File Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Text = $"Level Editor - {splitDirectory[splitDirectory.Length - 1]}";
@@ -291,6 +294,55 @@ namespace LevelEditor
                     if (output != null) output.Close();
                 }
             }
-        }  
+        } 
+
+        private char[,] GetTiles()
+        {
+            char[,] images = new char[mapWidth, mapHeight];
+            for (int y = 0; y < mapHeight; y++)
+            {
+                for (int x = 0; x < mapWidth; x++)
+                {
+                    PictureBox pb = (PictureBox)groupBoxMap.GetChildAtPoint(new Point(x * tileSize, y * tileSize));
+
+                    // Convert images of tiles to characters
+                    switch (pb.Tag)
+                    {
+                        case "Floor":
+                            images[x, y] = '-';
+                            break;
+                        case "TopLeftCorner":
+                            images[x, y] = '1';
+                            break;
+                        case "TopRightCorner":
+                            images[x, y] = '2';
+                            break;
+                        case "BottomLeftCorner":
+                            images[x, y] = '-';
+                            break;
+                        case "BottomRightCorner":
+                            images[x, y] = '-';
+                            break;
+                        case "NorthWall":
+                            images[x, y] = '-';
+                            break;
+                        case "EastWall":
+                            images[x, y] = '-';
+                            break;
+                        case "SouthWall":
+                            images[x, y] = '-';
+                            break;
+                        case "WestWall":
+                            images[x, y] = '-';
+                            break;
+                        default:
+                            // Throw exception
+                            break;
+                    }
+                }
+            }
+
+            return images;
+        }
     }
 }
