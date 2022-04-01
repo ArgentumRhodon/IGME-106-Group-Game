@@ -231,34 +231,18 @@ namespace LevelEditor
         {
             if (changes)
             {
-                DialogResult = MessageBox.Show("There are unsaved changes. Are you sure you want to quit?", "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                DialogResult = MessageBox.Show("There are unsaved changes. Are you sure you want to load another file?", "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (DialogResult == DialogResult.Yes) form.LoadFile();
             }
+            else form.LoadFile();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            char[,] images = new char[mapWidth, mapHeight];
             // Get all the PictureBox char values from images
-            String[,] images = new String[mapWidth, mapHeight];
-            for (int y = 0; y < mapHeight; y++)
-            {
-                for (int x = 0; x < mapWidth; x++)
-                {
-                    PictureBox pb = (PictureBox)groupBoxMap.GetChildAtPoint(new Point(x * tileSize, y * tileSize));
+            images = GetTiles();
 
-                    // Convert images of tiles to characters
-                    if ((String)pb.Tag == "Floor") images[x,y] = "-"; // floor
-                    else if ((String)pb.Tag == "TopRightCorner") images[x, y] = "2"; // top right corner
-                    else if ((String)pb.Tag == "TopLeftCorner") images[x, y] = "1"; // top left corner
-                    else if ((String)pb.Tag == "BottomRightCorner") images[x, y] = "4"; // bottom right corner
-                    else if ((String)pb.Tag == "BottomLeftCorner") images[x, y] = "3"; // bottom left corner
-
-                    else if ((String)pb.Tag == "NorthWall") images[x, y] = "A"; // north wall
-                    else if ((String)pb.Tag == "EastWall") images[x, y] = "B"; // east wall
-                    else if ((String)pb.Tag == "SouthWall") images[x, y] = "C"; // south wall
-                    else if ((String)pb.Tag == "WestWall") images[x, y] = "D"; // west wall
-                }
-            }
             // Prompt user for file location choice ** Commented code is for if choice of directory is desired **
             SaveFileDialog prompt = new SaveFileDialog();
             prompt.Filter = "Text Files|*.txt"; // SUBJECT TO CHANGE
@@ -272,10 +256,10 @@ namespace LevelEditor
                     //output = new StreamWriter(prompt.FileName); ** For choice of directory
                     String[] splitDirectory = prompt.FileName.Split('\\');
                     output = new StreamWriter($"../../../../IGME-106-Group-Game/Content/{splitDirectory[splitDirectory.Length - 1]}");
-                    //output.WriteLine($"{mapWidth},{mapHeight}");
-                    for (int i = 0; i < MapHeight; i++)
+                    output.WriteLine($"{mapWidth},{mapHeight}");
+                    for (int j = 0; j < MapHeight; j++)
                     {
-                        for (int j = 0; j < MapWidth; j++)
+                        for (int i = 0; i < MapWidth; i++)
                         {
                             if (j != MapWidth) output.Write($"{images[i,j]}");
                             else output.Write($"{images[i,j]}\n");
@@ -296,6 +280,10 @@ namespace LevelEditor
             }
         } 
 
+        /// <summary>
+        /// This method will return a 2D array of chars that represent the images on the map
+        /// </summary>
+        /// <returns></returns>
         private char[,] GetTiles()
         {
             char[,] images = new char[mapWidth, mapHeight];

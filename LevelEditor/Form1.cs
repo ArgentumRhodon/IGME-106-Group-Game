@@ -59,11 +59,19 @@ namespace LevelEditor
                     // Get the width and height and instantiate the LevelEditor with the correct dimensions before reading in tiles
                     data = input.ReadLine().Split(',');
                     level = new LevelEditor(int.Parse(data[0]), int.Parse(data[1]), this);
+                    char[,] tileArray = new char[int.Parse(data[0]), int.Parse(data[1])];
                     // Swap the line below with the two above when level size is ready to implement
                     //level = new LevelEditor(32, 18, this);
-                    data = input.ReadToEnd().Split("\n");
+                    for (int j = 0; j < tileArray.GetLength(1); j++) // height
+                    {
+                        for (int i = 0; i < tileArray.GetLength(0); i++) // width
+                        {
+                            tileArray[i, j] = (char)input.Read();
+                        }
+                        input.Read();
+                    }
 
-                    level.CreateMap(data);
+                    level.CreateMap(tileArray);
                     String[] splitDirectory = prompt.FileName.Split('\\');
                     level.Text = $"Level Editor - {splitDirectory[splitDirectory.Length - 1]}";
                     MessageBox.Show("Load successful.", "File Load Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
