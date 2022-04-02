@@ -39,14 +39,12 @@ namespace IGME106GroupGame.UI.Menus
         /// </summary>
         public override void LoadContent()
         {
-            levelEditorForm = new LevelEditor.Form1();
-
             LoadImages();
 
             images.Add(new Image(titleTexture, game.Graphics.PreferredBackBufferWidth / 2, game.Graphics.PreferredBackBufferHeight / 4, HAlign.Center, VAlign.Middle));
             buttons.Add(new Button(new Image(startButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 435, HAlign.Center, VAlign.Top), (State state) => { state.NextState = new GameState(game); }));
             buttons.Add(new Button(new Image(startAsGodButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 510, HAlign.Center, VAlign.Top), (State state) => { state.NextState = new GameState(game, true); }));
-            buttons.Add(new Button(new Image(levelEditorButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 585, HAlign.Center, VAlign.Top), (State state) => { levelEditorForm.Show(); }));
+            buttons.Add(new Button(new Image(levelEditorButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 585, HAlign.Center, VAlign.Top), (State state) => { (new LevelEditor.Form1()).Show(); }));
             buttons.Add(new Button(new Image(quitButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 660, HAlign.Center, VAlign.Top), (State state) => { Environment.Exit(0); }));
         }
 
