@@ -49,11 +49,11 @@ namespace IGME106GroupGame.MovementAndAI
             }
             vector *= speed;
 
-            if (position.X + vector.X < 30 || position.X + size.X + vector.X > 1890)
+            if (position.X + vector.X < 60 || position.X + size.X + vector.X > 1860)
             {
                 vector.X = 0;
             }
-            if (position.Y + vector.Y < 30 || position.Y + size.Y + vector.Y > 1050)
+            if (position.Y + vector.Y < 60 || position.Y + size.Y + vector.Y > 1020)
             {
                 vector.Y = 0;
             }

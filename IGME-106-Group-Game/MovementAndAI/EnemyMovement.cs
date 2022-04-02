@@ -37,11 +37,11 @@ namespace IGME106GroupGame.MovementAndAI
 
             vector *= speed;
 
-            if (enemyPosition.X + vector.X < 30 || enemyPosition.X + enemySize.X + vector.X > 1890)
+            if (enemyPosition.X + vector.X < 60 || enemyPosition.X + enemySize.X + vector.X > 1860)
             {
                 vector.X = 0;
             }
-            if (enemyPosition.Y + vector.Y < 30 || enemyPosition.Y + enemySize.Y + vector.Y > 1050)
+            if (enemyPosition.Y + vector.Y < 60 || enemyPosition.Y + enemySize.Y + vector.Y > 1020)
             {
                 vector.Y = 0;
             }

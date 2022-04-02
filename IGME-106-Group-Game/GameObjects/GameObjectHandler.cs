@@ -150,8 +150,8 @@ namespace IGME106GroupGame.States
 
         private void UpdateEnemyCount()
         {
-            Rectangle leftSpawn = new Rectangle(30, 30, (int)player.Position.X - 200, 1020);
-            Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 30, 1630 - (int)player.Position.X, 1020);
+            Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
+            Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
 
             while (enemies.Count < 15)
             {
@@ -162,8 +162,8 @@ namespace IGME106GroupGame.States
                       && !rightSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
                     )
                 {
-                    randomPosition.X = (new Random()).Next(0, 1860);
-                    randomPosition.Y = (new Random()).Next(0, 1020);
+                    randomPosition.X = (new Random()).Next(60, 1800);
+                    randomPosition.Y = (new Random()).Next(60, 900);
                 }
 
                 enemies.Add(new Enemy(enemyTexture, randomPosition, player.Position));
