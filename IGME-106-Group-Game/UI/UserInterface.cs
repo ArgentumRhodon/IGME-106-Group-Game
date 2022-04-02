@@ -73,14 +73,15 @@ namespace IGME106GroupGame.UI
         /// </summary>
         public void Draw(SpriteBatch sb)
         {
-            foreach(Button button in buttons)
-            {
-                button.Draw(sb);
-            }
 
-            foreach(Image image in images)
+            foreach (Image image in images)
             {
                 image.Draw(sb, Color.White);
+            }
+
+            foreach (Button button in buttons)
+            {
+                button.Draw(sb);
             }
 
             foreach(Label label in labels)

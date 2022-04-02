@@ -260,6 +260,18 @@
 /processorParam:TextureFormat=Color
 /build:uiAssets/titleScreen/startText.png
 
+#begin uiAssets/titleScreen/titleArt.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:uiAssets/titleScreen/titleArt.png
+
 #begin uiAssets/titleScreen/titleTexture.png
 /importer:TextureImporter
 /processor:TextureProcessor

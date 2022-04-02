@@ -17,6 +17,7 @@ namespace IGME106GroupGame.UI.Menus
         private Game1 game;
 
         private Texture2D titleTexture;
+        private Texture2D titleArtTexture;
         private Texture2D startButtonTexture;
         private Texture2D startAsGodButtonTexture;
         private Texture2D optionsButtonTexture;
@@ -41,11 +42,12 @@ namespace IGME106GroupGame.UI.Menus
         {
             LoadImages();
 
-            images.Add(new Image(titleTexture, game.Graphics.PreferredBackBufferWidth / 2, game.Graphics.PreferredBackBufferHeight / 4, HAlign.Center, VAlign.Middle));
-            buttons.Add(new Button(new Image(startButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 435, HAlign.Center, VAlign.Top), (State state) => { state.NextState = new GameState(game); }));
-            buttons.Add(new Button(new Image(startAsGodButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 510, HAlign.Center, VAlign.Top), (State state) => { state.NextState = new GameState(game, true); }));
-            buttons.Add(new Button(new Image(levelEditorButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 585, HAlign.Center, VAlign.Top), (State state) => { (new LevelEditor.Form1()).Show(); }));
-            buttons.Add(new Button(new Image(quitButtonTexture, game.Graphics.PreferredBackBufferWidth / 2, 660, HAlign.Center, VAlign.Top), (State state) => { Environment.Exit(0); }));
+            images.Add(new Image(titleArtTexture, 0, 0, HAlign.Left, VAlign.Top));
+            images.Add(new Image(titleTexture, 0, 100, HAlign.Left, VAlign.Middle));
+            buttons.Add(new Button(new Image(startButtonTexture, 30, 335, HAlign.Left, VAlign.Top), (State state) => { state.NextState = new GameState(game); }));
+            buttons.Add(new Button(new Image(startAsGodButtonTexture, 30, 510, HAlign.Left, VAlign.Top), (State state) => { state.NextState = new GameState(game, true); }));
+            buttons.Add(new Button(new Image(levelEditorButtonTexture, 30, 685, HAlign.Left, VAlign.Top), (State state) => { (new LevelEditor.Form1()).Show(); }));
+            buttons.Add(new Button(new Image(quitButtonTexture, 30, 860, HAlign.Left, VAlign.Top), (State state) => { Environment.Exit(0); }));
         }
 
         /// <summary>
@@ -54,6 +56,7 @@ namespace IGME106GroupGame.UI.Menus
         public void LoadImages()
         {
             titleTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleTexture");
+            titleArtTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleArt");
             startButtonTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\startText");
             startAsGodButtonTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\startAsGod");
             optionsButtonTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\optionsText");
