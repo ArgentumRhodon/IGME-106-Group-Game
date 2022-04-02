@@ -124,12 +124,17 @@ namespace LevelEditor
                     loc.Y = y * (pb.Height);
                     pb.Location = loc;
 
-                    // Letting the Window know the PictureBox exists
+                    // Letting the Window know the PictureBox exists, and uncapture the mouse cursor
                     groupBoxMap.Controls.Add(pb);
 
-                    // Hooking up the PictureBox's Click event to pictureBoxColorAssign and DetectChanges
-                    pb.Click += pictureBoxImageAssign;
-                    pb.Click += DetectChanges;
+                    // Hooking up the PictureBox's MouseEnter and MouseDown event to pictureBoxImageAssign 
+                    pb.MouseEnter += pictureBoxImageAssign_MouseEnter;
+                    pb.MouseEnter += DetectChanges;
+                    pb.MouseDown += pictureBoxImageAssign_Click;
+                    pb.MouseDown += DetectChanges;
+
+                    // Uncapturing the mouse upon MouseDown
+                    pb.MouseDown += pictureBoxUncapture;
                 }
             }
         }
@@ -162,9 +167,14 @@ namespace LevelEditor
                     // Letting the Window know the PictureBox exists
                     groupBoxMap.Controls.Add(pb);
 
-                    // Hooking up the PictureBox's Click event to pictureBoxColorAssign 
-                    pb.Click += pictureBoxImageAssign;
-                    pb.Click += DetectChanges;
+                    // Hooking up the PictureBox's MouseEnter and MouseDown event to pictureBoxImageAssign 
+                    pb.MouseEnter += pictureBoxImageAssign_MouseEnter;
+                    pb.MouseEnter += DetectChanges;
+                    pb.MouseDown += pictureBoxImageAssign_Click;
+                    pb.MouseDown += DetectChanges;
+
+                    // Uncapturing the mouse upon MouseDown
+                    pb.MouseDown += pictureBoxUncapture;
                 }
             }
         }
@@ -182,15 +192,39 @@ namespace LevelEditor
         }
 
         /// <summary>
+        /// This method will change the pictureBox moused over on to the selected image
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pictureBoxImageAssign_MouseEnter(object sender, EventArgs e)
+        {
+            if (!(MouseButtons == MouseButtons.Left)) return;
+            PictureBox pb = (PictureBox)sender;
+            pb.Image = buttonCurrentTile.Image;
+            pb.Tag = buttonCurrentTile.Tag; // We use tags for file IO
+        }
+
+        /// <summary>
         /// This method will change the pictureBox clicked on to the selected image
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBoxImageAssign(object sender, EventArgs e)
+        private void pictureBoxImageAssign_Click(object sender, EventArgs e)
         {
             PictureBox pb = (PictureBox)sender;
             pb.Image = buttonCurrentTile.Image;
             pb.Tag = buttonCurrentTile.Tag; // We use tags for file IO
+        }
+
+        /// <summary>
+        /// This method will uncapture the mouse
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pictureBoxUncapture(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+            pb.Capture = false;
         }
 
         /// <summary>
