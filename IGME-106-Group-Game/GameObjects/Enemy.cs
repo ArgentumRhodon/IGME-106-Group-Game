@@ -20,17 +20,18 @@ namespace IGME106GroupGame.GameObjects
         }
 
         //Constructor
-        public Enemy (Texture2D sprite, Vector2 startPos) : 
+        public Enemy (Texture2D sprite, Vector2 startPos, Vector2 playerPosition) : 
             base(sprite, startPos)
         {
-            movement = new Movement(1);
+            movement = new EnemyMovement(6);
             health = 1;
         }
 
         // Methods
-        public override void Draw(SpriteBatch _spriteBatch)
+        public void Update(Vector2 enemyPosition, Vector2 playerPosition)
         {
-            _spriteBatch.Draw(sprite, position, Color.Red);
+            ((EnemyMovement)movement).Update(enemyPosition, playerPosition, new Vector2(sprite.Width, sprite.Height));
+            position += movement.Vector;
         }
     }
 }

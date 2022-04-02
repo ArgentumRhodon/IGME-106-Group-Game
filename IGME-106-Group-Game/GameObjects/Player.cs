@@ -36,7 +36,8 @@ namespace IGME106GroupGame.GameObjects
         public Player(Texture2D sprite, Vector2 startPos) :
             base(sprite, startPos)
         {
-            movement = new Movement(9);
+            
+            movement = new PlayerMovement(9);
             health = 6;
             iFrames = 0;
         }
@@ -54,9 +55,10 @@ namespace IGME106GroupGame.GameObjects
         /// Updates the player's position and gets rid of i-frames gradually once they are given
         /// </summary>
         /// <param name="targetPosition">The new position for the player</param>
-        public override void Update(Vector2 targetPosition = default)
+        public void Update()
         {
-            base.Update(targetPosition);
+            ((PlayerMovement)movement).Update(position, new Vector2(sprite.Width, sprite.Height));
+            position += movement.Vector;
 
             if(iFrames > 0)
             {

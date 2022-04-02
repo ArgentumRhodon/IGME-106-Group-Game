@@ -15,6 +15,7 @@ namespace IGME106GroupGame.States
     {
         // Fields
         private Texture2D enemyTexture;
+        private Texture2D playerTexture;
         private GameObjectHandler gameObjectHandler;
 
         private Level level;
@@ -52,8 +53,9 @@ namespace IGME106GroupGame.States
             this.godMode = godMode;
             paused = false;
             level = new Level(game.Content);
-            enemyTexture = game.Content.Load<Texture2D>("base");
-            gameObjectHandler = new GameObjectHandler(enemyTexture);
+            enemyTexture = game.Content.Load<Texture2D>("gameObjects\\enemy");
+            playerTexture = game.Content.Load<Texture2D>("gameObjects\\player");
+            gameObjectHandler = new GameObjectHandler(playerTexture, enemyTexture);
             ui = new GameUI(game, gameObjectHandler.Player);
             pauseUI = new PauseUI(game);
             deathUI = new DeathUI(game);

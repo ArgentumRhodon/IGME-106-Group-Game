@@ -21,12 +21,12 @@ namespace IGME106GroupGame.States
         public Player Player => player;
 
         // Constructor
-        public GameObjectHandler(Texture2D enemyTexture)
+        public GameObjectHandler(Texture2D playerTexture, Texture2D enemyTexture)
         {
             this.enemyTexture = enemyTexture;
 
             // Uses the same sprite, enemy just tints it red
-            this.player = new Player(enemyTexture, new Vector2(930, 510));
+            this.player = new Player(playerTexture, new Vector2(930, 510));
             this.enemies = new List<Enemy>();
             this.projectiles = new List<Projectile>();
         }
@@ -40,7 +40,7 @@ namespace IGME106GroupGame.States
             // Update enemies
             foreach(Enemy enemy in enemies)
             {
-                enemy.Update(player.Position);
+                enemy.Update(enemy.Position, player.Position);
             }
 
             // Update Projectiles
@@ -50,9 +50,8 @@ namespace IGME106GroupGame.States
             }
             if (state.MouseManager.MouseClicked())
             {
-                projectiles.Add(new Projectile(state.Game.Content.Load<Texture2D>("base"),
-                                                   player.Position,
-                                                   new Vector2(state.MouseManager.Position.X, state.MouseManager.Position.Y) - player.Position - new Vector2(30, 30)));
+                projectiles.Add(new Projectile(state.Game.Content.Load<Texture2D>("gameObjects\\projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30))); 
+                                                  
             }
 
             HandleCollisions(state);
@@ -62,9 +61,7 @@ namespace IGME106GroupGame.States
 
         public void AddProjectile(State state)
         {
-            projectiles.Add(new Projectile(state.Game.Content.Load<Texture2D>("base"),
-                                                   player.Position,
-                                                   new Vector2(state.MouseManager.Position.X, state.MouseManager.Position.Y) - player.Position - new Vector2(30, 30)));
+            projectiles.Add(new Projectile(state.Game.Content.Load<Texture2D>("gameObjects\\projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30)));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -153,8 +150,8 @@ namespace IGME106GroupGame.States
 
         private void UpdateEnemyCount()
         {
-            Rectangle leftSpawn = new Rectangle(0, 0, (int)player.Position.X - 200, 1080);
-            Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 0, 1920, 1080);
+            Rectangle leftSpawn = new Rectangle(30, 30, (int)player.Position.X - 200, 1020);
+            Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 30, 1630 - (int)player.Position.X, 1020);
 
             while (enemies.Count < 15)
             {
@@ -169,7 +166,7 @@ namespace IGME106GroupGame.States
                     randomPosition.Y = (new Random()).Next(0, 1020);
                 }
 
-                enemies.Add(new Enemy(enemyTexture, randomPosition));
+                enemies.Add(new Enemy(enemyTexture, randomPosition, player.Position));
             }
         }
     }
