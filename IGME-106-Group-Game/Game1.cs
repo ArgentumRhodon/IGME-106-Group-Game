@@ -1,5 +1,6 @@
 ﻿using IGME106GroupGame.GameObjects;
 using IGME106GroupGame.States;
+using IGME106GroupGame.UI;
 using IGME106GroupGame.UI.Menus;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,6 +22,7 @@ namespace IGME106GroupGame
 
         // Fields
         private State state;
+        private Assets assets;
 
         // Properties
         public GraphicsDeviceManager Graphics => _graphics;
@@ -29,6 +31,11 @@ namespace IGME106GroupGame
         {
             get => state;
             set => state = value;
+        }
+
+        public Assets Assets
+        {
+            get => assets;
         }
 
         // Constructor
@@ -46,6 +53,7 @@ namespace IGME106GroupGame
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.ApplyChanges();
 
+            assets = new Assets(this);
             state = new MenuState(this);
             base.Initialize();
         }

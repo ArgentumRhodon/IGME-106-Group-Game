@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace IGME106GroupGame.UI
 {
-    class Assets
+    public class Assets
     {
         // - Fields -
         private Game1 game;
@@ -18,9 +19,16 @@ namespace IGME106GroupGame.UI
         {
             this.game = game;
             textures = new Dictionary<string, Texture2D>();
+
+            LoadContent();
         }
 
         // - Methods -
+        /// <summary>
+        /// Gets a texture based on its name
+        /// </summary>
+        /// <param name="key">The name of the texture</param>
+        /// <returns>The texture with the given name</returns>
         public Texture2D Get(string key)
         {
             if(textures.ContainsKey(key))
@@ -34,9 +42,27 @@ namespace IGME106GroupGame.UI
             }
         }
 
+        /// <summary>
+        /// Loads all game textures and puts them into a dictionary
+        /// </summary>
         private void LoadContent()
         {
+            // Game Screen UI Textures
+            textures.Add("continueText", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\continueText"));
+            textures.Add("gameOverTitle", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\gameOverTitle"));
+            textures.Add("halfHeart", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\halfHeart"));
+            textures.Add("heart", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\heart"));
+            textures.Add("pausedTitle", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\pausedTitle"));
+            textures.Add("quitTitleText", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\quitTitleText"));
 
+            // Title Screen UI Textures
+            textures.Add("levelEditorText", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\levelEditorText"));
+            textures.Add("optionsText", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\optionsText"));
+            textures.Add("quitText", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\quitText"));
+            textures.Add("startAsGod", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\startAsGod"));
+            textures.Add("startText", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\startText"));
+            textures.Add("titleArt", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleArt"));
+            textures.Add("titleTexture", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleTexture"));
         }
     }
 }
