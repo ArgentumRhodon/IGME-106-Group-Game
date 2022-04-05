@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace IGME106GroupGame.UI.Menus
 {
-    class PauseUI : UserInterface
+    class DeathUI : UserInterface
     {
         // - Fields -
         private Game1 game;
-        private Texture2D pauseTitleTexture;
+        private Texture2D gameOverTitleTexture;
         private Texture2D quitTexture;
         private Texture2D continueTexture;
 
         // - Constructor -
-        public PauseUI(Game1 game)
+        public DeathUI(Game1 game)
         {
             this.game = game;
 
@@ -32,9 +32,9 @@ namespace IGME106GroupGame.UI.Menus
         {
             LoadImages();
 
-            images.Add(new Image(pauseTitleTexture, game.Graphics.PreferredBackBufferWidth / 2, game.Graphics.PreferredBackBufferHeight / 3, HAlign.Center, VAlign.Middle));
+            images.Add(new Image(gameOverTitleTexture, game.Graphics.PreferredBackBufferWidth / 2, game.Graphics.PreferredBackBufferHeight / 3, HAlign.Center, VAlign.Middle));
             buttons.Add(new Button(new Image(quitTexture, game.Graphics.PreferredBackBufferWidth / 2, 500, HAlign.Center, VAlign.Top), (State state) => { state.NextState = new MenuState(game); }));
-            buttons.Add(new Button(new Image(continueTexture, game.Graphics.PreferredBackBufferWidth / 2, 575, HAlign.Center, VAlign.Top), (State state) => { ((GameState)state).IsPaused = false; }));
+            buttons.Add(new Button(new Image(continueTexture, game.Graphics.PreferredBackBufferWidth / 2, 575, HAlign.Center, VAlign.Top), (State state) => { state.NextState = new GameState(game); }));
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace IGME106GroupGame.UI.Menus
         /// </summary>
         private void LoadImages()
         {
-            pauseTitleTexture = game.Content.Load<Texture2D>("uiAssets\\gameScreen\\pausedTitle");
+            gameOverTitleTexture = game.Content.Load<Texture2D>("uiAssets\\gameScreen\\gameOverTitle");
             quitTexture = game.Content.Load<Texture2D>("uiAssets\\gameScreen\\quitTitleText");
             continueTexture = game.Content.Load<Texture2D>("uiAssets\\gameScreen\\continueText");
         }

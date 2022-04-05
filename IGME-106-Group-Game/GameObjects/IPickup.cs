@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IGME106GroupGame
+namespace IGME106GroupGame.GameObjects
 {
-    class Powerup : Pickup
+    interface IPickup
     {
-
         //Methods
-        public override void OnPickup()
+        public void OnPickup()
         {
-            base.OnPickup();
+
         }
     }
 }

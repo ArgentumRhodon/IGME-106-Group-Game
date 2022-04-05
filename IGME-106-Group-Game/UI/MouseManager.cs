@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using IGME106GroupGame.States;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -10,40 +11,70 @@ namespace IGME106GroupGame.UI
 {
     public class MouseManager
     {
-        // fields
+        // Fields
         private Vector2 mousePosition;
-        private bool leftButtonClicked;
-        private MouseState mouse;
-        private MouseCursor currentCursor;
+        private MouseUser currentUser;
+
+        private MouseState currentState;
+        private MouseState previousState;
 
         // Properties
-        public Vector2 MousePosition => mousePosition;
-        public bool LeftButton => leftButtonClicked;
-
-        public MouseCursor CursorStyle
+        public Vector2 Position => mousePosition;
+        public MouseUser CurrentUser
         {
-            get => currentCursor;
-            set => currentCursor = value;
+            get => currentUser;
+            set
+            {
+                if(currentUser == null)
+                {
+                    currentUser = value;
+                }
+            }
         }
 
         // Constructor
         public MouseManager()
         {
             mousePosition = new Vector2(0, 0);
-            currentCursor = Microsoft.Xna.Framework.Input.MouseCursor.Arrow;
         }
 
         // Methods
-
-        public void Update()
+        /// <summary>
+        /// Gets the current mouse state and updates the known position and status of the left mouse button
+        /// </summary>
+        public void Update(State state)
         {
-            mouse = Mouse.GetState();
+            currentState = Mouse.GetState();
 
-            mousePosition = new Vector2(mouse.X, mouse.Y);
-            leftButtonClicked = mouse.LeftButton == ButtonState.Pressed;
+            mousePosition = new Vector2(currentState.X, currentState.Y);
 
-            Mouse.SetCursor(currentCursor);
-            //System.Diagnostics.Debug.WriteLine($"{mouse.X}, {mouse.Y}");
+            // Handle the current user
+            if (currentUser != null)
+            {
+                if (MouseClicked())
+                {
+                    currentUser.OnClick(state);
+                }
+            }
+
+            // Clear the current user if nothing happens
+            Cleanup();
+
+            previousState = currentState;
+        }
+
+        private void Cleanup()
+        {
+            if(currentState.LeftButton != ButtonState.Pressed)
+            {
+                currentUser = null;
+            }
+        }
+
+        public bool MouseClicked()
+        {
+            // Return if the button was pressed on the previous state but not this one
+            return previousState.LeftButton == ButtonState.Pressed && currentState.LeftButton == ButtonState.Released;
         }
     }
 }

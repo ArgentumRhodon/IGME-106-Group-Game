@@ -25,6 +25,12 @@ namespace IGME106GroupGame
         // Properties
         public GraphicsDeviceManager Graphics => _graphics;
 
+        public State State
+        {
+            get => state;
+            set => state = value;
+        }
+
         // Constructor
         public Game1()
         {
@@ -41,13 +47,15 @@ namespace IGME106GroupGame
             _graphics.ApplyChanges();
 
             state = new MenuState(this);
-
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            //Texture2D playerSprite = Content.Load<Texture2D>("nameOfPlayerSprite");
+            //Texture2D enemySprite = Content.Load<Texture2D>("nameOfEnemSprite");
+            //player = new Player(playerSprite, new Vector2(960, 540));
 
             // TODO: use this.Content to load your game content here
         }
@@ -59,27 +67,24 @@ namespace IGME106GroupGame
 
             // TODO: Add your update logic here
             state.Update();
+            //player.Update();
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
             state.Draw(_spriteBatch);
+            //player.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-        public void SetState(State nextState)
-        {
-            this.state = nextState;
         }
     }
 }

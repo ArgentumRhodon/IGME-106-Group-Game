@@ -36,12 +36,18 @@ namespace IGME106GroupGame.UI
             set { rectangle.Y = value; }
         }
 
+        /// <summary>
+        /// The collision box of the image
+        /// </summary>
         public Rectangle CollisionBox
         {
             get { return drawingRect; }
         }
 
         // - Constructors -
+        /// <summary>
+        /// The constuctor used if a width, height, and color are not given. Sets dimensions based on texture and defaults the color to white
+        /// </summary>
         public Image(Texture2D texture, int x, int y, HAlign hAlign, VAlign vAlign)
             : this(texture, x, y, texture.Width, texture.Height, Color.White, hAlign, vAlign)
         {
@@ -49,7 +55,7 @@ namespace IGME106GroupGame.UI
         }
 
         /// <summary>
-        /// The constuctor used if a width and height is not given. Sets values based on texture
+        /// The constuctor used if a width and height are not given. Sets values based on texture
         /// </summary>
         public Image(Texture2D texture, int x, int y, Color tint, HAlign hAlign, VAlign vAlign)
             : this(texture, x, y, texture.Width, texture.Height, tint, hAlign, vAlign)
@@ -57,6 +63,9 @@ namespace IGME106GroupGame.UI
             
         }
 
+        /// <summary>
+        /// The constuctor used if a color is not given. Defaults the color to white
+        /// </summary>
         public Image(Texture2D texture, int x, int y, int width, int height, HAlign hAlign, VAlign vAlign)
             : this(texture, x, y, width, height, Color.White, hAlign, vAlign)
         {
@@ -74,7 +83,7 @@ namespace IGME106GroupGame.UI
 
         // - Methods -
         /// <summary>
-        /// Draws the image
+        /// Draws the image and aligns it based on it's horizontal and vertical alignment
         /// </summary>
         public void Draw(SpriteBatch sb, Color tint)
         {

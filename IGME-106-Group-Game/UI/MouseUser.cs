@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace IGME106GroupGame.UI
 {
-    public interface ClickAction
+    public interface MouseUser
     {
-        void execute(State state);
+        void OnClick(State state);
     }
 }

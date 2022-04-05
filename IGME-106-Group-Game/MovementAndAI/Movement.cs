@@ -5,18 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IGME106GroupGame.GameObjects;
 
 namespace IGME106GroupGame.MovementAndAI
 {
-    class Movement
+    public abstract class Movement
     {
         // Fields
-        private Vector2 vector;
-        private float speed;
+        protected Vector2 vector;
+        protected float speed;
 
         // Properties
         public Vector2 Vector => vector;
-
+        
         // Constructor
         public Movement(float speed)
         {
@@ -24,36 +25,6 @@ namespace IGME106GroupGame.MovementAndAI
             this.vector = new Vector2(0, 0);
         }
 
-        public void Update()
-        {
-            KeyboardState keyboard = Keyboard.GetState();
-
-            int deltaX = 0;
-            int deltaY = 0;
-
-            if (keyboard.IsKeyDown(Keys.W))
-            {
-                deltaY--;
-            }
-            if (keyboard.IsKeyDown(Keys.S))
-            {
-                deltaY++;
-            }
-            if (keyboard.IsKeyDown(Keys.A))
-            {
-                deltaX--;
-            }
-            if (keyboard.IsKeyDown(Keys.D))
-            {
-                deltaX++;
-            }
-
-            vector = new Vector2(deltaX, deltaY);
-            if(vector.X != 0 || vector.Y != 0)
-            {
-                vector.Normalize();
-            }
-            vector *= speed;
-        }
+        public abstract void Update();
     }
 }

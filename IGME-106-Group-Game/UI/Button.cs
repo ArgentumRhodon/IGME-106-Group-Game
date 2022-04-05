@@ -7,7 +7,7 @@ using System.Text;
 
 namespace IGME106GroupGame.UI
 {
-    public class Button
+    public class Button : MouseUser
     {
         // - Fields -
         private Image image;
@@ -42,6 +42,9 @@ namespace IGME106GroupGame.UI
             }
         }
 
+        /// <summary>
+        /// The button's color tint
+        /// </summary>
         public Color Tint
         {
             get => tint;
@@ -72,13 +75,17 @@ namespace IGME106GroupGame.UI
         /// <summary>
         /// Determines if a given vector is intersecting with the button
         /// </summary>
-        public bool IsIntersecting(Vector2 point)
+        public bool ContainsPoint(Vector2 point)
         {
             Rectangle rectangle = image.CollisionBox;
-            return point.X > rectangle.X && point.X < rectangle.X + rectangle.Width
-                && point.Y > rectangle.Y && point.Y < rectangle.Y + rectangle.Height;
+            Point p = new Point((int)point.X, (int)point.Y);
+
+            return rectangle.Contains(p);
         }
 
+        /// <summary>
+        /// Runs the button's action if it is clicked
+        /// </summary>
         public void OnClick(State state)
         {
             clickAction(state);
