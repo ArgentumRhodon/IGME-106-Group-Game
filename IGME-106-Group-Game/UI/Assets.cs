@@ -63,6 +63,23 @@ namespace IGME106GroupGame.UI
             textures.Add("startText", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\startText"));
             textures.Add("titleArt", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleArt"));
             textures.Add("titleTexture", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleTexture"));
+
+            // Tiles Textures
+            textures.Add("floor", game.Content.Load<Texture2D>("floor"));
+            textures.Add("northWall", game.Content.Load<Texture2D>("wall\\north"));
+            textures.Add("eastWall", game.Content.Load<Texture2D>("wall\\east"));
+            textures.Add("southWall", game.Content.Load<Texture2D>("wall\\south"));
+            textures.Add("westWall", game.Content.Load<Texture2D>("wall\\west"));
+            textures.Add("topLeftWall", game.Content.Load<Texture2D>("corner\\topLeft"));
+            textures.Add("topRightWall", game.Content.Load<Texture2D>("corner\\topRight"));
+            textures.Add("bottomLeftWall", game.Content.Load<Texture2D>("corner\\bottomLeft"));
+            textures.Add("bottomRightWall", game.Content.Load<Texture2D>("corner\\bottomRight"));
+
+            // Game Objects Textures
+            textures.Add("base", game.Content.Load<Texture2D>("base"));
+            textures.Add("enemy", game.Content.Load<Texture2D>("gameObjects\\enemy"));
+            textures.Add("player", game.Content.Load<Texture2D>("gameObjects\\player"));
+            textures.Add("projectile", game.Content.Load<Texture2D>("gameObjects\\projectile"));
         }
     }
 }

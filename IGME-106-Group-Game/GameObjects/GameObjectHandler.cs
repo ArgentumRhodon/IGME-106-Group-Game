@@ -50,7 +50,7 @@ namespace IGME106GroupGame.States
             }
             if (state.MouseManager.MouseClicked())
             {
-                projectiles.Add(new Projectile(state.Game.Content.Load<Texture2D>("gameObjects\\projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30))); 
+                projectiles.Add(new Projectile(state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30))); 
                                                   
             }
 
@@ -61,7 +61,7 @@ namespace IGME106GroupGame.States
 
         public void AddProjectile(State state)
         {
-            projectiles.Add(new Projectile(state.Game.Content.Load<Texture2D>("gameObjects\\projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30)));
+            projectiles.Add(new Projectile(state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30)));
         }
 
         public void Draw(SpriteBatch spriteBatch)

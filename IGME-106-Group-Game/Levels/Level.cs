@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using IGME106GroupGame.UI;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
@@ -20,7 +21,7 @@ namespace IGME106GroupGame.Levels
         /// This constructor will instantiate a new level
         /// </summary>
         /// <param name="content">The Content Manager</param>
-        public Level(ContentManager content)
+        public Level(Assets assets)
         {
             // Choose a level file
             //openFileDialog = new OpenFileDialog();
@@ -31,7 +32,7 @@ namespace IGME106GroupGame.Levels
             //}
             string _filePath = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
             _filePath += @"\Level.txt";
-            room = new Map(content, _filePath);
+            room = new Map(assets, _filePath);
         }
         
         // Methods

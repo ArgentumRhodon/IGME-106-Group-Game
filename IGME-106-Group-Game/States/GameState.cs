@@ -14,8 +14,6 @@ namespace IGME106GroupGame.States
     class GameState : State
     {
         // Fields
-        private Texture2D enemyTexture;
-        private Texture2D playerTexture;
         private GameObjectHandler gameObjectHandler;
 
         private Level level;
@@ -52,10 +50,8 @@ namespace IGME106GroupGame.States
         {
             this.godMode = godMode;
             paused = false;
-            level = new Level(game.Content);
-            enemyTexture = game.Content.Load<Texture2D>("gameObjects\\enemy");
-            playerTexture = game.Content.Load<Texture2D>("gameObjects\\player");
-            gameObjectHandler = new GameObjectHandler(playerTexture, enemyTexture);
+            level = new Level(game.Assets);
+            gameObjectHandler = new GameObjectHandler(game.Assets.Get("player"), game.Assets.Get("enemy"));
             ui = new GameUI(game, gameObjectHandler.Player);
             pauseUI = new PauseUI(game);
             deathUI = new DeathUI(game);
@@ -139,12 +135,12 @@ namespace IGME106GroupGame.States
 
             if (paused && gameObjectHandler.Player.Health > 0)
             {
-                spriteBatch.Draw(game.Content.Load<Texture2D>("base"), new Rectangle(0, 0, 1920, 1080), new Color(0,0,0,150));
+                spriteBatch.Draw(game.Assets.Get("base"), new Rectangle(0, 0, 1920, 1080), new Color(0,0,0,150));
                 pauseUI.Draw(spriteBatch);
             }
             else if(paused)
             {
-                spriteBatch.Draw(game.Content.Load<Texture2D>("base"), new Rectangle(0, 0, 1920, 1080), new Color(0, 0, 0, 150));
+                spriteBatch.Draw(game.Assets.Get("base"), new Rectangle(0, 0, 1920, 1080), new Color(0, 0, 0, 150));
                 deathUI.Draw(spriteBatch);
             }
         }
