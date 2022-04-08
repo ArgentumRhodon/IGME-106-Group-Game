@@ -32,7 +32,7 @@ namespace IGME106GroupGame.States
         }
 
         // Methods
-        public void Update(State state)
+        public void Update(GameState state)
         {
             // Update the player
             player.Update();
@@ -82,10 +82,13 @@ namespace IGME106GroupGame.States
             }
         }
 
-        private void HandleCollisions(State state)
+        private void HandleCollisions(GameState state)
         {
             HandleEnemyProjectileCollisions();
-            HandleEnemyPlayerCollisions();
+            if(!state.GodModeEnabled)
+            {
+                HandleEnemyPlayerCollisions();
+            }
             HandleDeadEntities();
         }
 
