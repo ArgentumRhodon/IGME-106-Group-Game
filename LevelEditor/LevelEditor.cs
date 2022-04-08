@@ -114,8 +114,9 @@ namespace LevelEditor
                             pb.Image = buttonWestWall.Image;
                             pb.Tag = buttonWestWall.Tag;
                             break;
-                        default: // Show error to user
-                            break;
+                        default: // Invalid input
+                            MessageBox.Show("Invalid input detected in level file, check to make sure valid characters are used in the file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                     }
 
                     // Changing the location of each PictureBox to where it should be on the window
@@ -357,8 +358,6 @@ namespace LevelEditor
                         case "WestWall":
                             images[x, y] = 'D';
                             break;
-                        default:
-                            return null; // Error occurred
                     }
                 }
             }
