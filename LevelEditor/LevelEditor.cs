@@ -289,7 +289,7 @@ namespace LevelEditor
                 {
                     //output = new StreamWriter(prompt.FileName); ** For choice of directory
                     String[] splitDirectory = prompt.FileName.Split('\\');
-                    output = new StreamWriter($"../../../../IGME-106-Group-Game/Content/{splitDirectory[splitDirectory.Length - 1]}");
+                    output = new StreamWriter($"../../../../IGME-106-Group-Game/bin/Debug/net5.0-windows/Content/{splitDirectory[splitDirectory.Length - 1]}");
                     output.WriteLine($"{mapWidth},{mapHeight}");
                     for (int j = 0; j < MapHeight; j++)
                     {
@@ -340,26 +340,25 @@ namespace LevelEditor
                             images[x, y] = '2';
                             break;
                         case "BottomLeftCorner":
-                            images[x, y] = '-';
+                            images[x, y] = '3';
                             break;
                         case "BottomRightCorner":
-                            images[x, y] = '-';
+                            images[x, y] = '4';
                             break;
                         case "NorthWall":
-                            images[x, y] = '-';
+                            images[x, y] = 'A';
                             break;
                         case "EastWall":
-                            images[x, y] = '-';
+                            images[x, y] = 'B';
                             break;
                         case "SouthWall":
-                            images[x, y] = '-';
+                            images[x, y] = 'C';
                             break;
                         case "WestWall":
-                            images[x, y] = '-';
+                            images[x, y] = 'D';
                             break;
                         default:
-                            // Throw exception
-                            break;
+                            return null; // Error occurred
                     }
                 }
             }
