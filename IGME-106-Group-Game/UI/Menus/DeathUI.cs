@@ -27,9 +27,9 @@ namespace IGME106GroupGame.UI.Menus
         /// </summary>
         public override void LoadContent()
         {
-            images.Add(new Image(game.Assets.Get("gameOverTitle"), game.Graphics.PreferredBackBufferWidth / 2, game.Graphics.PreferredBackBufferHeight / 3, Alignment.Middle, Alignment.Middle, game.Graphics));
-            buttons.Add(new Button(new Image(game.Assets.Get("quitTitleText"), game.Graphics.PreferredBackBufferWidth / 2, 500, Alignment.Middle, Alignment.Begin, game.Graphics), (State state) => { state.NextState = new MenuState(game); }));
-            buttons.Add(new Button(new Image(game.Assets.Get("continueText"), game.Graphics.PreferredBackBufferWidth / 2, 575, Alignment.Middle, Alignment.Begin, game.Graphics), (State state) => { state.NextState = new GameState(game); }));
+            images.Add(new Image(game.Assets.Get("gameOverTitle"), 0, -150, Alignment.Middle, Alignment.Middle, game.Graphics));
+            buttons.Add(new Button(new Image(game.Assets.Get("quitTitleText"), 0, 0, Alignment.Middle, Alignment.Middle, game.Graphics), (State state) => { state.NextState = new MenuState(game); }));
+            buttons.Add(new Button(new Image(game.Assets.Get("continueText"), 0, 100, Alignment.Middle, Alignment.Middle, game.Graphics), (State state) => { state.NextState = new GameState(game); }));
         }
     }
 }

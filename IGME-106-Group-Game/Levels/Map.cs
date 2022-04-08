@@ -37,6 +37,7 @@ namespace IGME106GroupGame.Levels
         public Map(Assets assets, string filePath)
         {
             this.filePath = filePath;
+            this.assets = assets;
             InitializeMap();
         }
 
@@ -153,13 +154,13 @@ namespace IGME106GroupGame.Levels
                 case '4':
                     return assets.Get("bottomLeftWall");
                 case 'A':
-                    return wallSprites[1];
+                    return assets.Get("northWall");
                 case 'B':
-                    return wallSprites[0];
+                    return assets.Get("eastWall");
                 case 'C':
-                    return wallSprites[2];
+                    return assets.Get("southWall");
                 case 'D':
-                    return wallSprites[3];
+                    return assets.Get("westWall");
                 case '-':
                     return assets.Get("floor");
                 default:
