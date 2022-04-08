@@ -82,7 +82,7 @@ namespace IGME106GroupGame.Levels
                 streamReader = new StreamReader(filePath);
                 LoadTiles(streamReader);
             }
-            catch(IOException ex)
+            catch(IOException)
             {
                 throw new Exception("Couldn't read from file " + filePath);
             }
