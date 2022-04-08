@@ -57,7 +57,7 @@ namespace LevelEditor
         /// This method will set the colors of each tile to the corresponding color in the array
         /// </summary>
         /// <param name="colors">An array of argb ints</param>
-        public void CreateMap(String[] tiles)
+        public void CreateMap(char[,] tiles)
         {
             for (int y = 0; y < mapHeight; y++)
             {
@@ -68,7 +68,7 @@ namespace LevelEditor
                     pb.Size = new Size(tileSize, tileSize);
 
                     // Set the image to the corresponding image in the array
-                    switch (tiles[y][x])
+                    switch (tiles[x,y])
                     {
                         case '-': // Floor
                             pb.Image = buttonFloor.Image;
@@ -114,8 +114,9 @@ namespace LevelEditor
                             pb.Image = buttonWestWall.Image;
                             pb.Tag = buttonWestWall.Tag;
                             break;
-                        default: // Show error to user
-                            break;
+                        default: // Invalid input
+                            MessageBox.Show("Invalid input detected in level file, check to make sure valid characters are used in the file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                     }
 
                     // Changing the location of each PictureBox to where it should be on the window
@@ -124,12 +125,17 @@ namespace LevelEditor
                     loc.Y = y * (pb.Height);
                     pb.Location = loc;
 
-                    // Letting the Window know the PictureBox exists
+                    // Letting the Window know the PictureBox exists, and uncapture the mouse cursor
                     groupBoxMap.Controls.Add(pb);
 
-                    // Hooking up the PictureBox's Click event to pictureBoxColorAssign and DetectChanges
-                    pb.Click += pictureBoxImageAssign;
-                    pb.Click += DetectChanges;
+                    // Hooking up the PictureBox's MouseEnter and MouseDown event to pictureBoxImageAssign 
+                    pb.MouseEnter += pictureBoxImageAssign_MouseEnter;
+                    pb.MouseEnter += DetectChanges;
+                    pb.MouseDown += pictureBoxImageAssign_Click;
+                    pb.MouseDown += DetectChanges;
+
+                    // Uncapturing the mouse upon MouseDown
+                    pb.MouseDown += pictureBoxUncapture;
                 }
             }
         }
@@ -162,9 +168,14 @@ namespace LevelEditor
                     // Letting the Window know the PictureBox exists
                     groupBoxMap.Controls.Add(pb);
 
-                    // Hooking up the PictureBox's Click event to pictureBoxColorAssign 
-                    pb.Click += pictureBoxImageAssign;
-                    pb.Click += DetectChanges;
+                    // Hooking up the PictureBox's MouseEnter and MouseDown event to pictureBoxImageAssign 
+                    pb.MouseEnter += pictureBoxImageAssign_MouseEnter;
+                    pb.MouseEnter += DetectChanges;
+                    pb.MouseDown += pictureBoxImageAssign_Click;
+                    pb.MouseDown += DetectChanges;
+
+                    // Uncapturing the mouse upon MouseDown
+                    pb.MouseDown += pictureBoxUncapture;
                 }
             }
         }
@@ -182,15 +193,39 @@ namespace LevelEditor
         }
 
         /// <summary>
+        /// This method will change the pictureBox moused over on to the selected image
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pictureBoxImageAssign_MouseEnter(object sender, EventArgs e)
+        {
+            if (!(MouseButtons == MouseButtons.Left)) return;
+            PictureBox pb = (PictureBox)sender;
+            pb.Image = buttonCurrentTile.Image;
+            pb.Tag = buttonCurrentTile.Tag; // We use tags for file IO
+        }
+
+        /// <summary>
         /// This method will change the pictureBox clicked on to the selected image
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pictureBoxImageAssign(object sender, EventArgs e)
+        private void pictureBoxImageAssign_Click(object sender, EventArgs e)
         {
             PictureBox pb = (PictureBox)sender;
             pb.Image = buttonCurrentTile.Image;
             pb.Tag = buttonCurrentTile.Tag; // We use tags for file IO
+        }
+
+        /// <summary>
+        /// This method will uncapture the mouse
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pictureBoxUncapture(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+            pb.Capture = false;
         }
 
         /// <summary>
@@ -231,34 +266,18 @@ namespace LevelEditor
         {
             if (changes)
             {
-                DialogResult = MessageBox.Show("There are unsaved changes. Are you sure you want to quit?", "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                DialogResult = MessageBox.Show("There are unsaved changes. Are you sure you want to load another file?", "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (DialogResult == DialogResult.Yes) form.LoadFile();
             }
+            else form.LoadFile();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            char[,] images = new char[mapWidth, mapHeight];
             // Get all the PictureBox char values from images
-            String[] images = new String[mapWidth * mapHeight];
-            for (int y = 0; y < mapHeight; y++)
-            {
-                for (int x = 0; x < mapWidth; x++)
-                {
-                    PictureBox pb = (PictureBox)groupBoxMap.GetChildAtPoint(new Point(x * tileSize, y * tileSize));
+            images = GetTiles();
 
-                    // Convert images of tiles to characters
-                    if ((String)pb.Tag == "Floor") images[(y * mapWidth) + x] = "-"; // floor
-                    else if ((String)pb.Tag == "TopRightCorner") images[(y * mapWidth) + x] = "2"; // top right corner
-                    else if ((String)pb.Tag == "TopLeftCorner") images[(y * mapWidth) + x] = "1"; // top left corner
-                    else if ((String)pb.Tag == "BottomRightCorner") images[(y * mapWidth) + x] = "4"; // bottom right corner
-                    else if ((String)pb.Tag == "BottomLeftCorner") images[(y * mapWidth) + x] = "3"; // bottom left corner
-
-                    else if ((String)pb.Tag == "NorthWall") images[(y * mapWidth) + x] = "A"; // north wall
-                    else if ((String)pb.Tag == "EastWall") images[(y * mapWidth) + x] = "B"; // east wall
-                    else if ((String)pb.Tag == "SouthWall") images[(y * mapWidth) + x] = "C"; // south wall
-                    else if ((String)pb.Tag == "WestWall") images[(y * mapWidth) + x] = "D"; // west wall
-                }
-            }
             // Prompt user for file location choice ** Commented code is for if choice of directory is desired **
             SaveFileDialog prompt = new SaveFileDialog();
             prompt.Filter = "Text Files|*.txt"; // SUBJECT TO CHANGE
@@ -271,12 +290,15 @@ namespace LevelEditor
                 {
                     //output = new StreamWriter(prompt.FileName); ** For choice of directory
                     String[] splitDirectory = prompt.FileName.Split('\\');
-                    output = new StreamWriter($"../../../../IGME-106-Group-Game/Content/{splitDirectory[splitDirectory.Length - 1]}");
-                    //output.WriteLine($"{mapWidth},{mapHeight}");
-                    for (int i = 0; i < images.Length; i++)
+                    output = new StreamWriter($"../../../../IGME-106-Group-Game/bin/Debug/net5.0-windows/Content/{splitDirectory[splitDirectory.Length - 1]}");
+                    output.WriteLine($"{mapWidth},{mapHeight}");
+                    for (int j = 0; j < MapHeight; j++)
                     {
-                        if (i % mapWidth != mapWidth - 1) output.Write($"{images[i]}");
-                        else output.Write($"{images[i]}\n");
+                        for (int i = 0; i < MapWidth; i++)
+                        {
+                            if (j != MapWidth) output.Write($"{images[i,j]}");
+                            else output.Write($"{images[i,j]}\n");
+                        }
                     }
                     MessageBox.Show("Save successful.", "File Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Text = $"Level Editor - {splitDirectory[splitDirectory.Length - 1]}";
@@ -291,6 +313,56 @@ namespace LevelEditor
                     if (output != null) output.Close();
                 }
             }
-        }  
+        } 
+
+        /// <summary>
+        /// This method will return a 2D array of chars that represent the images on the map
+        /// </summary>
+        /// <returns></returns>
+        private char[,] GetTiles()
+        {
+            char[,] images = new char[mapWidth, mapHeight];
+            for (int y = 0; y < mapHeight; y++)
+            {
+                for (int x = 0; x < mapWidth; x++)
+                {
+                    PictureBox pb = (PictureBox)groupBoxMap.GetChildAtPoint(new Point(x * tileSize, y * tileSize));
+
+                    // Convert images of tiles to characters
+                    switch (pb.Tag)
+                    {
+                        case "Floor":
+                            images[x, y] = '-';
+                            break;
+                        case "TopLeftCorner":
+                            images[x, y] = '1';
+                            break;
+                        case "TopRightCorner":
+                            images[x, y] = '2';
+                            break;
+                        case "BottomLeftCorner":
+                            images[x, y] = '3';
+                            break;
+                        case "BottomRightCorner":
+                            images[x, y] = '4';
+                            break;
+                        case "NorthWall":
+                            images[x, y] = 'A';
+                            break;
+                        case "EastWall":
+                            images[x, y] = 'B';
+                            break;
+                        case "SouthWall":
+                            images[x, y] = 'C';
+                            break;
+                        case "WestWall":
+                            images[x, y] = 'D';
+                            break;
+                    }
+                }
+            }
+
+            return images;
+        }
     }
 }
