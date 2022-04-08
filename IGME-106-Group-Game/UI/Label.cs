@@ -9,8 +9,10 @@ namespace IGME106GroupGame.UI
     public class Label
     {
         // - Fields -
-        private HAlign hAlign;
-        private VAlign vAlign;
+        private Alignment hAlign;
+        private Alignment vAlign;
+        private int windowWidth;
+        private int windowHeight;
         
         private string text;
         private SpriteFont font;
@@ -37,7 +39,7 @@ namespace IGME106GroupGame.UI
         }
 
         // - Constructor -
-        public Label(string text, SpriteFont font, int x, int y, Color tint, HAlign hAlign = HAlign.Left, VAlign vAlign = VAlign.Top)
+        public Label(string text, SpriteFont font, int x, int y, Color tint, Alignment hAlign, Alignment vAlign, GraphicsDeviceManager graphics)
         {
             this.text = text;
             this.font = font;
@@ -45,6 +47,8 @@ namespace IGME106GroupGame.UI
             this.tint = tint;
             this.hAlign = hAlign;
             this.vAlign = vAlign;
+            windowWidth = graphics.PreferredBackBufferWidth;
+            windowHeight = graphics.PreferredBackBufferHeight;
         }
 
         // - Methods -
@@ -58,23 +62,23 @@ namespace IGME106GroupGame.UI
 
             switch(hAlign)
             {
-                case HAlign.Right:
-                    drawPosition.X -= size.X;
+                case Alignment.End:
+                    drawPosition.X = windowWidth - size.X + X;
                     break;
 
-                case HAlign.Center:
-                    drawPosition.X -= size.X / 2;
+                case Alignment.Middle:
+                    drawPosition.X = windowWidth / 2 - size.X / 2 + X;
                     break;
             }
 
             switch(vAlign)
             {
-                case VAlign.Bottom:
-                    drawPosition.Y -= size.Y;
+                case Alignment.End:
+                    drawPosition.Y = windowHeight - size.Y + X;
                     break;
 
-                case VAlign.Middle:
-                    drawPosition.Y -= size.Y / 2;
+                case Alignment.Middle:
+                    drawPosition.Y = windowHeight / 2 - size.Y / 2 + X;
                     break;
             }
 
