@@ -14,10 +14,6 @@ namespace IGME106GroupGame.GameObjects
 
         //Properties
         public int Health { get => health; set => health = value; }
-        public Rectangle CollisionBox
-        { 
-            get => new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
-        }
 
         //Constructor
         public Enemy (Texture2D sprite, Vector2 startPos, Vector2 playerPosition) : 
@@ -30,8 +26,22 @@ namespace IGME106GroupGame.GameObjects
         // Methods
         public void Update(Vector2 enemyPosition, Vector2 playerPosition)
         {
-            ((EnemyMovement)movement).Update(enemyPosition, playerPosition, new Vector2(sprite.Width, sprite.Height));
+            ((EnemyMovement)movement).Update(enemyPosition, playerPosition);
             position += movement.Vector;
+        }
+
+        public override void HandleCollision(GameObject other)
+        {
+            if(other is Projectile)
+            {
+                health--;
+            }
+
+            if(other is Player)
+            {
+                movement.CanMoveX = !WillCollideX(other);
+                movement.CanMoveY = !WillCollideY(other);
+            }
         }
     }
 }

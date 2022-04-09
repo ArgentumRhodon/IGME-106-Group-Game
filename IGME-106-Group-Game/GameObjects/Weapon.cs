@@ -33,5 +33,10 @@ namespace IGME106GroupGame.GameObjects
         {
 
         }
+
+        public override void HandleCollision(GameObject other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

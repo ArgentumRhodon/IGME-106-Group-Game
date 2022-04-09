@@ -23,8 +23,6 @@ namespace IGME106GroupGame.GameObjects
         //public bool CanRicochet { get => canRicochet; }
         //public int FramesActive { get => framesActive; }
 
-        public Rectangle CollisionBox => new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
-
         //Constructor
         public Projectile (Texture2D sprite, Vector2 startPos, Vector2 mousePosition) :
             base(sprite, startPos)
@@ -32,6 +30,14 @@ namespace IGME106GroupGame.GameObjects
             movement = new ProjectileMovement(25, startPos, mousePosition);
             health = 1;
             damage = 1;
+        }
+
+        public override void HandleCollision(GameObject other)
+        {
+            if(other is Enemy)
+            {
+                health--;
+            }
         }
     }
 }

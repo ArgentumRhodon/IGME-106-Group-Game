@@ -19,6 +19,15 @@ namespace IGME106GroupGame.GameObjects
         //Properties
         public Texture2D Sprite { get => sprite; set => sprite = value; }
         public Vector2 Position { get => position; set => position = value; }
+        public Movement Movement => movement;
+        public Rectangle NextCollisionBox
+        {
+            get => new Rectangle((int)position.X + (int)movement.Vector.X, (int)position.Y + (int)movement.Vector.Y, sprite.Width, sprite.Height);
+        }
+        public Rectangle CollisionBox
+        {
+            get => new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
+        }
 
         // Constructor
         public GameObject(Texture2D sprite, Vector2 startingPosition)
@@ -47,6 +56,34 @@ namespace IGME106GroupGame.GameObjects
         public virtual void Draw(SpriteBatch _spriteBatch)
         {
             _spriteBatch.Draw(sprite, position, Color.White);
+        }
+
+        public abstract void HandleCollision(GameObject other);
+
+        public bool WillCollideX(GameObject other)
+        {
+            Rectangle NextCollisionBoxInX = new Rectangle
+            (
+                (int)position.X + (int)movement.Vector.X,
+                (int)position.Y,
+                sprite.Width,
+                sprite.Height
+            );
+
+            return NextCollisionBoxInX.Intersects(other.NextCollisionBox);
+        }
+
+        public bool WillCollideY(GameObject other)
+        {
+            Rectangle NextCollisionBoxInY = new Rectangle
+            (
+                (int)position.X,
+                (int)position.Y + (int)movement.Vector.Y,
+                sprite.Width,
+                sprite.Height
+            );
+
+            return NextCollisionBoxInY.Intersects(other.NextCollisionBox);
         }
     }
 }

@@ -10,9 +10,6 @@ namespace IGME106GroupGame.MovementAndAI
 {
     class EnemyMovement : Movement
     {
-        private bool canMoveX = true;
-        private bool canMoveY = true;
-
         private float deltaX = 0;
         private float deltaY = 0;
 
@@ -22,12 +19,38 @@ namespace IGME106GroupGame.MovementAndAI
 
         }
 
-        public void Update(Vector2 enemyPosition, Vector2 playerPosition, Vector2 enemySize)
+        public void Update(Vector2 enemyPosition, Vector2 playerPosition)
         {
             deltaX = 0;
             deltaY = 0;
 
-            MoveFromPlayer(enemyPosition, playerPosition);
+            Vector2 direction = playerPosition - enemyPosition;
+
+            //if (enemyPosition.X + vector.X < 60 || enemyPosition.X + enemySize.X + vector.X > 1860)
+            //{
+            //    canMoveX = false;
+            //}
+            //if (enemyPosition.Y + vector.Y < 60 || enemyPosition.Y + enemySize.Y + vector.Y > 1020)
+            //{
+            //    canMoveY = false;
+            //}
+
+            //if (direction.Length() > 200)
+            //{
+            //    if (canMoveX)
+            //    {
+            //        deltaX = direction.X;
+            //    }
+            //    if (canMoveY)
+            //    {
+            //        deltaY = direction.Y;
+            //    }
+            //}
+
+            // GET COLLISIONS WORKING! (Movement.Stop)
+
+            deltaX = 0;
+            deltaY = 1;
 
             vector = new Vector2(deltaX, deltaY);
             if (vector.X != 0 || vector.Y != 0)
@@ -37,76 +60,12 @@ namespace IGME106GroupGame.MovementAndAI
 
             vector *= speed;
 
-            if (enemyPosition.X + vector.X < 60 || enemyPosition.X + enemySize.X + vector.X > 1860)
-            {
-                vector.X = 0;
-            }
-            if (enemyPosition.Y + vector.Y < 60 || enemyPosition.Y + enemySize.Y + vector.Y > 1020)
-            {
-                vector.Y = 0;
-            }
+            Stop(!canMoveX, !canMoveY);
+
+            canMoveX = true;
+            canMoveY = true;
         }
-
-        private void MoveFromPlayer(Vector2 thisPosition, Vector2 playerPosition)
-        {
-            if (Vector2.Distance(thisPosition, playerPosition) < 600)
-            {
-                if (Vector2.Distance(thisPosition, playerPosition) < 500)
-                {
-                    if (thisPosition.Y > playerPosition.Y)
-                    {
-                        deltaY++;
-                    }
-                    if (thisPosition.Y < playerPosition.Y)
-                    {
-                        deltaY--;
-                    }
-                    if (thisPosition.X > playerPosition.X)
-                    {
-                        deltaX++;
-                    }
-                    if (thisPosition.X < playerPosition.X)
-                    {
-                        deltaX--;
-                    }
-                }
-                else
-                {
-                    vector = Vector2.Zero;
-                    return;
-                }
-            }
-            else
-            {
-                if (thisPosition.Y > playerPosition.Y)
-                {
-                    deltaY--;
-                }
-                if (thisPosition.Y < playerPosition.Y)
-                {
-                    deltaY++;
-                }
-                if (thisPosition.X > playerPosition.X)
-                {
-                    deltaX--;
-                }
-                if (thisPosition.X < playerPosition.X)
-                {
-                    deltaX++;
-                }
-            }
-
-            if (Math.Abs(thisPosition.Y - playerPosition.Y) < 5)
-            {
-                deltaY = 0;
-            }
-
-            if (Math.Abs(thisPosition.X - playerPosition.X) < 5)
-            {
-                deltaX = 0;
-            }
-        }
-
+        
         public override void Update()
         {
             throw new NotImplementedException();

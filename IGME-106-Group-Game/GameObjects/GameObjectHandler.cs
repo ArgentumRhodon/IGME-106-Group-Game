@@ -1,4 +1,5 @@
 ﻿using IGME106GroupGame.GameObjects;
+using IGME106GroupGame.MovementAndAI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,55 +14,53 @@ namespace IGME106GroupGame.States
     {
         // Fields
         private Player player;
-        private List<Enemy> enemies;
-        private List<Projectile> projectiles;
+        private List<GameObject> gameObjects;
 
         private Texture2D enemyTexture;
 
         public Player Player => player;
+        public List<GameObject> GameObjects
+        {
+            get => gameObjects;
+            set => gameObjects = value;
+        }
+        private List<GameObject> Enemies => gameObjects.FindAll(gameObject => gameObject is Enemy);
+        private List<GameObject> Projectiles => gameObjects.FindAll(gameObject => gameObject is Projectile);
+        private List<GameObject> Entities => gameObjects.FindAll(gameObject => gameObject is IEntity);
 
         // Constructor
-        public GameObjectHandler(Texture2D playerTexture, Texture2D enemyTexture)
+        public GameObjectHandler(Texture2D playerTexture, Texture2D enemyTexture, bool isGodMode)
         {
             this.enemyTexture = enemyTexture;
 
             // Uses the same sprite, enemy just tints it red
-            this.player = new Player(playerTexture, new Vector2(930, 510));
-            this.enemies = new List<Enemy>();
-            this.projectiles = new List<Projectile>();
+            this.player = new Player(playerTexture, new Vector2(930, 510), isGodMode);
+            gameObjects = new List<GameObject>();
+
+            gameObjects.Add(player);
         }
 
         // Methods
-        public void Update(State state)
+        public void Update(GameState state)
         {
-            // Update the player
+            HandleCollisions(state);
+            UpdateGameObjects();
+            UpdateEnemyCount();
+        }
+
+        private void UpdateGameObjects()
+        {
             player.Update();
 
-            // Update enemies
-            foreach(Enemy enemy in enemies)
+            foreach(Enemy enemy in Enemies)
             {
                 enemy.Update(enemy.Position, player.Position);
             }
 
-            // Update Projectiles
-            foreach(Projectile proj in projectiles)
+            foreach(Projectile projectile in Projectiles)
             {
-                proj.Update();
+                projectile.Update();
             }
-            if (state.MouseManager.MouseClicked())
-            {
-                projectiles.Add(new Projectile(state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30))); 
-                                                  
-            }
-
-            HandleCollisions(state);
-
-            UpdateEnemyCount();
-        }
-
-        public void AddProjectile(State state)
-        {
-            projectiles.Add(new Projectile(state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30)));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -70,80 +69,49 @@ namespace IGME106GroupGame.States
             player.Draw(spriteBatch);
 
             // Draw enemies
-            foreach(Enemy enemy in enemies)
+            foreach (Enemy enemy in Enemies)
             {
                 enemy.Draw(spriteBatch);
             }
 
             // Draw projectiles
-            foreach(Projectile proj in projectiles)
+            foreach (Projectile proj in Projectiles)
             {
                 proj.Draw(spriteBatch);
             }
         }
 
-        private void HandleCollisions(State state)
+        public void AddProjectile(State state)
         {
-            HandleEnemyProjectileCollisions();
-            HandleEnemyPlayerCollisions();
+            gameObjects.Add(new Projectile(state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30)));
+        }
+
+
+        private void HandleCollisions(GameState state)
+        {
             HandleDeadEntities();
-        }
-
-        private void HandleEnemyProjectileCollisions()
-        {
-            // Check each of the enemies
-            for(int i = 0; i < enemies.Count; i++)
+            foreach(GameObject gameObject in gameObjects)
             {
-                // Against each projectile
-                for (int j = 0; j < projectiles.Count; j++)
+                foreach(GameObject collidingObject in GetCollidingObjects(gameObject))
                 {
-                    // If it hits
-                    if (enemies[i].CollisionBox.Intersects(projectiles[j].CollisionBox))
-                    {
-                        // Enemy takes damage
-                        enemies[i].Health -= projectiles[j].Damage;
-                        // Projectile is removed
-                        projectiles[j].Health--;
-                    }
+                    gameObject.HandleCollision(collidingObject);
                 }
             }
         }
 
-        private void HandleEnemyPlayerCollisions()
+        private List<GameObject> GetCollidingObjects(GameObject check)
         {
-            // Check each enemy
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                // Against the player
-                if (enemies[i].CollisionBox.Intersects(player.CollisionBox))
-                {
-                    // Player takes damage
-                    if(player.IFrames == 0)
-                    {
-                        player.Health--;
-                        player.ActivateIFrames(30);
-                    }
-                }
-            }
+            return gameObjects.FindAll(gameObject => gameObject != check && gameObject.NextCollisionBox.Intersects(check.NextCollisionBox));
         }
 
         private void HandleDeadEntities()
         {
-            // Remove dead enemies
-            for(int i = 0; i < enemies.Count; i++)
+            List<GameObject> entities = Entities;
+            for(int i = 0; i < entities.Count; i++)
             {
-                if(enemies[i].Health <= 0)
+                if(((IEntity)entities[i]).Health <= 0)
                 {
-                    enemies.RemoveAt(i);
-                }
-            }
-
-            // Remove dead projectiles
-            for(int j = 0; j < projectiles.Count; j++)
-            {
-                if(projectiles[j].Health <= 0)
-                {
-                    projectiles.RemoveAt(j);
+                    gameObjects.Remove(entities[i]);
                 }
             }
         }
@@ -153,7 +121,7 @@ namespace IGME106GroupGame.States
             Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
             Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
 
-            while (enemies.Count < 15)
+            while (Enemies.Count < 5)
             {
                 Vector2 randomPosition = new Vector2(-1, -1);
 
@@ -166,7 +134,7 @@ namespace IGME106GroupGame.States
                     randomPosition.Y = (new Random()).Next(60, 900);
                 }
 
-                enemies.Add(new Enemy(enemyTexture, randomPosition, player.Position));
+                gameObjects.Add(new Enemy(enemyTexture, randomPosition, player.Position));
             }
         }
     }
