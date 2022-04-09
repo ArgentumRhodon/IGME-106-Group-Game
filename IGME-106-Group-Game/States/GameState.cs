@@ -88,6 +88,7 @@ namespace IGME106GroupGame.States
                 if (LeftMouseNewlyClicked())
                 {
                     gameObjectHandler.AddProjectile(this);
+                    //gameObjectHandler.AddProjectile(this);
                 }
             }
             else if(paused && gameObjectHandler.Player.Health > 0)

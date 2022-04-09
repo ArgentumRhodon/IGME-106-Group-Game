@@ -11,6 +11,9 @@ namespace IGME106GroupGame.States
 {
     class GameObjectHandler
     {
+        //number of frames between when an enemy fires a projectile
+        private int enemyFireTime;
+        Random rng = new Random();
         // Fields
         private Player player;
         private List<Enemy> enemies;
@@ -29,6 +32,7 @@ namespace IGME106GroupGame.States
             this.player = new Player(playerTexture, new Vector2(930, 510));
             this.enemies = new List<Enemy>();
             this.projectiles = new List<Projectile>();
+            this.enemyFireTime = 25;
         }
 
         // Methods
@@ -38,9 +42,14 @@ namespace IGME106GroupGame.States
             player.Update();
 
             // Update enemies
-            foreach(Enemy enemy in enemies)
+            foreach (Enemy enemy in enemies)
             {
                 enemy.Update(enemy.Position, player.Position);
+                //if(enemy.FireDelay <= 0){
+                //  AddProjectile(state, enemy);
+                //}
+                //not resetting enemyFireDelay here, it already does that in update
+                //(maybe it shouldn't...)
             }
 
             // Update Projectiles
@@ -50,18 +59,28 @@ namespace IGME106GroupGame.States
             }
             if (state.MouseManager.MouseClicked())
             {
-                projectiles.Add(new Projectile(state.Game.Content.Load<Texture2D>("gameObjects\\projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30))); 
-                                                  
+                AddProjectile(state);
+            }
+            //to be removed for the random delay
+            if(enemyFireTime <= 0)
+            {
+                enemyFireTime = 25;
+                AddProjectile(state, enemies[rng.Next(0, enemies.Count)]);
             }
 
             HandleCollisions(state);
 
             UpdateEnemyCount();
+            enemyFireTime--;
         }
 
         public void AddProjectile(State state)
         {
-            projectiles.Add(new Projectile(state.Game.Content.Load<Texture2D>("gameObjects\\projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30)));
+            projectiles.Add(new Projectile(25, state.Game.Content.Load<Texture2D>("gameObjects\\projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30), false));
+        }
+        public void AddProjectile(State state, Enemy enem)
+        {
+            projectiles.Add(new Projectile(16, state.Game.Content.Load<Texture2D>("gameObjects\\projectile"), enem.Position, player.Position, true));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -86,6 +105,7 @@ namespace IGME106GroupGame.States
         {
             HandleEnemyProjectileCollisions();
             HandleEnemyPlayerCollisions();
+            HandleProjectilePlayerCollisions();
             HandleDeadEntities();
         }
 
@@ -97,14 +117,26 @@ namespace IGME106GroupGame.States
                 // Against each projectile
                 for (int j = 0; j < projectiles.Count; j++)
                 {
-                    // If it hits
-                    if (enemies[i].CollisionBox.Intersects(projectiles[j].CollisionBox))
+                    // If it hits and it's not an enemy's
+                    if (enemies[i].CollisionBox.Intersects(projectiles[j].CollisionBox) && !projectiles[j].IsEnemyProjectile)
                     {
                         // Enemy takes damage
                         enemies[i].Health -= projectiles[j].Damage;
                         // Projectile is removed
-                        projectiles[j].Health--;
+                        if(projectiles[j].CurrentEnemy != null)
+                        {
+                            if (projectiles[j].CurrentEnemy != enemies[i])
+                            {
+                                projectiles[j].Health--;
+                                if(projectiles[j].Health <= 0)
+                                {
+                                    projectiles.RemoveAt(j);
+                                    break;
+                                }
+                            }
+                        }
                     }
+                    projectiles[j].CurrentEnemy = enemies[i];
                 }
             }
         }
@@ -119,6 +151,24 @@ namespace IGME106GroupGame.States
                 {
                     // Player takes damage
                     if(player.IFrames == 0)
+                    {
+                        player.Health--;
+                        player.ActivateIFrames(30);
+                    }
+                }
+            }
+        }
+        private void HandleProjectilePlayerCollisions()
+        {
+            // Check each projectile
+            for (int i = 0; i < projectiles.Count; i++)
+            {
+                // Against the player
+                if (projectiles[i].CollisionBox.Intersects(player.CollisionBox) && projectiles[i].IsEnemyProjectile)
+                {
+                    // Player takes damage but only if the projectile is an enemy one
+                    //so no self dmg or anything
+                    if (player.IFrames == 0)
                     {
                         player.Health--;
                         player.ActivateIFrames(30);
