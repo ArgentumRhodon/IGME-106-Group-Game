@@ -10,18 +10,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace IGME106GroupGame.UI
 {
-    public enum HAlign
+    public enum Alignment
     {
-        Left,
-        Center,
-        Right
-    }
-
-    public enum VAlign
-    {
-        Top,
+        Begin,
         Middle,
-        Bottom
+        End
     }
 
     public class UserInterface

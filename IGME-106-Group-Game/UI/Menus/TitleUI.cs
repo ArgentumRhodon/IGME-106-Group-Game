@@ -1,13 +1,5 @@
-﻿using LevelEditor;
+﻿using IGME106GroupGame.States;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IGME106GroupGame.States;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace IGME106GroupGame.UI.Menus
 {
@@ -15,14 +7,6 @@ namespace IGME106GroupGame.UI.Menus
     {
         // - Fields -
         private Game1 game;
-
-        private Texture2D titleTexture;
-        private Texture2D titleArtTexture;
-        private Texture2D startButtonTexture;
-        private Texture2D startAsGodButtonTexture;
-        private Texture2D optionsButtonTexture;
-        private Texture2D levelEditorButtonTexture;
-        private Texture2D quitButtonTexture;
 
         private LevelEditor.Form1 levelEditorForm;
 
@@ -40,28 +24,12 @@ namespace IGME106GroupGame.UI.Menus
         /// </summary>
         public override void LoadContent()
         {
-            LoadImages();
-
-            images.Add(new Image(titleArtTexture, 0, 0, HAlign.Left, VAlign.Top));
-            images.Add(new Image(titleTexture, 0, 100, HAlign.Left, VAlign.Middle));
-            buttons.Add(new Button(new Image(startButtonTexture, 30, 335, HAlign.Left, VAlign.Top), (State state) => { state.NextState = new GameState(game); }));
-            buttons.Add(new Button(new Image(startAsGodButtonTexture, 30, 510, HAlign.Left, VAlign.Top), (State state) => { state.NextState = new GameState(game, true); }));
-            buttons.Add(new Button(new Image(levelEditorButtonTexture, 30, 685, HAlign.Left, VAlign.Top), (State state) => { (new LevelEditor.Form1()).Show(); }));
-            buttons.Add(new Button(new Image(quitButtonTexture, 30, 860, HAlign.Left, VAlign.Top), (State state) => { Environment.Exit(0); }));
-        }
-
-        /// <summary>
-        /// Loads all of the textures used in the UI
-        /// </summary>
-        public void LoadImages()
-        {
-            titleTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleTexture");
-            titleArtTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleArt");
-            startButtonTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\startText");
-            startAsGodButtonTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\startAsGod");
-            optionsButtonTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\optionsText");
-            levelEditorButtonTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\levelEditorText");
-            quitButtonTexture = game.Content.Load<Texture2D>("uiAssets\\titleScreen\\quitText");
+            images.Add(new Image(game.Assets.Get("titleArt"), 0, 0, Alignment.Begin, Alignment.Begin, game.Graphics));
+            images.Add(new Image(game.Assets.Get("titleTexture"), 0, 75, Alignment.Begin, Alignment.Begin, game.Graphics));
+            buttons.Add(new Button(new Image(game.Assets.Get("startText"), 30, -205, Alignment.Begin, Alignment.Middle, game.Graphics), (State state) => { state.NextState = new GameState(game); }));
+            buttons.Add(new Button(new Image(game.Assets.Get("startAsGod"), 30, -30, Alignment.Begin, Alignment.Middle, game.Graphics), (State state) => { state.NextState = new GameState(game, true); }));
+            buttons.Add(new Button(new Image(game.Assets.Get("levelEditorText"), 30, 145, Alignment.Begin, Alignment.Middle, game.Graphics), (State state) => { (new LevelEditor.Form1()).Show(); }));
+            buttons.Add(new Button(new Image(game.Assets.Get("quitText"), 30, 320, Alignment.Begin, Alignment.Middle, game.Graphics), (State state) => { Environment.Exit(0); }));
         }
     }
 }

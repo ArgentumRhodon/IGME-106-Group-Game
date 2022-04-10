@@ -36,7 +36,7 @@ namespace IGME106GroupGame.States
         }
 
         // Methods
-        public void Update(State state)
+        public void Update(GameState state)
         {
             // Update the player
             player.Update();
@@ -77,6 +77,7 @@ namespace IGME106GroupGame.States
         public void AddProjectile(State state)
         {
             projectiles.Add(new Projectile(25, state.Game.Content.Load<Texture2D>("gameObjects\\projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30), false));
+            projectiles.Add(new Projectile(state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30)));
         }
         public void AddProjectile(State state, Enemy enem)
         {
@@ -101,11 +102,13 @@ namespace IGME106GroupGame.States
             }
         }
 
-        private void HandleCollisions(State state)
+        private void HandleCollisions(GameState state)
         {
             HandleEnemyProjectileCollisions();
-            HandleEnemyPlayerCollisions();
-            HandleProjectilePlayerCollisions();
+            if(!state.GodModeEnabled)
+            {
+                HandleEnemyPlayerCollisions();
+            }
             HandleDeadEntities();
         }
 

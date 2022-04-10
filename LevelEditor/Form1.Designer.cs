@@ -77,7 +77,6 @@ namespace LevelEditor
             // 
             this.textBoxHeight.Location = new System.Drawing.Point(93, 76);
             this.textBoxHeight.Name = "textBoxHeight";
-            this.textBoxHeight.ReadOnly = true;
             this.textBoxHeight.Size = new System.Drawing.Size(100, 23);
             this.textBoxHeight.TabIndex = 3;
             this.textBoxHeight.Text = "18";
@@ -86,7 +85,6 @@ namespace LevelEditor
             // 
             this.textBoxWidth.Location = new System.Drawing.Point(93, 35);
             this.textBoxWidth.Name = "textBoxWidth";
-            this.textBoxWidth.ReadOnly = true;
             this.textBoxWidth.Size = new System.Drawing.Size(100, 23);
             this.textBoxWidth.TabIndex = 2;
             this.textBoxWidth.Text = "32";

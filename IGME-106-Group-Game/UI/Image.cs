@@ -9,8 +9,10 @@ namespace IGME106GroupGame.UI
     public class Image
     {
         // - Fields -
-        private HAlign hAlign;
-        private VAlign vAlign;
+        private Alignment hAlign;
+        private Alignment vAlign;
+        private int windowWidth;
+        private int windowHeight;
 
         private Texture2D texture;
         private Rectangle rectangle;
@@ -48,37 +50,21 @@ namespace IGME106GroupGame.UI
         /// <summary>
         /// The constuctor used if a width, height, and color are not given. Sets dimensions based on texture and defaults the color to white
         /// </summary>
-        public Image(Texture2D texture, int x, int y, HAlign hAlign, VAlign vAlign)
-            : this(texture, x, y, texture.Width, texture.Height, Color.White, hAlign, vAlign)
+        public Image(Texture2D texture, int x, int y, Alignment hAlign, Alignment vAlign, GraphicsDeviceManager graphics)
+            : this(texture, x, y, Color.White, hAlign, vAlign, graphics)
         {
 
         }
 
-        /// <summary>
-        /// The constuctor used if a width and height are not given. Sets values based on texture
-        /// </summary>
-        public Image(Texture2D texture, int x, int y, Color tint, HAlign hAlign, VAlign vAlign)
-            : this(texture, x, y, texture.Width, texture.Height, tint, hAlign, vAlign)
-        {
-            
-        }
-
-        /// <summary>
-        /// The constuctor used if a color is not given. Defaults the color to white
-        /// </summary>
-        public Image(Texture2D texture, int x, int y, int width, int height, HAlign hAlign, VAlign vAlign)
-            : this(texture, x, y, width, height, Color.White, hAlign, vAlign)
-        {
-
-        }
-
-        public Image(Texture2D texture, int x, int y, int width, int height, Color tint, HAlign hAlign, VAlign vAlign)
+        public Image(Texture2D texture, int x, int y, Color tint, Alignment hAlign, Alignment vAlign, GraphicsDeviceManager graphics)
         {
             this.texture = texture;
-            rectangle = new Rectangle(x, y, width, height);
+            rectangle = new Rectangle(x, y, texture.Width, texture.Height);
             this.tint = tint;
             this.hAlign = hAlign;
             this.vAlign = vAlign;
+            windowWidth = graphics.PreferredBackBufferWidth;
+            windowHeight = graphics.PreferredBackBufferHeight;
         }
 
         // - Methods -
@@ -91,23 +77,24 @@ namespace IGME106GroupGame.UI
 
             switch(hAlign)
             {
-                case HAlign.Right:
-                    drawingRect.X -= rectangle.Width;
+                case Alignment.End:
+                    drawingRect.X = windowWidth - rectangle.Width + X;
+
                     break;
 
-                case HAlign.Center:
-                    drawingRect.X -= rectangle.Width / 2;
+                case Alignment.Middle:
+                    drawingRect.X = windowWidth / 2 - rectangle.Width / 2 + X;
                     break;
             }
 
             switch(vAlign)
             {
-                case VAlign.Bottom:
-                    drawingRect.Y -= rectangle.Height;
+                case Alignment.End:
+                    drawingRect.Y = windowHeight - rectangle.Height + Y;
                     break;
 
-                case VAlign.Middle:
-                    drawingRect.Y -= rectangle.Height / 2;
+                case Alignment.Middle:
+                    drawingRect.Y = windowHeight / 2 - rectangle.Height / 2 + Y;
                     break;
             }
 

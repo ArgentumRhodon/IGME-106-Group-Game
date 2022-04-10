@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using IGME106GroupGame.UI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -14,6 +15,7 @@ namespace IGME106GroupGame.Levels
         // Fields
         private Tile[,] tiles;
         private string filePath;
+        private Assets assets;
 
         // Tile sprites
         private Texture2D[] cornerSprites;
@@ -32,10 +34,10 @@ namespace IGME106GroupGame.Levels
         /// </summary>
         /// <param name="content">The Content Manager</param>
         /// <param name="filePath">The file path of the map</param>
-        public Map(ContentManager content, string filePath)
+        public Map(Assets assets, string filePath)
         {
-            LoadContent(content);
             this.filePath = filePath;
+            this.assets = assets;
             InitializeMap();
         }
 
@@ -80,7 +82,7 @@ namespace IGME106GroupGame.Levels
                 streamReader = new StreamReader(filePath);
                 LoadTiles(streamReader);
             }
-            catch(IOException ex)
+            catch(IOException)
             {
                 throw new Exception("Couldn't read from file " + filePath);
             }
@@ -144,25 +146,25 @@ namespace IGME106GroupGame.Levels
             switch (tileRepresentative)
             {
                 case '1':
-                    return cornerSprites[3];
+                    return assets.Get("topRightWall");
                 case '2':
-                    return cornerSprites[2];
+                    return assets.Get("topLeftWall");
                 case '3':
-                    return cornerSprites[1];
+                    return assets.Get("bottomRightWall");
                 case '4':
-                    return cornerSprites[0];
+                    return assets.Get("bottomLeftWall");
                 case 'A':
-                    return wallSprites[1];
+                    return assets.Get("northWall");
                 case 'B':
-                    return wallSprites[0];
+                    return assets.Get("eastWall");
                 case 'C':
-                    return wallSprites[2];
+                    return assets.Get("southWall");
                 case 'D':
-                    return wallSprites[3];
+                    return assets.Get("westWall");
                 case '-':
-                    return floorSprite;
+                    return assets.Get("floor");
                 default:
-                    return baseSprite;
+                    return assets.Get("base");
             }
         }
     }
