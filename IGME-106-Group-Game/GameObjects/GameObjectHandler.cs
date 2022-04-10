@@ -76,12 +76,11 @@ namespace IGME106GroupGame.States
 
         public void AddProjectile(State state)
         {
-            projectiles.Add(new Projectile(25, state.Game.Content.Load<Texture2D>("gameObjects\\projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30), false));
-            projectiles.Add(new Projectile(state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30)));
+            projectiles.Add(new Projectile(25, state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30), false));
         }
         public void AddProjectile(State state, Enemy enem)
         {
-            projectiles.Add(new Projectile(16, state.Game.Content.Load<Texture2D>("gameObjects\\projectile"), enem.Position, player.Position, true));
+            projectiles.Add(new Projectile(16, state.Game.Assets.Get("projectile"), enem.Position, player.Position, true));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -109,6 +108,7 @@ namespace IGME106GroupGame.States
             {
                 HandleEnemyPlayerCollisions();
             }
+            HandleProjectilePlayerCollisions();
             HandleDeadEntities();
         }
 
