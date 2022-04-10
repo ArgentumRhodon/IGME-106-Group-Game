@@ -1,4 +1,5 @@
 ﻿using IGME106GroupGame.GameObjects;
+using IGME106GroupGame.MovementAndAI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -16,50 +17,53 @@ namespace IGME106GroupGame.States
         Random rng = new Random();
         // Fields
         private Player player;
-        private List<Enemy> enemies;
-        private List<Projectile> projectiles;
+        private List<GameObject> gameObjects;
 
         private Texture2D enemyTexture;
 
         public Player Player => player;
+        public List<GameObject> GameObjects
+        {
+            get => gameObjects;
+            set => gameObjects = value;
+        }
+        private List<GameObject> Enemies => gameObjects.FindAll(gameObject => gameObject is Enemy);
+        private List<GameObject> Projectiles => gameObjects.FindAll(gameObject => gameObject is Projectile);
+        private List<GameObject> Entities => gameObjects.FindAll(gameObject => gameObject is IEntity);
 
         // Constructor
-        public GameObjectHandler(Texture2D playerTexture, Texture2D enemyTexture)
+        public GameObjectHandler(Texture2D playerTexture, Texture2D enemyTexture, bool isGodMode)
         {
             this.enemyTexture = enemyTexture;
+            this.enemyFireTime = 25;
 
             // Uses the same sprite, enemy just tints it red
-            this.player = new Player(playerTexture, new Vector2(930, 510));
-            this.enemies = new List<Enemy>();
-            this.projectiles = new List<Projectile>();
-            this.enemyFireTime = 25;
+            this.player = new Player(playerTexture, new Vector2(930, 510), isGodMode);
+            gameObjects = new List<GameObject>();
+            
+            gameObjects.Add(player);
         }
 
         // Methods
-        public void Update(GameState state)
+        public void Update()
         {
-            // Update the player
-            player.Update();
+            UpdateGameObjects();
+            HandleDeadEntities();
+            UpdateEnemyCount();
+        }
 
-            // Update enemies
-            foreach (Enemy enemy in enemies)
+        private void UpdateGameObjects()
+        {
+            player.Update(this);
+
+            foreach(Enemy enemy in Enemies)
             {
-                enemy.Update(enemy.Position, player.Position);
-                //if(enemy.FireDelay <= 0){
-                //  AddProjectile(state, enemy);
-                //}
-                //not resetting enemyFireDelay here, it already does that in update
-                //(maybe it shouldn't...)
+                enemy.Update(this, enemy.Position, player.Position);
             }
 
-            // Update Projectiles
-            foreach(Projectile proj in projectiles)
+            foreach(Projectile projectile in Projectiles)
             {
-                proj.Update();
-            }
-            if (state.MouseManager.MouseClicked())
-            {
-                AddProjectile(state);
+                projectile.Update(this);
             }
             //to be removed for the random delay
             if(enemyFireTime <= 0)
@@ -67,8 +71,6 @@ namespace IGME106GroupGame.States
                 enemyFireTime = 25;
                 AddProjectile(state, enemies[rng.Next(0, enemies.Count)]);
             }
-
-            HandleCollisions(state);
 
             UpdateEnemyCount();
             enemyFireTime--;
@@ -89,77 +91,43 @@ namespace IGME106GroupGame.States
             player.Draw(spriteBatch);
 
             // Draw enemies
-            foreach(Enemy enemy in enemies)
+            foreach (Enemy enemy in Enemies)
             {
                 enemy.Draw(spriteBatch);
             }
 
             // Draw projectiles
-            foreach(Projectile proj in projectiles)
+            foreach (Projectile proj in Projectiles)
             {
                 proj.Draw(spriteBatch);
             }
         }
 
-        private void HandleCollisions(GameState state)
-        {
-            HandleEnemyProjectileCollisions();
-            if(!state.GodModeEnabled)
-            {
-                HandleEnemyPlayerCollisions();
-            }
-            HandleProjectilePlayerCollisions();
-            HandleDeadEntities();
-        }
 
-        private void HandleEnemyProjectileCollisions()
-        {
-            // Check each of the enemies
-            for(int i = 0; i < enemies.Count; i++)
-            {
-                // Against each projectile
-                for (int j = 0; j < projectiles.Count; j++)
-                {
-                    // If it hits and it's not an enemy's
-                    if (enemies[i].CollisionBox.Intersects(projectiles[j].CollisionBox) && !projectiles[j].IsEnemyProjectile)
-                    {
-                        // Enemy takes damage
-                        enemies[i].Health -= projectiles[j].Damage;
-                        // Projectile is removed
-                        if(projectiles[j].CurrentEnemy != null)
-                        {
-                            if (projectiles[j].CurrentEnemy != enemies[i])
-                            {
-                                projectiles[j].Health--;
-                                if(projectiles[j].Health <= 0)
-                                {
-                                    projectiles.RemoveAt(j);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    projectiles[j].CurrentEnemy = enemies[i];
-                }
-            }
-        }
 
-        private void HandleEnemyPlayerCollisions()
+        //private void HandleEnemyProjectileCollisions()
+        //{
+        //    // Check each of the enemies
+        //    for(int i = 0; i < enemies.Count; i++)
+        //    {
+        //        // Against each projectile
+        //        for (int j = 0; j < projectiles.Count; j++)
+        //        {
+        //            // If it hits
+        //            if (enemies[i].CollisionBox.Intersects(projectiles[j].CollisionBox))
+        //            {
+        //                // Enemy takes damage
+        //                enemies[i].Health -= projectiles[j].Damage;
+        //                // Projectile is removed
+        //                projectiles[j].Health--;
+        //            }
+        //        }
+        //    }
+        //}
+
+        public List<GameObject> GetCollidingObjects(GameObject check)
         {
-            // Check each enemy
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                // Against the player
-                if (enemies[i].CollisionBox.Intersects(player.CollisionBox))
-                {
-                    // Player takes damage
-                    if(player.IFrames == 0)
-                    {
-                        player.Health--;
-                        player.ActivateIFrames(30);
-                    }
-                }
-            }
+            return gameObjects.FindAll(gameObject => gameObject != check && gameObject.NextCollisionBox.Intersects(check.NextCollisionBox));
         }
         private void HandleProjectilePlayerCollisions()
         {
@@ -182,21 +150,12 @@ namespace IGME106GroupGame.States
 
         private void HandleDeadEntities()
         {
-            // Remove dead enemies
-            for(int i = 0; i < enemies.Count; i++)
+            List<GameObject> entities = Entities;
+            for(int i = 0; i < entities.Count; i++)
             {
-                if(enemies[i].Health <= 0)
+                if(((IEntity)entities[i]).Health <= 0)
                 {
-                    enemies.RemoveAt(i);
-                }
-            }
-
-            // Remove dead projectiles
-            for(int j = 0; j < projectiles.Count; j++)
-            {
-                if(projectiles[j].Health <= 0)
-                {
-                    projectiles.RemoveAt(j);
+                    gameObjects.Remove(entities[i]);
                 }
             }
         }
@@ -206,7 +165,7 @@ namespace IGME106GroupGame.States
             Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
             Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
 
-            while (enemies.Count < 15)
+            while (Enemies.Count < 15)
             {
                 Vector2 randomPosition = new Vector2(-1, -1);
 
@@ -219,7 +178,7 @@ namespace IGME106GroupGame.States
                     randomPosition.Y = (new Random()).Next(60, 900);
                 }
 
-                enemies.Add(new Enemy(enemyTexture, randomPosition, player.Position));
+                gameObjects.Add(new Enemy(enemyTexture, randomPosition, player.Position));
             }
         }
     }
