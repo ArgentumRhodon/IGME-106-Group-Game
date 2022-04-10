@@ -26,7 +26,7 @@ namespace IGME106GroupGame.MovementAndAI
 
             Vector2 direction = playerPosition - enemyPosition;
 
-            if (direction.Length() > 400)
+            if (direction.Length() > 500)
             {
                 deltaX = direction.X;
                 deltaY = direction.Y;

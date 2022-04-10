@@ -45,14 +45,14 @@ namespace IGME106GroupGame.States
         }
 
         // Methods
-        public void Update()
+        public void Update(GameState state)
         {
-            UpdateGameObjects();
+            UpdateGameObjects(state);
             HandleDeadEntities();
             UpdateEnemyCount();
         }
 
-        private void UpdateGameObjects()
+        private void UpdateGameObjects(GameState state)
         {
             player.Update(this);
 
@@ -69,7 +69,7 @@ namespace IGME106GroupGame.States
             if(enemyFireTime <= 0)
             {
                 enemyFireTime = 25;
-                AddProjectile(state, enemies[rng.Next(0, enemies.Count)]);
+                AddProjectile(state, (Enemy)Enemies[rng.Next(0, Enemies.Count)]);
             }
 
             UpdateEnemyCount();
@@ -78,11 +78,11 @@ namespace IGME106GroupGame.States
 
         public void AddProjectile(State state)
         {
-            projectiles.Add(new Projectile(25, state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30), false));
+            gameObjects.Add(new Projectile(25, state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30), false));
         }
         public void AddProjectile(State state, Enemy enem)
         {
-            projectiles.Add(new Projectile(16, state.Game.Assets.Get("projectile"), enem.Position, player.Position, true));
+            gameObjects.Add(new Projectile(16, state.Game.Assets.Get("slimeBall"), enem.Position, player.Position, true));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -103,49 +103,9 @@ namespace IGME106GroupGame.States
             }
         }
 
-
-
-        //private void HandleEnemyProjectileCollisions()
-        //{
-        //    // Check each of the enemies
-        //    for(int i = 0; i < enemies.Count; i++)
-        //    {
-        //        // Against each projectile
-        //        for (int j = 0; j < projectiles.Count; j++)
-        //        {
-        //            // If it hits
-        //            if (enemies[i].CollisionBox.Intersects(projectiles[j].CollisionBox))
-        //            {
-        //                // Enemy takes damage
-        //                enemies[i].Health -= projectiles[j].Damage;
-        //                // Projectile is removed
-        //                projectiles[j].Health--;
-        //            }
-        //        }
-        //    }
-        //}
-
         public List<GameObject> GetCollidingObjects(GameObject check)
         {
             return gameObjects.FindAll(gameObject => gameObject != check && gameObject.NextCollisionBox.Intersects(check.NextCollisionBox));
-        }
-        private void HandleProjectilePlayerCollisions()
-        {
-            // Check each projectile
-            for (int i = 0; i < projectiles.Count; i++)
-            {
-                // Against the player
-                if (projectiles[i].CollisionBox.Intersects(player.CollisionBox) && projectiles[i].IsEnemyProjectile)
-                {
-                    // Player takes damage but only if the projectile is an enemy one
-                    //so no self dmg or anything
-                    if (player.IFrames == 0)
-                    {
-                        player.Health--;
-                        player.ActivateIFrames(30);
-                    }
-                }
-            }
         }
 
         private void HandleDeadEntities()
@@ -165,7 +125,7 @@ namespace IGME106GroupGame.States
             Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
             Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
 
-            while (Enemies.Count < 15)
+            while (Enemies.Count < 10)
             {
                 Vector2 randomPosition = new Vector2(-1, -1);
 
