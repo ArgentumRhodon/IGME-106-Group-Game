@@ -16,8 +16,12 @@ namespace IGME106GroupGame.MovementAndAI
         protected float speed;
 
         // Properties
-        public Vector2 Vector => vector;
-        
+        public Vector2 Vector
+        {
+            get => vector;
+            set => vector = value;
+        }
+
         // Constructor
         public Movement(float speed)
         {
@@ -25,6 +29,17 @@ namespace IGME106GroupGame.MovementAndAI
             this.vector = new Vector2(0, 0);
         }
 
+        // Methods
         public abstract void Update();
+
+        public void Stop(bool stopX, bool stopY)
+        {
+            vector = new Vector2
+            (
+                stopX ? 0 : vector.X,
+                stopY ? 0 : vector.Y
+            );
+        }
+
     }
 }

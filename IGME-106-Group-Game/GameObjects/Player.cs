@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using IGME106GroupGame.MovementAndAI;
+using IGME106GroupGame.States;
 
 namespace IGME106GroupGame.GameObjects
 {
@@ -12,6 +13,7 @@ namespace IGME106GroupGame.GameObjects
         //Fields
         private int health;
         private int iFrames;
+        private bool isInvincible;
 
         //Properties
         public int Health { get => health; set => health = value; }
@@ -27,42 +29,42 @@ namespace IGME106GroupGame.GameObjects
                 iFrames = value;
             }
         }
-        public Rectangle CollisionBox
-        {
-            get => new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
-        }
 
         //Constructor
-        public Player(Texture2D sprite, Vector2 startPos) :
+        public Player(Texture2D sprite, Vector2 startPos, bool isInvincible) :
             base(sprite, startPos)
         {
-            
+            this.isInvincible = isInvincible;
             movement = new PlayerMovement(9);
             health = 6;
             iFrames = 0;
         }
 
         /// <summary>
-        /// Activates invincibility frames for the player
-        /// </summary>
-        /// <param name="numFrames">The number of invincibility frames to give to the player</param>
-        public void ActivateIFrames(int numFrames)
-        {
-            IFrames = numFrames;
-        }
-
-        /// <summary>
         /// Updates the player's position and gets rid of i-frames gradually once they are given
         /// </summary>
         /// <param name="targetPosition">The new position for the player</param>
-        public void Update()
+        public override void Update(GameObjectHandler gameObjectHandler)
         {
             ((PlayerMovement)movement).Update(position, new Vector2(sprite.Width, sprite.Height));
+            HandleCollisions(gameObjectHandler);
             position += movement.Vector;
 
             if(iFrames > 0)
             {
                 iFrames--;
+            }
+        }
+
+        public override void HandleCollision(GameObject other)
+        {
+            if(other is Enemy || (other is Projectile && ((Projectile)other).IsEnemyProjectile))
+            {
+                if(iFrames == 0 && !isInvincible)
+                {
+                    health--;
+                    IFrames = 30;
+                }
             }
         }
     }

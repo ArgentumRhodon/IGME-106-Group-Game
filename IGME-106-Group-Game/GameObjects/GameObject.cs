@@ -1,4 +1,5 @@
 ﻿using IGME106GroupGame.MovementAndAI;
+using IGME106GroupGame.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -19,6 +20,15 @@ namespace IGME106GroupGame.GameObjects
         //Properties
         public Texture2D Sprite { get => sprite; set => sprite = value; }
         public Vector2 Position { get => position; set => position = value; }
+        public Movement Movement => movement;
+        public Rectangle NextCollisionBox
+        {
+            get => new Rectangle((int)position.X + (int)movement.Vector.X, (int)position.Y + (int)movement.Vector.Y, sprite.Width, sprite.Height);
+        }
+        public Rectangle CollisionBox
+        {
+            get => new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
+        }
 
         // Constructor
         public GameObject(Texture2D sprite, Vector2 startingPosition)
@@ -33,9 +43,10 @@ namespace IGME106GroupGame.GameObjects
         /// Takes a target position and updates the movement of the object with said position
         /// </summary>
         /// <param name="targetPosition">The target position of the object</param>
-        public virtual void Update()
+        public virtual void Update(GameObjectHandler gameObjectHandler)
         {
             movement.Update();
+            HandleCollisions(gameObjectHandler);
             position += movement.Vector;
         }
 
@@ -47,6 +58,42 @@ namespace IGME106GroupGame.GameObjects
         public virtual void Draw(SpriteBatch _spriteBatch)
         {
             _spriteBatch.Draw(sprite, position, Color.White);
+        }
+
+        protected void HandleCollisions(GameObjectHandler objectHandler)
+        {
+            foreach (GameObject collidingObject in objectHandler.GetCollidingObjects(this))
+            {
+                HandleCollision(collidingObject);
+            }
+        }
+
+        public abstract void HandleCollision(GameObject other);
+
+        public bool WillCollideX(GameObject other)
+        {
+            Rectangle NextCollisionBoxInX = new Rectangle
+            (
+                (int)position.X + (int)movement.Vector.X,
+                (int)position.Y,
+                sprite.Width,
+                sprite.Height
+            );
+
+            return NextCollisionBoxInX.Intersects(other.NextCollisionBox);
+        }
+
+        public bool WillCollideY(GameObject other)
+        {
+            Rectangle NextCollisionBoxInY = new Rectangle
+            (
+                (int)position.X,
+                (int)position.Y + (int)movement.Vector.Y,
+                sprite.Width,
+                sprite.Height
+            );
+
+            return NextCollisionBoxInY.Intersects(other.NextCollisionBox);
         }
     }
 }

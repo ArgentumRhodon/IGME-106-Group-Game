@@ -51,7 +51,7 @@ namespace IGME106GroupGame.States
             this.godMode = godMode;
             paused = false;
             level = new Level(game.Assets);
-            gameObjectHandler = new GameObjectHandler(game.Assets.Get("player"), game.Assets.Get("enemy"));
+            gameObjectHandler = new GameObjectHandler(game.Assets.Get("player"), game.Assets.Get("enemy"), godMode);
             ui = new GameUI(game, gameObjectHandler.Player);
             pauseUI = new PauseUI(game);
             deathUI = new DeathUI(game);
@@ -84,6 +84,7 @@ namespace IGME106GroupGame.States
                 if (LeftMouseNewlyClicked())
                 {
                     gameObjectHandler.AddProjectile(this);
+                    //gameObjectHandler.AddProjectile(this);
                 }
             }
             else if(paused && gameObjectHandler.Player.Health > 0)
