@@ -1,4 +1,5 @@
 ﻿using IGME106GroupGame.MovementAndAI;
+using IGME106GroupGame.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -42,9 +43,10 @@ namespace IGME106GroupGame.GameObjects
         /// Takes a target position and updates the movement of the object with said position
         /// </summary>
         /// <param name="targetPosition">The target position of the object</param>
-        public virtual void Update()
+        public virtual void Update(GameObjectHandler gameObjectHandler)
         {
             movement.Update();
+            HandleCollisions(gameObjectHandler);
             position += movement.Vector;
         }
 
@@ -56,6 +58,14 @@ namespace IGME106GroupGame.GameObjects
         public virtual void Draw(SpriteBatch _spriteBatch)
         {
             _spriteBatch.Draw(sprite, position, Color.White);
+        }
+
+        protected void HandleCollisions(GameObjectHandler objectHandler)
+        {
+            foreach (GameObject collidingObject in objectHandler.GetCollidingObjects(this))
+            {
+                HandleCollision(collidingObject);
+            }
         }
 
         public abstract void HandleCollision(GameObject other);

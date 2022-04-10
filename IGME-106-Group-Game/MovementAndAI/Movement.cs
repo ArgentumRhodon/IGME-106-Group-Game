@@ -14,18 +14,12 @@ namespace IGME106GroupGame.MovementAndAI
         // Fields
         protected Vector2 vector;
         protected float speed;
-        protected bool canMoveX = true;
-        protected bool canMoveY = true;
 
         // Properties
-        public Vector2 Vector => vector;
-        public bool CanMoveX
+        public Vector2 Vector
         {
-            set => canMoveX = value;
-        }
-        public bool CanMoveY
-        {
-            set => canMoveY = value;
+            get => vector;
+            set => vector = value;
         }
 
         // Constructor

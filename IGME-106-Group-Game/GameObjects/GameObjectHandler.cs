@@ -41,25 +41,25 @@ namespace IGME106GroupGame.States
         }
 
         // Methods
-        public void Update(GameState state)
+        public void Update()
         {
-            HandleCollisions(state);
             UpdateGameObjects();
+            HandleDeadEntities();
             UpdateEnemyCount();
         }
 
         private void UpdateGameObjects()
         {
-            player.Update();
+            player.Update(this);
 
             foreach(Enemy enemy in Enemies)
             {
-                enemy.Update(enemy.Position, player.Position);
+                enemy.Update(this, enemy.Position, player.Position);
             }
 
             foreach(Projectile projectile in Projectiles)
             {
-                projectile.Update();
+                projectile.Update(this);
             }
         }
 
@@ -86,20 +86,7 @@ namespace IGME106GroupGame.States
             gameObjects.Add(new Projectile(state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30)));
         }
 
-
-        private void HandleCollisions(GameState state)
-        {
-            HandleDeadEntities();
-            foreach(GameObject gameObject in gameObjects)
-            {
-                foreach(GameObject collidingObject in GetCollidingObjects(gameObject))
-                {
-                    gameObject.HandleCollision(collidingObject);
-                }
-            }
-        }
-
-        private List<GameObject> GetCollidingObjects(GameObject check)
+        public List<GameObject> GetCollidingObjects(GameObject check)
         {
             return gameObjects.FindAll(gameObject => gameObject != check && gameObject.NextCollisionBox.Intersects(check.NextCollisionBox));
         }
@@ -121,7 +108,7 @@ namespace IGME106GroupGame.States
             Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
             Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
 
-            while (Enemies.Count < 5)
+            while (Enemies.Count < 15)
             {
                 Vector2 randomPosition = new Vector2(-1, -1);
 

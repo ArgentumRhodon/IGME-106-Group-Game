@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using IGME106GroupGame.MovementAndAI;
+using IGME106GroupGame.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,6 +12,8 @@ namespace IGME106GroupGame.GameObjects
     {
         //Fields
         private int health;
+        private bool collidedWithOtherEnemy = false;
+        private Vector2 collisionPosition;
 
         //Properties
         public int Health { get => health; set => health = value; }
@@ -24,9 +27,25 @@ namespace IGME106GroupGame.GameObjects
         }
 
         // Methods
-        public void Update(Vector2 enemyPosition, Vector2 playerPosition)
+        public void Update(GameObjectHandler gameObjectHandler, Vector2 enemyPosition, Vector2 playerPosition)
         {
             ((EnemyMovement)movement).Update(enemyPosition, playerPosition);
+            HandleCollisions(gameObjectHandler);
+            if(collidedWithOtherEnemy)
+            {
+                Vector2 direction = position - collisionPosition;
+                if (direction.Length() < 100)
+                {
+                    direction = position - collisionPosition;
+                    direction.Normalize();
+                    movement.Vector = direction * (5 / direction.Length());
+                }
+                else
+                {
+                    collidedWithOtherEnemy = false;
+                    collisionPosition = Vector2.Zero;
+                }
+            }
             position += movement.Vector;
         }
 
@@ -37,10 +56,10 @@ namespace IGME106GroupGame.GameObjects
                 health--;
             }
 
-            if(other is Player)
+            if(other is Enemy)
             {
-                movement.CanMoveX = !WillCollideX(other);
-                movement.CanMoveY = !WillCollideY(other);
+                collidedWithOtherEnemy = true;
+                collisionPosition = other.Position;
             }
         }
     }

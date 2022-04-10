@@ -80,7 +80,7 @@ namespace IGME106GroupGame.States
             //GameState logic
             if (!paused && gameObjectHandler.Player.Health > 0)
             {
-                gameObjectHandler.Update(this);
+                gameObjectHandler.Update();
                 if (LeftMouseNewlyClicked())
                 {
                     gameObjectHandler.AddProjectile(this);

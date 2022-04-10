@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using IGME106GroupGame.MovementAndAI;
+using IGME106GroupGame.States;
 
 namespace IGME106GroupGame.GameObjects
 {
@@ -43,9 +44,10 @@ namespace IGME106GroupGame.GameObjects
         /// Updates the player's position and gets rid of i-frames gradually once they are given
         /// </summary>
         /// <param name="targetPosition">The new position for the player</param>
-        public override void Update()
+        public override void Update(GameObjectHandler gameObjectHandler)
         {
             ((PlayerMovement)movement).Update(position, new Vector2(sprite.Width, sprite.Height));
+            HandleCollisions(gameObjectHandler);
             position += movement.Vector;
 
             if(iFrames > 0)

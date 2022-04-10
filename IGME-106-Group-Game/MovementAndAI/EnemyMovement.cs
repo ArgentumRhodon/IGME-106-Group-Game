@@ -26,31 +26,11 @@ namespace IGME106GroupGame.MovementAndAI
 
             Vector2 direction = playerPosition - enemyPosition;
 
-            //if (enemyPosition.X + vector.X < 60 || enemyPosition.X + enemySize.X + vector.X > 1860)
-            //{
-            //    canMoveX = false;
-            //}
-            //if (enemyPosition.Y + vector.Y < 60 || enemyPosition.Y + enemySize.Y + vector.Y > 1020)
-            //{
-            //    canMoveY = false;
-            //}
-
-            //if (direction.Length() > 200)
-            //{
-            //    if (canMoveX)
-            //    {
-            //        deltaX = direction.X;
-            //    }
-            //    if (canMoveY)
-            //    {
-            //        deltaY = direction.Y;
-            //    }
-            //}
-
-            // GET COLLISIONS WORKING! (Movement.Stop)
-
-            deltaX = 0;
-            deltaY = 1;
+            if (direction.Length() > 400)
+            {
+                deltaX = direction.X;
+                deltaY = direction.Y;
+            }
 
             vector = new Vector2(deltaX, deltaY);
             if (vector.X != 0 || vector.Y != 0)
@@ -59,11 +39,6 @@ namespace IGME106GroupGame.MovementAndAI
             }
 
             vector *= speed;
-
-            Stop(!canMoveX, !canMoveY);
-
-            canMoveX = true;
-            canMoveY = true;
         }
         
         public override void Update()
