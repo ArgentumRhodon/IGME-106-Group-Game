@@ -56,6 +56,18 @@ namespace IGME106GroupGame.GameObjects
             }
         }
 
+        public override void Draw(SpriteBatch _spriteBatch)
+        {
+            if(iFrames != 0)
+            {
+                _spriteBatch.Draw(sprite, position, Color.Red);
+            }
+            else
+            {
+                base.Draw(_spriteBatch);
+            }
+        }
+
         public override void HandleCollision(GameObject other)
         {
             if(other is Enemy || (other is Projectile && ((Projectile)other).IsEnemyProjectile))

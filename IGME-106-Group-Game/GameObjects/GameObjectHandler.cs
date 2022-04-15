@@ -78,11 +78,11 @@ namespace IGME106GroupGame.States
 
         public void AddProjectile(State state)
         {
-            gameObjects.Add(new Projectile(25, state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30), false));
+            gameObjects.Add(new Projectile(25, state.Game.Assets.Get("playerStar"), player.Position, state.MouseManager.Position - new Vector2(30, 30), false));
         }
         public void AddProjectile(State state, Enemy enem)
         {
-            gameObjects.Add(new Projectile(16, state.Game.Assets.Get("slimeBall"), enem.Position, player.Position, true));
+            gameObjects.Add(new Projectile(16, state.Game.Assets.Get("enemyStar"), enem.Position, player.Position, true));
         }
 
         public void Draw(SpriteBatch spriteBatch)

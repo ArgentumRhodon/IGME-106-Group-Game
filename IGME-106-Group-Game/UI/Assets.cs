@@ -79,8 +79,8 @@ namespace IGME106GroupGame.UI
             textures.Add("base", game.Content.Load<Texture2D>("base"));
             textures.Add("enemy", game.Content.Load<Texture2D>("gameObjects\\enemy"));
             textures.Add("player", game.Content.Load<Texture2D>("gameObjects\\player"));
-            textures.Add("projectile", game.Content.Load<Texture2D>("gameObjects\\projectile"));
-            textures.Add("slimeBall", game.Content.Load<Texture2D>("gameObjects\\slimeBall"));
+            textures.Add("enemyStar", game.Content.Load<Texture2D>("gameObjects\\enemyStar"));
+            textures.Add("playerStar", game.Content.Load<Texture2D>("gameObjects\\playerStar"));
         }
     }
 }
