@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace IGME106GroupGame.GameObjects
 {
-    abstract class GameObject
+    public abstract class GameObject
     {
         // Fields
         protected Texture2D sprite;
@@ -50,7 +50,6 @@ namespace IGME106GroupGame.GameObjects
             position += movement.Vector;
         }
 
-
         /// <summary>
         /// Draws the object to the screen 
         /// </summary>
@@ -70,30 +69,32 @@ namespace IGME106GroupGame.GameObjects
 
         public abstract void HandleCollision(GameObject other);
 
-        public bool WillCollideX(GameObject other)
-        {
-            Rectangle NextCollisionBoxInX = new Rectangle
-            (
-                (int)position.X + (int)movement.Vector.X,
-                (int)position.Y,
-                sprite.Width,
-                sprite.Height
-            );
+        #region StopLogic
+        //public bool WillCollideX(GameObject other)
+        //{
+        //    Rectangle NextCollisionBoxInX = new Rectangle
+        //    (
+        //        (int)position.X + (int)movement.Vector.X,
+        //        (int)position.Y,
+        //        sprite.Width,
+        //        sprite.Height
+        //    );
 
-            return NextCollisionBoxInX.Intersects(other.NextCollisionBox);
-        }
+        //    return NextCollisionBoxInX.Intersects(other.NextCollisionBox);
+        //}
 
-        public bool WillCollideY(GameObject other)
-        {
-            Rectangle NextCollisionBoxInY = new Rectangle
-            (
-                (int)position.X,
-                (int)position.Y + (int)movement.Vector.Y,
-                sprite.Width,
-                sprite.Height
-            );
+        //public bool WillCollideY(GameObject other)
+        //{
+        //    Rectangle NextCollisionBoxInY = new Rectangle
+        //    (
+        //        (int)position.X,
+        //        (int)position.Y + (int)movement.Vector.Y,
+        //        sprite.Width,
+        //        sprite.Height
+        //    );
 
-            return NextCollisionBoxInY.Intersects(other.NextCollisionBox);
-        }
+        //    return NextCollisionBoxInY.Intersects(other.NextCollisionBox);
+        //}
+        #endregion
     }
 }

@@ -8,7 +8,7 @@ using IGME106GroupGame.States;
 
 namespace IGME106GroupGame.GameObjects
 {
-    class Player : GameObject, IEntity
+    public class Player : GameObject, IEntity
     {
         //Fields
         private int health;
@@ -34,10 +34,9 @@ namespace IGME106GroupGame.GameObjects
         public Player(Texture2D sprite, Vector2 startPos, bool isInvincible) :
             base(sprite, startPos)
         {
+            movement = new PlayerMovement(8, this);
             this.isInvincible = isInvincible;
-            movement = new PlayerMovement(9);
             health = 6;
-            iFrames = 0;
         }
 
         /// <summary>
@@ -46,10 +45,7 @@ namespace IGME106GroupGame.GameObjects
         /// <param name="targetPosition">The new position for the player</param>
         public override void Update(GameObjectHandler gameObjectHandler)
         {
-            ((PlayerMovement)movement).Update(position, new Vector2(sprite.Width, sprite.Height));
-            HandleCollisions(gameObjectHandler);
-            position += movement.Vector;
-
+            base.Update(gameObjectHandler);
             if(iFrames > 0)
             {
                 iFrames--;
@@ -70,7 +66,7 @@ namespace IGME106GroupGame.GameObjects
 
         public override void HandleCollision(GameObject other)
         {
-            if(other is Enemy || (other is Projectile && ((Projectile)other).IsEnemyProjectile))
+            if(other is RangedEnemy || other is MeleeEnemy || (other is Projectile && ((Projectile)other).IsEnemyProjectile))
             {
                 if(iFrames == 0 && !isInvincible)
                 {

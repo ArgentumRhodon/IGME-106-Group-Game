@@ -11,7 +11,7 @@ using System.Text;
 
 namespace IGME106GroupGame.States
 {
-    class GameState : State
+    public class GameState : State
     {
         // Fields
         private GameObjectHandler gameObjectHandler;
@@ -51,7 +51,7 @@ namespace IGME106GroupGame.States
             this.godMode = godMode;
             paused = false;
             level = new Level(game.Assets);
-            gameObjectHandler = new GameObjectHandler(game.Assets.Get("player"), game.Assets.Get("enemy"), godMode);
+            gameObjectHandler = new GameObjectHandler(new Player(Game.Assets.Get("player"), new Vector2(930, 510), godMode));
             ui = new GameUI(game, gameObjectHandler.Player);
             pauseUI = new PauseUI(game);
             deathUI = new DeathUI(game);
@@ -83,7 +83,7 @@ namespace IGME106GroupGame.States
                 gameObjectHandler.Update(this);
                 if (LeftMouseNewlyClicked())
                 {
-                    gameObjectHandler.AddProjectile(this);
+                    gameObjectHandler.AddProjectile(Game.Assets.Get("playerStar"), gameObjectHandler.Player.Position, mouseManager.Position, false, 25);
                     //gameObjectHandler.AddProjectile(this);
                 }
             }
