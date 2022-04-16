@@ -104,6 +104,18 @@
 /processorParam:TextureFormat=Color
 /build:gameObjects/enemyStar.png
 
+#begin gameObjects/meleeNinja.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:gameObjects/meleeNinja.png
+
 #begin gameObjects/ninja.png
 /importer:TextureImporter
 /processor:TextureProcessor

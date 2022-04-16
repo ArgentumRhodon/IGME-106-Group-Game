@@ -140,7 +140,7 @@ namespace IGME106GroupGame.States
                 // 50-50 chance of melee being ninja or slimebot
                 else if (rng.Next(0, 2) == 0)
                 {
-                    gameObjects.Add(new MeleeEnemy(assets.Get("ninja"), randomPosition, player));
+                    gameObjects.Add(new MeleeEnemy(assets.Get("meleeNinja"), randomPosition, player));
                 }
                 else
                 {

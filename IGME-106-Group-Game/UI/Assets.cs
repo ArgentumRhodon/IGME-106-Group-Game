@@ -78,6 +78,7 @@ namespace IGME106GroupGame.UI
             // Game Objects Textures
             textures.Add("base", game.Content.Load<Texture2D>("base"));
             textures.Add("ninja", game.Content.Load<Texture2D>("gameObjects\\ninja"));
+            textures.Add("meleeNinja", game.Content.Load<Texture2D>("gameObjects\\meleeNinja"));
             textures.Add("slimeBot", game.Content.Load<Texture2D>("gameObjects\\slimeBot"));
             textures.Add("player", game.Content.Load<Texture2D>("gameObjects\\player"));
             textures.Add("enemyStar", game.Content.Load<Texture2D>("gameObjects\\enemyStar"));
