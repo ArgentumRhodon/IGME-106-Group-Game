@@ -11,21 +11,24 @@ namespace IGME106GroupGame.GameObjects
     public class RangedEnemy: GameObject, IEntity
     {
         //Fields
+        Random random;
         private int health;
         private bool collidedWithOtherEnemy = false;
         private Vector2 collisionPosition;
-        //private int fireDelay;
+        private int fireDelay;
 
         //Properties
         public int Health { get => health; set => health = value; }
+        public int FireDelay => fireDelay;
 
         //Constructor
         public RangedEnemy (Texture2D sprite, Vector2 startPos, Player player) : 
             base(sprite, startPos)
         {
-            movement = new RangedEnemyMovement(6, this, player);
+            movement = new RangedEnemyMovement(5, this, player);
             health = 1;
-            //fireDelay = rng.Next(45, 315);
+            random = new Random();
+            fireDelay = random.Next(45, 315);
         }
 
         // Methods
@@ -51,12 +54,13 @@ namespace IGME106GroupGame.GameObjects
             }
 
             position += movement.Vector;
-            //fireDelay--;
+
+            fireDelay--;
             //-1 so there's a frame where it actually equals 0 for the handler to check
-            //if(fireDelay <= -1)
-            //{
-            //    fireDelay = rng.Next(45, 315);
-            //}
+            if (fireDelay <= -1)
+            {
+                fireDelay = random.Next(45, 125);
+            }
         }
 
         public override void HandleCollision(GameObject other)

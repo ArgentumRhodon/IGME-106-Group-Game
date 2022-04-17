@@ -58,11 +58,12 @@ namespace IGME106GroupGame.States
                 gameObject.Update(this);
             }
 
-            //to be removed for the random delay
-            if(enemyFireTime <= 0 && RangedEnemies.Count > 0)
+            foreach(RangedEnemy rangedEnemy in RangedEnemies)
             {
-                enemyFireTime = 25;
-                AddProjectile(state.Game.Assets.Get("enemyStar"), GetRandomRangedEnemyPosition(), player.Position, true, 16);
+                if(rangedEnemy.FireDelay <= 0)
+                {
+                    AddEnemyProjectile(state.Game.Assets.Get("enemyStar"), GetRandomRangedEnemyPosition(), player.Position);
+                }
             }
 
             enemyFireTime--;
@@ -74,19 +75,14 @@ namespace IGME106GroupGame.States
             return ((RangedEnemy)RangedEnemies[index]).Position;
         }
 
-        //public void AddProjectile(State state)
-        //{
-        //    gameObjects.Add(new Projectile(25, state.Game.Assets.Get("playerStar"), player.Position, state.MouseManager.Position - new Vector2(30, 30), false));
-        //}
-
-        //public void AddProjectile(State state, Enemy enem)
-        //{
-        //    gameObjects.Add(new Projectile(16, state.Game.Assets.Get("enemyStar"), enem.Position, player.Position, true));
-        //}
-
-        public void AddProjectile(Texture2D sprite, Vector2 p1, Vector2 p2, bool isEnemyProjectile, float speed)
+        public void AddPlayerProjectile(Texture2D sprite, Vector2 p1, Vector2 p2)
         {
-            gameObjects.Add(new Projectile(sprite, p1, p2, isEnemyProjectile, speed));
+            gameObjects.Add(new Projectile(sprite, p1, p2, false, 18));
+        }
+
+        private void AddEnemyProjectile(Texture2D sprite, Vector2 p1, Vector2 p2)
+        {
+            gameObjects.Add(new Projectile(sprite, p1, p2, true, 15));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -119,7 +115,7 @@ namespace IGME106GroupGame.States
             Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
             Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
 
-            while (Enemies.Count < 1)
+            while (Enemies.Count < 7)
             {
                 Vector2 randomPosition = new Vector2(-1, -1);
 

@@ -19,7 +19,14 @@ namespace IGME106GroupGame.UI
         {
             textures = new Dictionary<string, Texture2D>();
 
-            LoadContent(content);
+            try
+            {
+                LoadContent(content);
+            }
+            catch(Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Something went wrong: " + ex.Message);
+            }
         }
 
         // - Methods -
@@ -43,9 +50,32 @@ namespace IGME106GroupGame.UI
 
         private void LoadContent(ContentManager content)
         {
-            LoadUIContent(content);
-            LoadLevelContent(content);
-            LoadGameObjectContent(content);
+            try
+            {
+                LoadUIContent(content);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("UIContent loading was unsuccessful.");
+            }
+
+            try
+            {
+                LoadLevelContent(content);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("LevelContent loading was unsuccessful.");
+            }
+
+            try
+            {
+                LoadGameObjectContent(content);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("GameObjectContent loading was unsuccessful.");
+            }
         }
 
         /// <summary>

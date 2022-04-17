@@ -83,7 +83,7 @@ namespace IGME106GroupGame.States
                 gameObjectHandler.Update(this);
                 if (LeftMouseNewlyClicked())
                 {
-                    gameObjectHandler.AddProjectile(Game.Assets.Get("playerStar"), gameObjectHandler.Player.Position, mouseManager.Position, false, 25);
+                    gameObjectHandler.AddPlayerProjectile(Game.Assets.Get("playerStar"), gameObjectHandler.Player.Position, mouseManager.Position);
                     //gameObjectHandler.AddProjectile(this);
                 }
             }

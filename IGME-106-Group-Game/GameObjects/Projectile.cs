@@ -7,42 +7,38 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace IGME106GroupGame.GameObjects
 {
-    class Projectile : GameObject, IEntity
+    public class Projectile : GameObject, IEntity
     {
         //Fields
         //private bool canRicochet;
         //private int framesActive;
         private int damage;
         private int health;
-        private RangedEnemy currentEnemy;
-        private bool isEnemyProj;
+        private GameObject currentEnemy;
+        private bool isEnemyProjectile;
 
         //Properties
         public int Damage { get => damage; set => damage = value; }
         //made a separator for the enemy's projectiles
-        public bool IsEnemyProjectile { get => isEnemyProj; set => isEnemyProj = value; }
+        public bool IsEnemyProjectile { get => isEnemyProjectile; set => isEnemyProjectile = value; }
         //health is the bullet's pierce
         public int Health { get => health; set => health = value; }
-        public RangedEnemy CurrentEnemy { get => currentEnemy; set => currentEnemy = value; }
-        //public int Speed
-        //public bool CanRicochet { get => canRicochet; }
-        //public int FramesActive { get => framesActive; }
 
         //Constructor
-        public Projectile (Texture2D sprite, Vector2 startPos, Vector2 mousePosition, bool isEnemProjectile, float speed) :
-            base(sprite, startPos)
+        public Projectile (Texture2D sprite, Vector2 p_1, Vector2 p_2, bool isEnemyProjectile, float speed) :
+            base(sprite, p_1)
         {
-            movement = new ProjectileMovement(speed, startPos, mousePosition);
-            health = 1;
+            this.isEnemyProjectile = isEnemyProjectile;
+            movement = new ProjectileMovement(p_1, p_2, speed);
+            health = 2;
             damage = 1;
-            isEnemyProj = isEnemProjectile;
         }
 
         public override void HandleCollision(GameObject other)
         {
-            if(other is RangedEnemy && other != currentEnemy && !IsEnemyProjectile)
+            if((other is RangedEnemy || other is MeleeEnemy) && other != currentEnemy && !IsEnemyProjectile)
             {
-                currentEnemy = (RangedEnemy)other;
+                currentEnemy = other;
                 health--;
             }
         }

@@ -16,7 +16,6 @@ namespace IGME106GroupGame.GameObjects
         private int health;
         private bool collidedWithOtherEnemy = false;
         private Vector2 collisionPosition;
-        //private int fireDelay;
 
         //Properties
         public int Health { get => health; set => health = value; }
@@ -25,9 +24,8 @@ namespace IGME106GroupGame.GameObjects
         public MeleeEnemy(Texture2D sprite, Vector2 startPos, Player player) :
             base(sprite, startPos)
         {
-            movement = new MeleeEnemyMovement(6, this, player);
+            movement = new MeleeEnemyMovement(5, this, player);
             health = 1;
-            //fireDelay = rng.Next(45, 315);
         }
 
         // Methods
@@ -53,12 +51,6 @@ namespace IGME106GroupGame.GameObjects
             }
 
             position += movement.Vector;
-            //fireDelay--;
-            //-1 so there's a frame where it actually equals 0 for the handler to check
-            //if(fireDelay <= -1)
-            //{
-            //    fireDelay = rng.Next(45, 315);
-            //}
         }
 
         public override void HandleCollision(GameObject other)
