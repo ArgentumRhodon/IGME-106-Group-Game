@@ -14,7 +14,7 @@ namespace IGME106GroupGame.GameObjects
         //private int framesActive;
         private int damage;
         private int health;
-        private Enemy currentEnemy;
+        private RangedEnemy currentEnemy;
         private bool isEnemyProj;
 
         //Properties
@@ -23,13 +23,13 @@ namespace IGME106GroupGame.GameObjects
         public bool IsEnemyProjectile { get => isEnemyProj; set => isEnemyProj = value; }
         //health is the bullet's pierce
         public int Health { get => health; set => health = value; }
-        public Enemy CurrentEnemy { get => currentEnemy; set => currentEnemy = value; }
+        public RangedEnemy CurrentEnemy { get => currentEnemy; set => currentEnemy = value; }
         //public int Speed
         //public bool CanRicochet { get => canRicochet; }
         //public int FramesActive { get => framesActive; }
 
         //Constructor
-        public Projectile (float speed, Texture2D sprite, Vector2 startPos, Vector2 mousePosition, bool isEnemProjectile) :
+        public Projectile (Texture2D sprite, Vector2 startPos, Vector2 mousePosition, bool isEnemProjectile, float speed) :
             base(sprite, startPos)
         {
             movement = new ProjectileMovement(speed, startPos, mousePosition);
@@ -40,9 +40,9 @@ namespace IGME106GroupGame.GameObjects
 
         public override void HandleCollision(GameObject other)
         {
-            if(other is Enemy && other != currentEnemy && !IsEnemyProjectile)
+            if(other is RangedEnemy && other != currentEnemy && !IsEnemyProjectile)
             {
-                currentEnemy = (Enemy)other;
+                currentEnemy = (RangedEnemy)other;
                 health--;
             }
         }

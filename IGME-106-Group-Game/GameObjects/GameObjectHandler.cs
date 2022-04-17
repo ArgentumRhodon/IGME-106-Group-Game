@@ -1,5 +1,6 @@
 ﻿using IGME106GroupGame.GameObjects;
 using IGME106GroupGame.MovementAndAI;
+using IGME106GroupGame.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace IGME106GroupGame.States
 {
-    class GameObjectHandler
+    public class GameObjectHandler
     {
         //number of frames between when an enemy fires a projectile
         private int enemyFireTime;
@@ -21,23 +22,26 @@ namespace IGME106GroupGame.States
         private int enemCount;
         private List<GameObject> gameObjects;
 
-        private Texture2D enemyTexture;
-
         public Player Player => player;
         public List<GameObject> GameObjects
         {
             get => gameObjects;
             set => gameObjects = value;
         }
-        private List<GameObject> Enemies => gameObjects.FindAll(gameObject => gameObject is Enemy);
+        private List<GameObject> Enemies => gameObjects.FindAll(gameObject => gameObject is RangedEnemy || gameObject is MeleeEnemy);
+        private List<GameObject> RangedEnemies => gameObjects.FindAll(gameObject => gameObject is RangedEnemy);
+        private List<GameObject> MeleeEnemies => gameObjects.FindAll(gameObject => gameObject is MeleeEnemy);
         private List<GameObject> Projectiles => gameObjects.FindAll(gameObject => gameObject is Projectile);
         private List<GameObject> Entities => gameObjects.FindAll(gameObject => gameObject is IEntity);
 
         // Constructor
-        public GameObjectHandler(Texture2D playerTexture, Texture2D enemyTexture, bool isGodMode)
+        public GameObjectHandler(Player player)
         {
-            this.enemyTexture = enemyTexture;
             this.enemyFireTime = 25;
+
+            this.player = player;
+
+            gameObjects = new List<GameObject>();
             this.enemCount = 5;
             this.pickup = null;
             // Uses the same sprite, enemy just tints it red
@@ -53,27 +57,21 @@ namespace IGME106GroupGame.States
             HandleCollectedPickups();
             UpdateGameObjects(state);
             HandleDeadEntities();
-            UpdateEnemyCount();
+            UpdateEnemyCount(state.Game.Assets);
         }
 
         private void UpdateGameObjects(GameState state)
         {
-            player.Update(this);
-
-            foreach(Enemy enemy in Enemies)
+            foreach(GameObject gameObject in gameObjects)
             {
-                enemy.Update(this, enemy.Position, player.Position);
+                gameObject.Update(this);
             }
 
-            foreach(Projectile projectile in Projectiles)
-            {
-                projectile.Update(this);
-            }
             //to be removed for the random delay
-            if(enemyFireTime <= 0)
+            if(enemyFireTime <= 0 && RangedEnemies.Count > 0)
             {
                 enemyFireTime = 25;
-                AddProjectile(state, (Enemy)Enemies[rng.Next(0, Enemies.Count)]);
+                AddProjectile(state.Game.Assets.Get("enemyStar"), GetRandomRangedEnemyPosition(), player.Position, true, 16);
             }
             if(enemCount <= 0)
             {
@@ -81,17 +79,29 @@ namespace IGME106GroupGame.States
                 AddPickup(state);
                 enemCount = 5;
             }
-            UpdateEnemyCount();
+
             enemyFireTime--;
         }
 
-        public void AddProjectile(State state)
+        private Vector2 GetRandomRangedEnemyPosition()
         {
-            gameObjects.Add(new Projectile(25, state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30), false));
+            int index = rng.Next(0, RangedEnemies.Count);
+            return ((RangedEnemy)RangedEnemies[index]).Position;
         }
-        public void AddProjectile(State state, Enemy enem)
+
+        //public void AddProjectile(State state)
+        //{
+        //    gameObjects.Add(new Projectile(25, state.Game.Assets.Get("playerStar"), player.Position, state.MouseManager.Position - new Vector2(30, 30), false));
+        //}
+
+        //public void AddProjectile(State state, Enemy enem)
+        //{
+        //    gameObjects.Add(new Projectile(16, state.Game.Assets.Get("enemyStar"), enem.Position, player.Position, true));
+        //}
+
+        public void AddProjectile(Texture2D sprite, Vector2 p1, Vector2 p2, bool isEnemyProjectile, float speed)
         {
-            gameObjects.Add(new Projectile(16, state.Game.Assets.Get("slimeBall"), enem.Position, player.Position, true));
+            gameObjects.Add(new Projectile(sprite, p1, p2, isEnemyProjectile, speed));
         }
 
         public void AddPickup(State state)
@@ -102,19 +112,9 @@ namespace IGME106GroupGame.States
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            // Draw the player
-            player.Draw(spriteBatch);
-
-            // Draw enemies
-            foreach (Enemy enemy in Enemies)
+            foreach(GameObject gameObject in gameObjects)
             {
-                enemy.Draw(spriteBatch);
-            }
-
-            // Draw projectiles
-            foreach (Projectile proj in Projectiles)
-            {
-                proj.Draw(spriteBatch);
+                gameObject.Draw(spriteBatch);
             }
             if(pickup != null)
             {
@@ -149,7 +149,7 @@ namespace IGME106GroupGame.States
                 pickup = null;
             }
         }
-        private void UpdateEnemyCount()
+        private void UpdateEnemyCount(Assets assets)
         {
             Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
             Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
@@ -167,6 +167,20 @@ namespace IGME106GroupGame.States
                     randomPosition.Y = (new Random()).Next(60, 900);
                 }
 
+                //50 - 50 chance of spawning a ranged or melee enemy
+                if (rng.Next(0, 2) == 0)
+                {
+                    gameObjects.Add(new RangedEnemy(assets.Get("ninja"), randomPosition, player));
+                }
+                // 50-50 chance of melee being ninja or slimebot
+                else if (rng.Next(0, 2) == 0)
+                {
+                    gameObjects.Add(new MeleeEnemy(assets.Get("meleeNinja"), randomPosition, player));
+                }
+                else
+                {
+                    gameObjects.Add(new MeleeEnemy(assets.Get("slimeBot"), randomPosition, player));
+                }
                 gameObjects.Add(new Enemy(enemyTexture, randomPosition, player.Position));
                 enemCount--;
             }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using IGME106GroupGame.GameObjects;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -11,20 +12,22 @@ namespace IGME106GroupGame.MovementAndAI
     public class PlayerMovement : Movement
     {
         private KeyboardState keyboard;
+        private Player player;
 
-        public PlayerMovement(float speed)
+        public PlayerMovement(float speed, Player player)
             : base(speed)
         {
-
+            this.player = player;
         }
 
-        public void Update(Vector2 position, Vector2 size)
+        public override void Update()
         {
             float deltaX = 0;
             float deltaY = 0;
 
             keyboard = Keyboard.GetState();
 
+            // Movement based on keyboard input
             if (keyboard.IsKeyDown(Keys.W))
             {
                 deltaY--;
@@ -42,6 +45,7 @@ namespace IGME106GroupGame.MovementAndAI
                 deltaX++;
             }
 
+            // Normalize movement for consisten diagonal velocity
             vector = new Vector2(deltaX, deltaY);
             if (vector.X != 0 || vector.Y != 0)
             {
@@ -49,19 +53,15 @@ namespace IGME106GroupGame.MovementAndAI
             }
             vector *= speed;
 
-            if (position.X + vector.X < 60 || position.X + size.X + vector.X > 1860)
+            // Hard-coded wall collisions
+            if (player.Position.X + vector.X < 60 || player.Position.X + player.CollisionBox.Width + vector.X > 1860)
             {
                 vector.X = 0;
             }
-            if (position.Y + vector.Y < 60 || position.Y + size.Y + vector.Y > 1020)
+            if (player.Position.Y + vector.Y < 60 || player.Position.Y + player.CollisionBox.Width + vector.Y > 1020)
             {
                 vector.Y = 0;
             }
-        }
-
-        public override void Update()
-        {
-            throw new NotImplementedException();
         }
     }
 }

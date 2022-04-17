@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IGME106GroupGame.MovementAndAI;
+﻿using IGME106GroupGame.MovementAndAI;
 using IGME106GroupGame.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace IGME106GroupGame.GameObjects
 {
-    class Enemy : GameObject, IEntity
+    public class MeleeEnemy : GameObject, IEntity
     {
         //Fields
         private int health;
@@ -20,20 +22,21 @@ namespace IGME106GroupGame.GameObjects
         public int Health { get => health; set => health = value; }
 
         //Constructor
-        public Enemy (Texture2D sprite, Vector2 startPos, Vector2 playerPosition) : 
+        public MeleeEnemy(Texture2D sprite, Vector2 startPos, Player player) :
             base(sprite, startPos)
         {
-            movement = new EnemyMovement(6);
+            movement = new MeleeEnemyMovement(6, this, player);
             health = 1;
             //fireDelay = rng.Next(45, 315);
         }
 
         // Methods
-        public void Update(GameObjectHandler gameObjectHandler, Vector2 enemyPosition, Vector2 playerPosition)
+        public override void Update(GameObjectHandler gameObjectHandler)
         {
-            ((EnemyMovement)movement).Update(enemyPosition, playerPosition);
+            movement.Update();
             HandleCollisions(gameObjectHandler);
-            if(collidedWithOtherEnemy)
+
+            if (collidedWithOtherEnemy)
             {
                 Vector2 direction = position - collisionPosition;
                 if (direction.Length() < 100)
@@ -48,6 +51,7 @@ namespace IGME106GroupGame.GameObjects
                     collisionPosition = Vector2.Zero;
                 }
             }
+
             position += movement.Vector;
             //fireDelay--;
             //-1 so there's a frame where it actually equals 0 for the handler to check
@@ -59,12 +63,12 @@ namespace IGME106GroupGame.GameObjects
 
         public override void HandleCollision(GameObject other)
         {
-            if(other is Projectile && !((Projectile)other).IsEnemyProjectile)
+            if (other is Projectile && !((Projectile)other).IsEnemyProjectile)
             {
                 health--;
             }
 
-            if(other is Enemy)
+            if (other is IEntity && !(other is Projectile))
             {
                 collidedWithOtherEnemy = true;
                 collisionPosition = other.Position;

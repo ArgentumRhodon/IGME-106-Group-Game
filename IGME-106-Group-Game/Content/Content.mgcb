@@ -92,7 +92,7 @@
 /processorParam:TextureFormat=Compressed
 /build:font.spritefont
 
-#begin gameObjects/enemy.png
+#begin gameObjects/enemyStar.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -102,7 +102,31 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:gameObjects/enemy.png
+/build:gameObjects/enemyStar.png
+
+#begin gameObjects/meleeNinja.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:gameObjects/meleeNinja.png
+
+#begin gameObjects/ninja.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:gameObjects/ninja.png
 
 #begin gameObjects/player.png
 /importer:TextureImporter
@@ -116,7 +140,7 @@
 /processorParam:TextureFormat=Color
 /build:gameObjects/player.png
 
-#begin gameObjects/projectile.png
+#begin gameObjects/playerStar.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -126,9 +150,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:gameObjects/projectile.png
+/build:gameObjects/playerStar.png
 
-#begin gameObjects/slimeBall.png
+#begin gameObjects/slimeBot.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -138,7 +162,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:gameObjects/slimeBall.png
+/build:gameObjects/slimeBot.png
 
 #begin uiAssets/gameScreen/continueText.png
 /importer:TextureImporter

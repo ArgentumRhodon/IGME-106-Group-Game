@@ -14,7 +14,7 @@ namespace IGME106GroupGame.Levels
         private Map room;
 
         // Select test level file
-        private OpenFileDialog openFileDialog;
+        //private OpenFileDialog openFileDialog;
         
         // Constructor
         /// <summary>

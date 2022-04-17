@@ -9,23 +9,21 @@ namespace IGME106GroupGame.MovementAndAI
 {
     class ProjectileMovement : Movement
     {
-        private Vector2 direction;
+        private Vector2 startPosition;
+        private Vector2 mousePosition;
 
         public ProjectileMovement(float speed, Vector2 startPosition, Vector2 mousePosition)
             : base(speed)
         {
-            this.direction = mousePosition - startPosition;
+            this.startPosition = startPosition;
+            this.mousePosition = mousePosition;
         }
 
         public override void Update()
         {
-            float deltaX = 0;
-            float deltaY = 0;
+            Vector2 direction = mousePosition - startPosition;
 
-            deltaX = direction.X;
-            deltaY = direction.Y;
-
-            vector = new Vector2(deltaX, deltaY);
+            vector = new Vector2(direction.X, direction.Y);
             if (vector.X != 0 || vector.Y != 0)
             {
                 vector.Normalize();
