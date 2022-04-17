@@ -8,19 +8,12 @@ using System.Threading.Tasks;
 
 namespace IGME106GroupGame.MovementAndAI
 {
-    class RangedEnemyMovement : Movement
+    class RangedEnemyMovement : EnemyMovement
     {
-        private RangedEnemy enemy;
-        private Player player;
-
-        private float deltaX = 0;
-        private float deltaY = 0;
 
         public RangedEnemyMovement(float speed, RangedEnemy enemy, Player player)
-            : base(speed)
+            : base(speed, enemy, player)
         {
-            this.enemy = enemy;
-            this.player = player;
         }
 
         public override void Update()

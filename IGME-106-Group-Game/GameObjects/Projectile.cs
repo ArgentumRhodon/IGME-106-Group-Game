@@ -14,7 +14,7 @@ namespace IGME106GroupGame.GameObjects
         //private int framesActive;
         private int damage;
         private int health;
-        private RangedEnemy currentEnemy;
+        private Enemy currentEnemy;
         private bool isEnemyProj;
 
         //Properties
@@ -23,7 +23,7 @@ namespace IGME106GroupGame.GameObjects
         public bool IsEnemyProjectile { get => isEnemyProj; set => isEnemyProj = value; }
         //health is the bullet's pierce
         public int Health { get => health; set => health = value; }
-        public RangedEnemy CurrentEnemy { get => currentEnemy; set => currentEnemy = value; }
+        public Enemy CurrentEnemy { get => currentEnemy; set => currentEnemy = value; }
         //public int Speed
         //public bool CanRicochet { get => canRicochet; }
         //public int FramesActive { get => framesActive; }
@@ -40,9 +40,19 @@ namespace IGME106GroupGame.GameObjects
 
         public override void HandleCollision(GameObject other)
         {
+            //since there are two types of enemies now i'd need to make two conditionals to check pierce properly for both
             if(other is RangedEnemy && other != currentEnemy && !IsEnemyProjectile)
             {
                 currentEnemy = (RangedEnemy)other;
+                health--;
+            }
+            //but currentEnemy's type is currently only the ranged one
+            //and as it stands rn i can't cast between the enemy types for the sake of pierce checking
+            //so it looks like i'll have to make an enemy class and have those two inherit from it
+            //there's no telling what wacky hijinks will ensue but i'll try and make it work
+            if (other is MeleeEnemy && other != currentEnemy && !IsEnemyProjectile)
+            {
+                currentEnemy = (MeleeEnemy)other;
                 health--;
             }
         }

@@ -6,27 +6,31 @@ using System.Threading.Tasks;
 using IGME106GroupGame.GameObjects;
 using Microsoft.Xna.Framework;
 
-
 namespace IGME106GroupGame.MovementAndAI
 {
-    class PickupMovement : Movement
+    class EnemyMovement : Movement
     {
-        private float deltaX = 0;
-        private float deltaY = 0;
+        protected Enemy enemy;
+        protected Player player;
 
-        public PickupMovement(float speed)
+        protected float deltaX = 0;
+        protected float deltaY = 0;
+
+        public EnemyMovement(float speed, Enemy enemy, Player player)
             : base(speed)
         {
+            this.enemy = enemy;
+            this.player = player;
         }
 
-        public void Update(Vector2 startPos, Vector2 endPos)
+        public override void Update()
         {
             deltaX = 0;
             deltaY = 0;
 
-            Vector2 direction = endPos - startPos;
+            Vector2 direction = player.Position - enemy.Position;
 
-            if (direction.Length() > 500)
+            if (direction.Length() > speed)
             {
                 deltaX = direction.X;
                 deltaY = direction.Y;
@@ -39,11 +43,6 @@ namespace IGME106GroupGame.MovementAndAI
             }
 
             vector *= speed;
-        }
-
-        public override void Update()
-        {
-            Update(new Vector2(), new Vector2());
         }
     }
 }

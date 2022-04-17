@@ -45,7 +45,6 @@ namespace IGME106GroupGame.States
             this.enemCount = 5;
             this.pickup = null;
             // Uses the same sprite, enemy just tints it red
-            this.player = new Player(playerTexture, new Vector2(930, 510), isGodMode);
             gameObjects = new List<GameObject>();
             
             gameObjects.Add(player);
@@ -106,7 +105,7 @@ namespace IGME106GroupGame.States
 
         public void AddPickup(State state)
         {
-            pickup = new Powerup(state.Game.Assets.Get("projectile"), new Vector2(rng.Next(0, 1800), rng.Next(0, 900)));
+            pickup = new Powerup(state.Game.Assets.Get("heart"), new Vector2(rng.Next(0, 1800), rng.Next(0, 900)));
             gameObjects.Add(pickup);
         }
 
@@ -181,7 +180,6 @@ namespace IGME106GroupGame.States
                 {
                     gameObjects.Add(new MeleeEnemy(assets.Get("slimeBot"), randomPosition, player));
                 }
-                gameObjects.Add(new Enemy(enemyTexture, randomPosition, player.Position));
                 enemCount--;
             }
         }
