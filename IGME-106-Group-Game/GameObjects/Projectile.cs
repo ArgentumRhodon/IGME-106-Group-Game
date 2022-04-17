@@ -33,7 +33,7 @@ namespace IGME106GroupGame.GameObjects
             base(sprite, startPos)
         {
             movement = new ProjectileMovement(speed, startPos, mousePosition);
-            health = 2;
+            health = 1;
             damage = 1;
             isEnemyProj = isEnemProjectile;
         }
@@ -43,11 +43,6 @@ namespace IGME106GroupGame.GameObjects
             if(other is RangedEnemy && other != currentEnemy && !IsEnemyProjectile)
             {
                 currentEnemy = (RangedEnemy)other;
-                health--;
-            }
-
-            if(other is Projectile && isEnemyProj != ((Projectile)other).isEnemyProj)
-            {
                 health--;
             }
         }

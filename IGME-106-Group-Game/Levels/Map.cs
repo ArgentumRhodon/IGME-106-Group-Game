@@ -146,25 +146,25 @@ namespace IGME106GroupGame.Levels
             switch (tileRepresentative)
             {
                 case '1':
-                    return assets.Get("topRightWall");
+                    return assets.Get("topRight");
                 case '2':
-                    return assets.Get("topLeftWall");
+                    return assets.Get("topLeft");
                 case '3':
-                    return assets.Get("bottomRightWall");
+                    return assets.Get("bottomRight");
                 case '4':
-                    return assets.Get("bottomLeftWall");
+                    return assets.Get("bottomLeft");
                 case 'A':
-                    return assets.Get("northWall");
+                    return assets.Get("north");
                 case 'B':
-                    return assets.Get("eastWall");
+                    return assets.Get("east");
                 case 'C':
-                    return assets.Get("southWall");
+                    return assets.Get("south");
                 case 'D':
-                    return assets.Get("westWall");
+                    return assets.Get("west");
                 case '-':
                     return assets.Get("floor");
                 default:
-                    return assets.Get("base");
+                    return assets.Get("default");
             }
         }
     }

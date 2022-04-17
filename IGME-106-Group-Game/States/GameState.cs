@@ -136,12 +136,12 @@ namespace IGME106GroupGame.States
 
             if (paused && gameObjectHandler.Player.Health > 0)
             {
-                spriteBatch.Draw(game.Assets.Get("base"), new Rectangle(0, 0, 1920, 1080), new Color(0,0,0,150));
+                spriteBatch.Draw(game.Assets.Get("default"), new Rectangle(0, 0, 1920, 1080), new Color(0,0,0,150));
                 pauseUI.Draw(spriteBatch);
             }
             else if(paused)
             {
-                spriteBatch.Draw(game.Assets.Get("base"), new Rectangle(0, 0, 1920, 1080), new Color(0, 0, 0, 150));
+                spriteBatch.Draw(game.Assets.Get("default"), new Rectangle(0, 0, 1920, 1080), new Color(0, 0, 0, 150));
                 deathUI.Draw(spriteBatch);
             }
         }
