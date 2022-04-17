@@ -51,6 +51,7 @@ namespace IGME106GroupGame.UI
             textures.Add("continueText", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\continueText"));
             textures.Add("gameOverTitle", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\gameOverTitle"));
             textures.Add("halfHeart", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\halfHeart"));
+            textures.Add("smallHeart", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\smallHeart"));
             textures.Add("heart", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\heart"));
             textures.Add("pausedTitle", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\pausedTitle"));
             textures.Add("quitTitleText", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\quitTitleText"));

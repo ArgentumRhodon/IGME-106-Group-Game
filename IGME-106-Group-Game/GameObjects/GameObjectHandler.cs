@@ -76,7 +76,7 @@ namespace IGME106GroupGame.States
             {
                 gameObjects.Remove(pickup);
                 AddPickup(state);
-                enemCount = 5;
+                enemCount = 15;
             }
 
             enemyFireTime--;
@@ -105,7 +105,7 @@ namespace IGME106GroupGame.States
 
         public void AddPickup(State state)
         {
-            pickup = new Powerup(state.Game.Assets.Get("heart"), new Vector2(rng.Next(0, 1800), rng.Next(0, 900)));
+            pickup = new Powerup(state.Game.Assets.Get("smallHeart"), new Vector2(rng.Next(100, 1800), rng.Next(100, 900)));
             gameObjects.Add(pickup);
         }
 
