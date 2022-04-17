@@ -27,9 +27,9 @@ namespace IGME106GroupGame.UI.Menus
         /// </summary>
         public override void LoadContent()
         {
-            images.Add(new Image(game.Assets.Get("pausedTitle"), 0, -150, Alignment.Middle, Alignment.Middle, game.Graphics));
-            buttons.Add(new Button(new Image(game.Assets.Get("quitTitleText"), 0, 0, Alignment.Middle, Alignment.Middle, game.Graphics), (State state) => { state.NextState = new MenuState(game); }));
-            buttons.Add(new Button(new Image(game.Assets.Get("continueText"), 0, 100, Alignment.Middle, Alignment.Middle, game.Graphics), (State state) => { ((GameState)state).IsPaused = false; }));
+            images.Add(new Image(Assets["pausedTitle"], 0, -150, Alignment.Middle, Alignment.Middle, game.Graphics));
+            buttons.Add(new Button(new Image(Assets["quitTitleText"], 0, 0, Alignment.Middle, Alignment.Middle, game.Graphics), (State state) => { state.NextState = new MenuState(game); }));
+            buttons.Add(new Button(new Image(Assets["continueText"], 0, 100, Alignment.Middle, Alignment.Middle, game.Graphics), (State state) => { ((GameState)state).IsPaused = false; }));
         }
     }
 }

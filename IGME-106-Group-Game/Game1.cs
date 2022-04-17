@@ -22,7 +22,6 @@ namespace IGME106GroupGame
 
         // Fields
         private State state;
-        private Assets assets;
 
         // Properties
         public GraphicsDeviceManager Graphics => _graphics;
@@ -31,11 +30,6 @@ namespace IGME106GroupGame
         {
             get => state;
             set => state = value;
-        }
-
-        public Assets Assets
-        {
-            get => assets;
         }
 
         // Constructor
@@ -53,8 +47,8 @@ namespace IGME106GroupGame
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.ApplyChanges();
 
-            assets = new Assets(this);
             state = new MenuState(this);
+            Assets.LoadContent(this);
             base.Initialize();
         }
 

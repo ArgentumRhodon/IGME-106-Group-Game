@@ -8,32 +8,17 @@ using System.Threading.Tasks;
 
 namespace IGME106GroupGame.UI
 {
-    public class Assets
+    public static class Assets
     {
         // - Fields -
-        private Game1 game;
-        private Dictionary<string, Texture2D> textures;
+        private static Dictionary<string, Texture2D> textures;
 
-        // - Consturctor -
-        public Assets(Game1 game)
+        // - Property -
+        public static Texture2D Get(string index)
         {
-            this.game = game;
-            textures = new Dictionary<string, Texture2D>();
-
-            LoadContent();
-        }
-
-        // - Methods -
-        /// <summary>
-        /// Gets a texture based on its name
-        /// </summary>
-        /// <param name="key">The name of the texture</param>
-        /// <returns>The texture with the given name</returns>
-        public Texture2D Get(string key)
-        {
-            if(textures.ContainsKey(key))
+            if(textures.ContainsKey(index))
             {
-                return textures[key];
+                return textures[index];
             }
 
             else
@@ -42,10 +27,16 @@ namespace IGME106GroupGame.UI
             }
         }
 
+        public static Dictionary<string, Texture2D> Textures
+        {
+            get => textures;
+        }
+
+        // - Methods -
         /// <summary>
         /// Loads all game textures and puts them into a dictionary
         /// </summary>
-        private void LoadContent()
+        public static void LoadContent(Game1 game)
         {
             // Game Screen UI Textures
             textures.Add("continueText", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\continueText"));
