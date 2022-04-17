@@ -66,6 +66,10 @@ namespace IGME106GroupGame.GameObjects
                     IFrames = 30;
                 }
             }
+            if(other is Powerup p)
+            {
+                p.HandleCollision(this);
+            }
         }
     }
 }

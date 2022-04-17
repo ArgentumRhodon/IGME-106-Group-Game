@@ -17,6 +17,8 @@ namespace IGME106GroupGame.States
         Random rng = new Random();
         // Fields
         private Player player;
+        private Powerup pickup;
+        private int enemCount;
         private List<GameObject> gameObjects;
 
         private Texture2D enemyTexture;
@@ -36,7 +38,8 @@ namespace IGME106GroupGame.States
         {
             this.enemyTexture = enemyTexture;
             this.enemyFireTime = 25;
-
+            this.enemCount = 5;
+            this.pickup = null;
             // Uses the same sprite, enemy just tints it red
             this.player = new Player(playerTexture, new Vector2(930, 510), isGodMode);
             gameObjects = new List<GameObject>();
@@ -47,6 +50,7 @@ namespace IGME106GroupGame.States
         // Methods
         public void Update(GameState state)
         {
+            HandleCollectedPickups();
             UpdateGameObjects(state);
             HandleDeadEntities();
             UpdateEnemyCount();
@@ -71,7 +75,12 @@ namespace IGME106GroupGame.States
                 enemyFireTime = 25;
                 AddProjectile(state, (Enemy)Enemies[rng.Next(0, Enemies.Count)]);
             }
-
+            if(enemCount <= 0)
+            {
+                gameObjects.Remove(pickup);
+                AddPickup(state);
+                enemCount = 5;
+            }
             UpdateEnemyCount();
             enemyFireTime--;
         }
@@ -83,6 +92,12 @@ namespace IGME106GroupGame.States
         public void AddProjectile(State state, Enemy enem)
         {
             gameObjects.Add(new Projectile(16, state.Game.Assets.Get("slimeBall"), enem.Position, player.Position, true));
+        }
+
+        public void AddPickup(State state)
+        {
+            pickup = new Powerup(state.Game.Assets.Get("projectile"), new Vector2(rng.Next(0, 1800), rng.Next(0, 900)));
+            gameObjects.Add(pickup);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -101,6 +116,11 @@ namespace IGME106GroupGame.States
             {
                 proj.Draw(spriteBatch);
             }
+            if(pickup != null)
+            {
+                pickup.Draw(spriteBatch);
+            }
+
         }
 
         public List<GameObject> GetCollidingObjects(GameObject check)
@@ -120,6 +140,15 @@ namespace IGME106GroupGame.States
             }
         }
 
+        private void HandleCollectedPickups()
+        {
+            //this removes the pickup if it's been collected
+            if (pickup != null && pickup.IsCollected)
+            {
+                gameObjects.Remove(pickup);
+                pickup = null;
+            }
+        }
         private void UpdateEnemyCount()
         {
             Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
@@ -139,6 +168,7 @@ namespace IGME106GroupGame.States
                 }
 
                 gameObjects.Add(new Enemy(enemyTexture, randomPosition, player.Position));
+                enemCount--;
             }
         }
     }
