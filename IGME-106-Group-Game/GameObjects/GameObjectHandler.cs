@@ -28,7 +28,7 @@ namespace IGME106GroupGame.States
             get => gameObjects;
             set => gameObjects = value;
         }
-        private List<GameObject> Enemies => gameObjects.FindAll(gameObject => gameObject is RangedEnemy || gameObject is MeleeEnemy);
+        private List<GameObject> Enemies => gameObjects.FindAll(gameObject => gameObject is Enemy);
         private List<GameObject> RangedEnemies => gameObjects.FindAll(gameObject => gameObject is RangedEnemy);
         private List<GameObject> MeleeEnemies => gameObjects.FindAll(gameObject => gameObject is MeleeEnemy);
         private List<GameObject> Projectiles => gameObjects.FindAll(gameObject => gameObject is Projectile);
@@ -50,6 +50,7 @@ namespace IGME106GroupGame.States
             gameObjects.Add(player);
         }
 
+
         // Methods
         public void Update(GameState state)
         {
@@ -65,7 +66,13 @@ namespace IGME106GroupGame.States
             {
                 gameObject.Update(this);
             }
-
+            foreach(Projectile proj in Projectiles)
+            {
+                if(proj.Position.X < 0 || proj.Position.X > 1920 || proj.Position.Y < 0 || proj.Position.Y > 1920)
+                {
+                    proj.Health = 0;
+                }
+            }
             //to be removed for the random delay
             if(enemyFireTime <= 0 && RangedEnemies.Count > 0)
             {

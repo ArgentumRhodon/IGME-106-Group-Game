@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using IGME106GroupGame.MovementAndAI;
+using IGME106GroupGame.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -46,10 +47,7 @@ namespace IGME106GroupGame.GameObjects
                 currentEnemy = (RangedEnemy)other;
                 health--;
             }
-            //but currentEnemy's type is currently only the ranged one
-            //and as it stands rn i can't cast between the enemy types for the sake of pierce checking
-            //so it looks like i'll have to make an enemy class and have those two inherit from it
-            //there's no telling what wacky hijinks will ensue but i'll try and make it work
+            //and now that i've made an enemy class i can cast between them
             if (other is MeleeEnemy && other != currentEnemy && !IsEnemyProjectile)
             {
                 currentEnemy = (MeleeEnemy)other;
