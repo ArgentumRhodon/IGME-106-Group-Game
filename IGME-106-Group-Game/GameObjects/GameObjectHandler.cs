@@ -119,7 +119,7 @@ namespace IGME106GroupGame.States
             Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
             Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
 
-            while (Enemies.Count < 7)
+            while (Enemies.Count < 1)
             {
                 Vector2 randomPosition = new Vector2(-1, -1);
 

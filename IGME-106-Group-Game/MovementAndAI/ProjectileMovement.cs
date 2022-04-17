@@ -21,7 +21,9 @@ namespace IGME106GroupGame.MovementAndAI
 
         public override void Update()
         {
-            Vector2 direction = mousePosition - startPosition;
+            // Subtracting an extra 16 in x and y to account for the projectil'es width and height, that
+            // way the projecile's center travels in line with the mouse instead of the corner.
+            Vector2 direction = mousePosition - startPosition - new Vector2(16, 16);
 
             vector = new Vector2(direction.X, direction.Y);
             if (vector.X != 0 || vector.Y != 0)

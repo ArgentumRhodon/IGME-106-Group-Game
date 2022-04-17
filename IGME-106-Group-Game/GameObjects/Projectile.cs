@@ -45,6 +45,11 @@ namespace IGME106GroupGame.GameObjects
                 currentEnemy = (RangedEnemy)other;
                 health--;
             }
+
+            if(other is Projectile && isEnemyProj != ((Projectile)other).isEnemyProj)
+            {
+                health--;
+            }
         }
     }
 }
