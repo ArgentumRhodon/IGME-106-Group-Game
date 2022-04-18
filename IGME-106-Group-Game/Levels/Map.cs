@@ -16,12 +16,6 @@ namespace IGME106GroupGame.Levels
         private Tile[,] tiles;
         private string filePath;
 
-        // Tile sprites
-        private Texture2D[] cornerSprites;
-        private Texture2D[] wallSprites;
-        private Texture2D floorSprite;
-        private Texture2D baseSprite;
-
         // Tile information
         private const int TileHeight = 18;
         private const int TileWidth = 32;

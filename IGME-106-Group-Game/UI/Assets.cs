@@ -14,9 +14,23 @@ namespace IGME106GroupGame.UI
         private static Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
 
         // - Property -
+        /// <summary>
+        /// A dictonary for all the game's textures
+        /// </summary>
+        public static Dictionary<string, Texture2D> Textures
+        {
+            get => textures;
+        }
+
+        // - Methods -
+        /// <summary>
+        /// Returns a texture based on the given texture name
+        /// </summary>
+        /// <param name="index">The name of the texture</param>
+        /// <returns>The texture with the given name</returns>
         public static Texture2D Get(string index)
         {
-            if(textures.ContainsKey(index))
+            if (textures.ContainsKey(index))
             {
                 return textures[index];
             }
@@ -27,12 +41,6 @@ namespace IGME106GroupGame.UI
             }
         }
 
-        public static Dictionary<string, Texture2D> Textures
-        {
-            get => textures;
-        }
-
-        // - Methods -
         /// <summary>
         /// Loads all game textures and puts them into a dictionary
         /// </summary>
