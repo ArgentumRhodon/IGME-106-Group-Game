@@ -178,7 +178,7 @@ namespace LevelEditor
             // groupBoxCurrentTile
             // 
             this.groupBoxCurrentTile.Controls.Add(this.buttonCurrentTile);
-            this.groupBoxCurrentTile.Location = new System.Drawing.Point(12, 297);
+            this.groupBoxCurrentTile.Location = new System.Drawing.Point(12, 307);
             this.groupBoxCurrentTile.Name = "groupBoxCurrentTile";
             this.groupBoxCurrentTile.Size = new System.Drawing.Size(107, 89);
             this.groupBoxCurrentTile.TabIndex = 1;
@@ -199,7 +199,7 @@ namespace LevelEditor
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSave.Location = new System.Drawing.Point(3, 392);
+            this.buttonSave.Location = new System.Drawing.Point(3, 402);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(59, 46);
             this.buttonSave.TabIndex = 2;
@@ -210,7 +210,7 @@ namespace LevelEditor
             // buttonLoad
             // 
             this.buttonLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonLoad.Location = new System.Drawing.Point(64, 392);
+            this.buttonLoad.Location = new System.Drawing.Point(64, 402);
             this.buttonLoad.Name = "buttonLoad";
             this.buttonLoad.Size = new System.Drawing.Size(55, 46);
             this.buttonLoad.TabIndex = 3;

@@ -167,5 +167,28 @@ namespace IGME106GroupGame.Levels
                     return assets.Get("base");
             }
         }
+
+        /// <summary>
+        /// This method returns a list of Vector2 with every coordinate with a wall tile
+        /// </summary>
+        /// <returns></returns>
+        public List<Vector2> GetWallPositions()
+        {
+            List<Vector2> result = new List<Vector2>();
+
+            // Iterate through tiles and get which ones are actually walls
+            for (int y = 0; y < tiles.GetLength(1); y++)
+            {
+                for (int x = 0; x < tiles.GetLength(0); x++)
+                {
+                    if (tiles[x, y].Sprite != assets.Get("floor")) // Note: Needs to be updated if color levels implemented
+                    {
+                        result.Add(new Vector2(60 * x, 60 * y));
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }

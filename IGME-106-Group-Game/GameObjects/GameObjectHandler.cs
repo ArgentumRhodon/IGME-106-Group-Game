@@ -33,7 +33,7 @@ namespace IGME106GroupGame.States
         private List<GameObject> Entities => gameObjects.FindAll(gameObject => gameObject is IEntity);
 
         // Constructor
-        public GameObjectHandler(Player player)
+        public GameObjectHandler(Player player, List<Vector2> wallPositions)
         {
             this.enemyFireTime = 25;
 
@@ -41,6 +41,8 @@ namespace IGME106GroupGame.States
 
             gameObjects = new List<GameObject>();
             gameObjects.Add(player);
+
+            // use wallPositions to somehow get a list of wall collisions
         }
 
         // Methods
@@ -147,6 +149,11 @@ namespace IGME106GroupGame.States
                     gameObjects.Add(new MeleeEnemy(assets.Get("slimeBot"), randomPosition, player));
                 }
             }
+        }
+
+        private List<WallEntity> GetWallEntities() // Do this when WallEntity is created
+        {
+
         }
     }
 }
