@@ -11,7 +11,7 @@ namespace IGME106GroupGame.UI
     public static class Assets
     {
         // - Fields -
-        private static Dictionary<string, Texture2D> textures;
+        private static Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
 
         // - Property -
         public static Texture2D Get(string index)

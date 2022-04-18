@@ -1,5 +1,6 @@
 ﻿using IGME106GroupGame.GameObjects;
 using IGME106GroupGame.MovementAndAI;
+using IGME106GroupGame.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -69,7 +70,7 @@ namespace IGME106GroupGame.States
             if(enemyFireTime <= 0)
             {
                 enemyFireTime = 25;
-                AddProjectile(state, (Enemy)Enemies[rng.Next(0, Enemies.Count)]);
+                AddProjectile((Enemy)Enemies[rng.Next(0, Enemies.Count)]);
             }
 
             UpdateEnemyCount();
@@ -78,11 +79,11 @@ namespace IGME106GroupGame.States
 
         public void AddProjectile(State state)
         {
-            gameObjects.Add(new Projectile(25, state.Game.Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30), false));
+            gameObjects.Add(new Projectile(25, Assets.Get("projectile"), player.Position, state.MouseManager.Position - new Vector2(30, 30), false));
         }
-        public void AddProjectile(State state, Enemy enem)
+        public void AddProjectile(Enemy enem)
         {
-            gameObjects.Add(new Projectile(16, state.Game.Assets.Get("slimeBall"), enem.Position, player.Position, true));
+            gameObjects.Add(new Projectile(16, Assets.Get("slimeBall"), enem.Position, player.Position, true));
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -47,8 +47,8 @@ namespace IGME106GroupGame
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.ApplyChanges();
 
-            state = new MenuState(this);
             Assets.LoadContent(this);
+            state = new MenuState(this);
             base.Initialize();
         }
 

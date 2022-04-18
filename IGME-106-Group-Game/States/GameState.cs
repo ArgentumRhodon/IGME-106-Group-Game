@@ -1,5 +1,6 @@
 ﻿using IGME106GroupGame.GameObjects;
 using IGME106GroupGame.Levels;
+using IGME106GroupGame.UI;
 using IGME106GroupGame.UI.Menus;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -50,8 +51,8 @@ namespace IGME106GroupGame.States
         {
             this.godMode = godMode;
             paused = false;
-            level = new Level(game.Assets);
-            gameObjectHandler = new GameObjectHandler(game.Assets.Get("player"), game.Assets.Get("enemy"), godMode);
+            level = new Level();
+            gameObjectHandler = new GameObjectHandler(Assets.Get("player"), Assets.Get("enemy"), godMode);
             ui = new GameUI(game, gameObjectHandler.Player);
             pauseUI = new PauseUI(game);
             deathUI = new DeathUI(game);
@@ -136,12 +137,12 @@ namespace IGME106GroupGame.States
 
             if (paused && gameObjectHandler.Player.Health > 0)
             {
-                spriteBatch.Draw(game.Assets.Get("base"), new Rectangle(0, 0, 1920, 1080), new Color(0,0,0,150));
+                spriteBatch.Draw(Assets.Get("base"), new Rectangle(0, 0, 1920, 1080), new Color(0,0,0,150));
                 pauseUI.Draw(spriteBatch);
             }
             else if(paused)
             {
-                spriteBatch.Draw(game.Assets.Get("base"), new Rectangle(0, 0, 1920, 1080), new Color(0, 0, 0, 150));
+                spriteBatch.Draw(Assets.Get("base"), new Rectangle(0, 0, 1920, 1080), new Color(0, 0, 0, 150));
                 deathUI.Draw(spriteBatch);
             }
         }
