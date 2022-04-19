@@ -8,31 +8,35 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace IGME106GroupGame.GameObjects
 {
-    class Enemy : GameObject, IEntity
+    public class RangedEnemy: GameObject, IEntity
     {
         //Fields
+        Random random;
         private int health;
         private bool collidedWithOtherEnemy = false;
         private Vector2 collisionPosition;
-        //private int fireDelay;
+        private int fireDelay;
 
         //Properties
         public int Health { get => health; set => health = value; }
+        public int FireDelay => fireDelay;
 
         //Constructor
-        public Enemy (Texture2D sprite, Vector2 startPos, Vector2 playerPosition) : 
+        public RangedEnemy (Texture2D sprite, Vector2 startPos, Player player) : 
             base(sprite, startPos)
         {
-            movement = new EnemyMovement(6);
+            movement = new RangedEnemyMovement(5, this, player);
             health = 1;
-            //fireDelay = rng.Next(45, 315);
+            random = new Random();
+            fireDelay = random.Next(45, 315);
         }
 
         // Methods
-        public void Update(GameObjectHandler gameObjectHandler, Vector2 enemyPosition, Vector2 playerPosition)
+        public override void Update(GameObjectHandler gameObjectHandler)
         {
-            ((EnemyMovement)movement).Update(enemyPosition, playerPosition);
+            movement.Update();
             HandleCollisions(gameObjectHandler);
+
             if(collidedWithOtherEnemy)
             {
                 Vector2 direction = position - collisionPosition;
@@ -48,13 +52,15 @@ namespace IGME106GroupGame.GameObjects
                     collisionPosition = Vector2.Zero;
                 }
             }
+
             position += movement.Vector;
-            //fireDelay--;
+
+            fireDelay--;
             //-1 so there's a frame where it actually equals 0 for the handler to check
-            //if(fireDelay <= -1)
-            //{
-            //    fireDelay = rng.Next(45, 315);
-            //}
+            if (fireDelay <= -1)
+            {
+                fireDelay = random.Next(45, 125);
+            }
         }
 
         public override void HandleCollision(GameObject other)
@@ -64,7 +70,7 @@ namespace IGME106GroupGame.GameObjects
                 health--;
             }
 
-            if(other is Enemy)
+            if (other is IEntity && !(other is Projectile))
             {
                 collidedWithOtherEnemy = true;
                 collisionPosition = other.Position;

@@ -51,7 +51,7 @@ namespace IGME106GroupGame.UI
             {
                 if (button.ContainsPoint(mouseManager.Position))
                 {
-                    button.Tint = Color.Cyan;
+                    button.Tint = new Color(255, 150, 251);
                     mouseManager.CurrentUser = button;
                 }
                 else

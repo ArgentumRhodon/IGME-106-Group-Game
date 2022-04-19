@@ -12,7 +12,7 @@ using System.Text;
 
 namespace IGME106GroupGame.States
 {
-    class GameState : State
+    public class GameState : State
     {
         // Fields
         private GameObjectHandler gameObjectHandler;
@@ -84,7 +84,7 @@ namespace IGME106GroupGame.States
                 gameObjectHandler.Update(this);
                 if (LeftMouseNewlyClicked())
                 {
-                    gameObjectHandler.AddProjectile(this);
+                    gameObjectHandler.AddPlayerProjectile(Game.Assets.Get("playerStar"), gameObjectHandler.Player.Position, mouseManager.Position);
                     //gameObjectHandler.AddProjectile(this);
                 }
             }

@@ -47,8 +47,6 @@ namespace IGME106GroupGame
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.ApplyChanges();
 
-            Assets.LoadContent(this);
-            state = new MenuState(this);
             base.Initialize();
         }
 
@@ -60,6 +58,8 @@ namespace IGME106GroupGame
             //player = new Player(playerSprite, new Vector2(960, 540));
 
             // TODO: use this.Content to load your game content here
+            assets = new Assets(this.Content);
+            state = new MenuState(this);
         }
 
         protected override void Update(GameTime gameTime)
