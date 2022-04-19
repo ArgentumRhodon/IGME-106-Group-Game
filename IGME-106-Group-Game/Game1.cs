@@ -58,7 +58,7 @@ namespace IGME106GroupGame
             //player = new Player(playerSprite, new Vector2(960, 540));
 
             // TODO: use this.Content to load your game content here
-            assets = new Assets(this.Content);
+            Assets.LoadContent(Content);
             state = new MenuState(this);
         }
 

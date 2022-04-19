@@ -25,9 +25,19 @@ namespace IGME106GroupGame.UI
 
         // - Methods -
         /// <summary>
+        /// Loads all of the assets from all subfolders of content
+        /// </summary>
+        public static void LoadContent(ContentManager content)
+        {
+            LoadUIContent(content);
+            LoadLevelContent(content);
+            LoadGameObjectContent(content);
+        }
+
+        /// <summary>
         /// Loads all of the assets from the uiContent folder
         /// </summary>
-        public static void LoadContent(Game1 game)
+        private static void LoadUIContent(ContentManager content)
         {
             DirectoryInfo[] uiDirectories = new DirectoryInfo(content.RootDirectory + "\\uiAssets").GetDirectories();
             foreach(DirectoryInfo uiDirectory in uiDirectories)
@@ -46,7 +56,7 @@ namespace IGME106GroupGame.UI
         /// Loads all of the assets from the levelAssets folder
         /// </summary>
         /// <param name="content"></param>
-        private void LoadLevelContent(ContentManager content)
+        private static void LoadLevelContent(ContentManager content)
         {
             DirectoryInfo[] uiDirectories = new DirectoryInfo(content.RootDirectory + "\\levelAssets").GetDirectories();
             foreach (DirectoryInfo uiDirectory in uiDirectories)
@@ -65,7 +75,7 @@ namespace IGME106GroupGame.UI
         /// Loads all of the content from the gameObjects folder
         /// </summary>
         /// <param name="content"></param>
-        private void LoadGameObjectContent(ContentManager content)
+        private static void LoadGameObjectContent(ContentManager content)
         {
             DirectoryInfo dir = new DirectoryInfo(content.RootDirectory + "\\gameObjects");
             FileInfo[] fileInfos = dir.GetFiles();
