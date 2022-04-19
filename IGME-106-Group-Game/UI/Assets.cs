@@ -24,24 +24,6 @@ namespace IGME106GroupGame.UI
 
         // - Methods -
         /// <summary>
-        /// Returns a texture based on the given texture name
-        /// </summary>
-        /// <param name="index">The name of the texture</param>
-        /// <returns>The texture with the given name</returns>
-        public static Texture2D Get(string index)
-        {
-            if (textures.ContainsKey(index))
-            {
-                return textures[index];
-            }
-
-            else
-            {
-                throw new KeyNotFoundException();
-            }
-        }
-
-        /// <summary>
         /// Loads all game textures and puts them into a dictionary
         /// </summary>
         public static void LoadContent(Game1 game)
