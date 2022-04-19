@@ -26,11 +26,13 @@ namespace IGME106GroupGame.States
             get => gameObjects;
             set => gameObjects = value;
         }
+
         private List<GameObject> Enemies => gameObjects.FindAll(gameObject => gameObject is RangedEnemy || gameObject is MeleeEnemy);
         private List<GameObject> RangedEnemies => gameObjects.FindAll(gameObject => gameObject is RangedEnemy);
         private List<GameObject> MeleeEnemies => gameObjects.FindAll(gameObject => gameObject is MeleeEnemy);
         private List<GameObject> Projectiles => gameObjects.FindAll(gameObject => gameObject is Projectile);
         private List<GameObject> Entities => gameObjects.FindAll(gameObject => gameObject is IEntity);
+        private List<GameObject> Walls => gameObjects.FindAll(gameObject => gameObject is WallEntity);
 
         // Constructor
         public GameObjectHandler(Player player, List<Vector2> wallPositions)
@@ -42,7 +44,7 @@ namespace IGME106GroupGame.States
             gameObjects = new List<GameObject>();
             gameObjects.Add(player);
 
-            // use wallPositions to somehow get a list of wall collisions
+            // use wallPositions to somehow get a list of wall collisions DO THIS IDIOT
         }
 
         // Methods
@@ -151,9 +153,12 @@ namespace IGME106GroupGame.States
             }
         }
 
-        private List<WallEntity> GetWallEntities() // Do this when WallEntity is created
+        private List<WallEntity> GetWallEntities() // Do this when WallEntity is created DO THIS IDIOT  
         {
-
+            foreach (WallEntity wall in Walls)
+            {
+                
+            }
         }
     }
 }
