@@ -48,7 +48,7 @@ namespace IGME106GroupGame.States
         {
             UpdateGameObjects(state);
             HandleDeadEntities();
-            UpdateEnemyCount();
+            UpdateEnemyCount(state);
         }
 
         private void UpdateGameObjects(GameState state)
@@ -110,37 +110,42 @@ namespace IGME106GroupGame.States
             }
         }
 
-        private void UpdateEnemyCount()
+        private void UpdateEnemyCount(GameState state)
         {
             Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
             Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
 
-            while (Enemies.Count < 7)
+            if(Enemies.Count == 0)
             {
-                Vector2 randomPosition = new Vector2(-1, -1);
+                state.Wave++;
 
-                while (
-                      !leftSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
-                      && !rightSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
-                    )
+                while (Enemies.Count < state.Wave * 2)
                 {
-                    randomPosition.X = (new Random()).Next(60, 1800);
-                    randomPosition.Y = (new Random()).Next(60, 900);
-                }
+                    Vector2 randomPosition = new Vector2(-1, -1);
 
-                //50 - 50 chance of spawning a ranged or melee enemy
-                if (rng.Next(0, 2) == 0)
-                {
-                    gameObjects.Add(new RangedEnemy(Assets.Textures["ninja"], randomPosition, player));
-                }
-                // 50-50 chance of melee being ninja or slimebot
-                else if (rng.Next(0, 2) == 0)
-                {
-                    gameObjects.Add(new MeleeEnemy(Assets.Textures["meleeNinja"], randomPosition, player));
-                }
-                else
-                {
-                    gameObjects.Add(new MeleeEnemy(Assets.Textures["slimeBot"], randomPosition, player));
+                    while (
+                          !leftSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
+                          && !rightSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
+                        )
+                    {
+                        randomPosition.X = (new Random()).Next(60, 1800);
+                        randomPosition.Y = (new Random()).Next(60, 900);
+                    }
+
+                    //50 - 50 chance of spawning a ranged or melee enemy
+                    if (rng.Next(0, 2) == 0)
+                    {
+                        gameObjects.Add(new RangedEnemy(Assets.Textures["ninja"], randomPosition, player));
+                    }
+                    // 50-50 chance of melee being ninja or slimebot
+                    else if (rng.Next(0, 2) == 0)
+                    {
+                        gameObjects.Add(new MeleeEnemy(Assets.Textures["meleeNinja"], randomPosition, player));
+                    }
+                    else
+                    {
+                        gameObjects.Add(new MeleeEnemy(Assets.Textures["slimeBot"], randomPosition, player));
+                    }
                 }
             }
         }
