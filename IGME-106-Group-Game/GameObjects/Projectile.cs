@@ -37,9 +37,14 @@ namespace IGME106GroupGame.GameObjects
 
         public override void HandleCollision(GameObject other)
         {
-            if((other is RangedEnemy || other is MeleeEnemy) && other != currentEnemy && !IsEnemyProjectile)
+            if(other is RangedEnemy && other != currentEnemy && !IsEnemyProjectile)
             {
-                currentEnemy = other;
+                currentEnemy = (RangedEnemy)other;
+                health--;
+            }
+            if (other is MeleeEnemy && other != currentEnemy && !IsEnemyProjectile)
+            {
+                currentEnemy = (MeleeEnemy)other;
                 health--;
             }
         }

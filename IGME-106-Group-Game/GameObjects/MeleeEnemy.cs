@@ -24,7 +24,7 @@ namespace IGME106GroupGame.GameObjects
         // Methods
         public override void Update(GameObjectHandler gameObjectHandler)
         {
-            position += movement.Vector;
+            base.Update(gameObjectHandler);
         }
 
         public override void HandleCollision(GameObject other)

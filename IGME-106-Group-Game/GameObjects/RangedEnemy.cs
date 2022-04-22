@@ -24,7 +24,7 @@ namespace IGME106GroupGame.GameObjects
             movement = new RangedEnemyMovement(5, this, player);
             health = 1;
             random = new Random();
-            fireDelay = random.Next(45, 315);
+            fireDelay = random.Next(45, 125);
         }
 
         // Methods

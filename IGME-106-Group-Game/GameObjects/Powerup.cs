@@ -9,7 +9,7 @@ using IGME106GroupGame.States;
 
 namespace IGME106GroupGame.GameObjects
 {
-    class Powerup : GameObject, IPickup
+    public class Powerup : GameObject, IPickup
     {
         private bool isCollected;
 

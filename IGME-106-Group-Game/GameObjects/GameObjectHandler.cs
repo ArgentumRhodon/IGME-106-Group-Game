@@ -19,7 +19,7 @@ namespace IGME106GroupGame.States
         // Fields
         private Player player;
         private Powerup pickup;
-        private int enemCount;
+        private int pickupThresh;
         private List<GameObject> gameObjects;
 
         public Player Player => player;
@@ -42,9 +42,8 @@ namespace IGME106GroupGame.States
             this.player = player;
 
             gameObjects = new List<GameObject>();
-            this.enemCount = 5;
+            this.pickupThresh = 10;
             this.pickup = null;
-            // Uses the same sprite, enemy just tints it red
             gameObjects = new List<GameObject>();
             
             gameObjects.Add(player);
@@ -81,7 +80,16 @@ namespace IGME106GroupGame.States
                     AddEnemyProjectile(Assets.Textures["enemyStar"], GetRandomRangedEnemyPosition(), player.Position);
                 }
             }
-
+            if(pickupThresh <= 0)
+            {
+                AddPickup(state);
+                pickupThresh = 10;
+            }
+            //this is to "freeze" the pickup thershold timer
+            if(pickup != null && !pickup.IsCollected)
+            {
+                pickupThresh = 10;
+            }
             enemyFireTime--;
         }
 
@@ -103,7 +111,7 @@ namespace IGME106GroupGame.States
 
         public void AddPickup(State state)
         {
-            pickup = new Powerup(state.Game.Assets.Get("smallHeart"), new Vector2(rng.Next(100, 1800), rng.Next(100, 900)));
+            pickup = new Powerup(Assets.Textures["smallHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900)));
             gameObjects.Add(pickup);
         }
 
@@ -178,7 +186,7 @@ namespace IGME106GroupGame.States
                 {
                     gameObjects.Add(new MeleeEnemy(Assets.Textures["slimeBot"], randomPosition, player));
                 }
-                enemCount--;
+                pickupThresh--;
             }
         }
     }

@@ -51,12 +51,6 @@ namespace IGME106GroupGame.GameObjects
             }
 
             position += movement.Vector;
-            //fireDelay--;
-            //-1 so there's a frame where it actually equals 0 for the handler to check
-            //if(fireDelay <= -1)
-            //{
-            //    fireDelay = rng.Next(45, 315);
-            //}
         }
 
         public override void HandleCollision(GameObject other)
