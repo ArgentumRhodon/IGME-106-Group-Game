@@ -42,4 +42,7 @@
   <ItemGroup>
     <ProjectReference Include="..\LevelEditor\LevelEditor.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\levelAssets\" />
+  </ItemGroup>
 </Project>
