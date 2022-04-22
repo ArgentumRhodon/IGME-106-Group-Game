@@ -13,13 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin font.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:font.spritefont
-
 #begin gameObjects/enemyStar.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -99,7 +92,7 @@
 /processorParam:TextureFormat=Compressed
 /build:headingFont.spritefont
 
-#begin levelAssets/corner/bottomLeft.png
+#begin levelAssets/corners/bottomLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
