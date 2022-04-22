@@ -29,6 +29,8 @@ namespace IGME106GroupGame.States
         private MouseState currentMouseState;
         private MouseState previousMouseState;
 
+        private int wave;
+
         /// <summary>
         /// This boolean will be used to check if the game is paused
         /// </summary>
@@ -36,6 +38,15 @@ namespace IGME106GroupGame.States
         {
             get => paused;
             set => paused = value;
+        }
+
+        /// <summary>
+        /// The wave the player is currently on
+        /// </summary>
+        public int Wave
+        {
+            get => wave;
+            set => wave = value;
         }
 
         public bool GodModeEnabled => godMode;
@@ -56,6 +67,8 @@ namespace IGME106GroupGame.States
             ui = new GameUI(game, gameObjectHandler.Player);
             pauseUI = new PauseUI(game);
             deathUI = new DeathUI(game);
+
+            wave = 0;
         }
 
         /// <summary>

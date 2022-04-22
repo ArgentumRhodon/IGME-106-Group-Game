@@ -88,10 +88,10 @@ namespace IGME106GroupGame.Levels
         }
 
         /*
-         * 1 -> top right corner
-         * 2 -> top left corner
-         * 3 -> bottom right corner
-         * 4 -> bottom left corner
+         * 1 -> top left corner
+         * 2 -> top right corner
+         * 3 -> bottom left corner
+         * 4 -> bottom right corner
          * 
          * A -> north wall
          * B -> east wall
