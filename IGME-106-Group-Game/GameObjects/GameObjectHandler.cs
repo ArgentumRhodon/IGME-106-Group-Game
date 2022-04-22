@@ -92,8 +92,8 @@ namespace IGME106GroupGame.States
         }
 
         public void AddPlayerProjectile(Texture2D sprite, Vector2 p1, Vector2 p2)
-        {
-            gameObjects.Add(new Projectile(sprite, p1, p2, false, 18));
+        { 
+             gameObjects.Add(new Projectile(sprite, p1, p2, false, 18));
         }
 
         private void AddEnemyProjectile(Texture2D sprite, Vector2 p1, Vector2 p2)
@@ -103,7 +103,7 @@ namespace IGME106GroupGame.States
 
         public void AddPickup(State state)
         {
-            pickup = new Powerup(state.Game.Assets.Get("smallHeart"), new Vector2(rng.Next(100, 1800), rng.Next(100, 900)));
+            pickup = new Powerup(Assets.Textures["smallHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900)));
             gameObjects.Add(pickup);
         }
 
