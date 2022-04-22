@@ -15,13 +15,6 @@ namespace IGME106GroupGame.Levels
         // Fields
         private Tile[,] tiles;
         private string filePath;
-        private Assets assets;
-
-        // Tile sprites
-        private Texture2D[] cornerSprites;
-        private Texture2D[] wallSprites;
-        private Texture2D floorSprite;
-        private Texture2D baseSprite;
 
         // Tile information
         private const int TileHeight = 18;
@@ -34,42 +27,13 @@ namespace IGME106GroupGame.Levels
         /// </summary>
         /// <param name="content">The Content Manager</param>
         /// <param name="filePath">The file path of the map</param>
-        public Map(Assets assets, string filePath)
+        public Map(string filePath)
         {
             this.filePath = filePath;
-            this.assets = assets;
             InitializeMap();
         }
 
         // Methods
-        /// <summary>
-        /// This method loads content from the wall and corner folders under \Content\
-        /// </summary>
-        /// <param name="content"></param>
-        private void LoadContent(ContentManager content)
-        {
-            cornerSprites = new Texture2D[4];
-            string[] cornerImages= Directory.GetFiles("content\\corner");
-            for(int i = 0; i < cornerImages.Length; i++)
-            {
-                string filePath = cornerImages[i].Remove(0, "content\\".Length);
-                filePath = filePath.Substring(0, filePath.Length - 4);
-                cornerSprites[i] = content.Load<Texture2D>(filePath);
-            }
-
-            wallSprites = new Texture2D[4];
-            string[] wallImages = Directory.GetFiles("content\\wall");
-            for (int i = 0; i < wallImages.Length; i++)
-            {
-                string filePath = wallImages[i].Remove(0, "content\\".Length);
-                filePath = filePath.Substring(0, filePath.Length - 4);
-                wallSprites[i] = content.Load<Texture2D>(filePath);
-            }
-
-            floorSprite = content.Load<Texture2D>("floor");
-            baseSprite = content.Load<Texture2D>("base");
-        }
-
         /// <summary>
         /// This method will initialize the map
         /// </summary>
@@ -146,25 +110,25 @@ namespace IGME106GroupGame.Levels
             switch (tileRepresentative)
             {
                 case '1':
-                    return assets.Get("topRight");
+                    return Assets.Textures["topRight"];
                 case '2':
-                    return assets.Get("topLeft");
+                    return Assets.Textures["topLeft"];
                 case '3':
-                    return assets.Get("bottomRight");
+                    return Assets.Textures["bottomRight"];
                 case '4':
-                    return assets.Get("bottomLeft");
+                    return Assets.Textures["bottomLeft"];
                 case 'A':
-                    return assets.Get("north");
+                    return Assets.Textures["north"];
                 case 'B':
-                    return assets.Get("east");
+                    return Assets.Textures["east"];
                 case 'C':
-                    return assets.Get("south");
+                    return Assets.Textures["south"];
                 case 'D':
-                    return assets.Get("west");
+                    return Assets.Textures["west"];
                 case '-':
-                    return assets.Get("floor");
+                    return Assets.Textures["floor"];
                 default:
-                    return assets.Get("default");
+                    return Assets.Textures["default"];
             }
         }
     }

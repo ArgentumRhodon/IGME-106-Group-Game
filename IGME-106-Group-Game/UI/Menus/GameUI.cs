@@ -61,11 +61,11 @@ namespace IGME106GroupGame.UI.Menus
             {
                 if (i % 2 == 0)
                 {
-                    hearts.Add(new Image(game.Assets.Get("heart"), 20 + (110 * ((i - 1) / 2)), 20, Alignment.Begin, Alignment.Begin, game.Graphics));
+                    hearts.Add(new Image(Assets.Textures["heart"], 20 + (110 * ((i - 1) / 2)), 20, Alignment.Begin, Alignment.Begin, game.Graphics));
                 }
                 else if (i == player.Health)
                 {
-                    hearts.Add(new Image(game.Assets.Get("halfHeart"), 20 + (110 * (i / 2)), 20, Alignment.Begin, Alignment.Begin, game.Graphics));
+                    hearts.Add(new Image(Assets.Textures["halfHeart"], 20 + (110 * (i / 2)), 20, Alignment.Begin, Alignment.Begin, game.Graphics));
                 }
             }
 

@@ -24,12 +24,12 @@ namespace IGME106GroupGame.UI.Menus
         /// </summary>
         public override void LoadContent()
         {
-            images.Add(new Image(game.Assets.Get("titleArt"), 0, 0, Alignment.Begin, Alignment.Begin, game.Graphics));
-            images.Add(new Image(game.Assets.Get("titleTexture"), 0, 75, Alignment.Begin, Alignment.Begin, game.Graphics));
-            buttons.Add(new Button(new Image(game.Assets.Get("startText"), 30, -205, Alignment.Begin, Alignment.Middle, game.Graphics), (State state) => { state.NextState = new GameState(game); }));
-            buttons.Add(new Button(new Image(game.Assets.Get("startAsGod"), 30, -30, Alignment.Begin, Alignment.Middle, game.Graphics), (State state) => { state.NextState = new GameState(game, true); }));
-            buttons.Add(new Button(new Image(game.Assets.Get("levelEditorText"), 30, 145, Alignment.Begin, Alignment.Middle, game.Graphics), (State state) => { (new LevelEditor.Form1()).Show(); }));
-            buttons.Add(new Button(new Image(game.Assets.Get("quitText"), 30, 320, Alignment.Begin, Alignment.Middle, game.Graphics), (State state) => { Environment.Exit(0); }));
+            images.Add(new Image(Assets.Textures["titleArt"], 0, 0, Alignment.Begin, Alignment.Begin, game.Graphics));
+            images.Add(new Image(Assets.Textures["titleTexture"], 0, 75, Alignment.Begin, Alignment.Begin, game.Graphics));
+            buttons.Add(new Button(new Image(Assets.Textures["startText"], 30, -205, Alignment.Begin, Alignment.Middle, game.Graphics), (State state) => { state.NextState = new GameState(game); }));
+            buttons.Add(new Button(new Image(Assets.Textures["startAsGod"], 30, -30, Alignment.Begin, Alignment.Middle, game.Graphics), (State state) => { state.NextState = new GameState(game, true); }));
+            buttons.Add(new Button(new Image(Assets.Textures["levelEditorText"], 30, 145, Alignment.Begin, Alignment.Middle, game.Graphics), (State state) => { (new LevelEditor.Form1()).Show(); }));
+            buttons.Add(new Button(new Image(Assets.Textures["quitText"], 30, 320, Alignment.Begin, Alignment.Middle, game.Graphics), (State state) => { Environment.Exit(0); }));
         }
     }
 }

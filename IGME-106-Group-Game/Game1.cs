@@ -22,7 +22,6 @@ namespace IGME106GroupGame
 
         // Fields
         private State state;
-        private Assets assets;
 
         // Properties
         public GraphicsDeviceManager Graphics => _graphics;
@@ -31,11 +30,6 @@ namespace IGME106GroupGame
         {
             get => state;
             set => state = value;
-        }
-
-        public Assets Assets
-        {
-            get => assets;
         }
 
         // Constructor
@@ -64,7 +58,7 @@ namespace IGME106GroupGame
             //player = new Player(playerSprite, new Vector2(960, 540));
 
             // TODO: use this.Content to load your game content here
-            assets = new Assets(this.Content);
+            Assets.LoadContent(Content);
             state = new MenuState(this);
         }
 
