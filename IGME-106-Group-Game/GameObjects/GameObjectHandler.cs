@@ -35,7 +35,7 @@ namespace IGME106GroupGame.States
         private List<GameObject> Walls => gameObjects.FindAll(gameObject => gameObject is WallEntity);
 
         // Constructor
-        public GameObjectHandler(Player player, List<Vector2> wallPositions)
+        public GameObjectHandler(Player player)
         {
             this.enemyFireTime = 25;
 
@@ -43,8 +43,6 @@ namespace IGME106GroupGame.States
 
             gameObjects = new List<GameObject>();
             gameObjects.Add(player);
-
-            // use wallPositions to somehow get a list of wall collisions DO THIS IDIOT
         }
 
         // Methods

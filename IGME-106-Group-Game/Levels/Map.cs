@@ -46,7 +46,7 @@ namespace IGME106GroupGame.Levels
         /// This method loads content from the wall and corner folders under \Content\
         /// </summary>
         /// <param name="content"></param>
-        private void LoadContent(ContentManager content)
+        private void LoadContent(ContentManager content) // Needs editing
         {
             cornerSprites = new Texture2D[4];
             string[] cornerImages= Directory.GetFiles("content\\corner");
