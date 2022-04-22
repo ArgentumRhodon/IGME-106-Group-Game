@@ -73,6 +73,11 @@ namespace IGME106GroupGame.GameObjects
                 collidedWithOtherEnemy = true;
                 collisionPosition = other.Position;
             }
+
+            if (other is WallEntity) // Finish this
+            {
+
+            }
         }
     }
 }

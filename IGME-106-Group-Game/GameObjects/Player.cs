@@ -66,13 +66,18 @@ namespace IGME106GroupGame.GameObjects
 
         public override void HandleCollision(GameObject other)
         {
-            if(other is RangedEnemy || other is MeleeEnemy || (other is Projectile && ((Projectile)other).IsEnemyProjectile))
+            if (other is RangedEnemy || other is MeleeEnemy || (other is Projectile && ((Projectile)other).IsEnemyProjectile))
             {
                 if(iFrames == 0 && !isInvincible)
                 {
                     health--;
                     IFrames = 30;
                 }
+            }
+
+            if (other is WallEntity) // Finish this
+            {
+                
             }
         }
     }
