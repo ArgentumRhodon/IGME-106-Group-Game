@@ -20,6 +20,7 @@ namespace IGME106GroupGame.GameObjects
         //Properties
         public Texture2D Sprite { get => sprite; set => sprite = value; }
         public Vector2 Position { get => position; set => position = value; }
+        public Vector2 Center { get => new Vector2(position.X + (sprite.Width / 2), position.Y + (sprite.Height / 2));}
         public Movement Movement => movement;
         public Rectangle NextCollisionBox
         {

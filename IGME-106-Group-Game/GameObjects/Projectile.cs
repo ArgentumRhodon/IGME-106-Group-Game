@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using IGME106GroupGame.MovementAndAI;
+using IGME106GroupGame.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -23,6 +24,9 @@ namespace IGME106GroupGame.GameObjects
         public bool IsEnemyProjectile { get => isEnemyProjectile; set => isEnemyProjectile = value; }
         //health is the bullet's pierce
         public int Health { get => health; set => health = value; }
+        public GameObject CurrentEnemy { get => currentEnemy; set => currentEnemy = value; }
+
+        public HealthBar HealthBar => throw new NotImplementedException();
 
         //Constructor
         public Projectile (Texture2D sprite, Vector2 p_1, Vector2 p_2, bool isEnemyProjectile, float speed) :
@@ -36,7 +40,7 @@ namespace IGME106GroupGame.GameObjects
 
         public override void HandleCollision(GameObject other)
         {
-            if((other is RangedEnemy || other is MeleeEnemy) && other != currentEnemy && !IsEnemyProjectile)
+            if((other is RangedEnemy || other is MeleeEnemy || other is Boss) && other != currentEnemy && !IsEnemyProjectile)
             {
                 currentEnemy = other;
                 health--;

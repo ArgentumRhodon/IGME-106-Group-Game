@@ -124,14 +124,14 @@ namespace IGME106GroupGame.States
         /// This method will draw enemies, projectiles, and the player to the screen, and also draw UI when applicable
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, GraphicsDevice gd)
         {
-            base.Draw(spriteBatch);
+            base.Draw(spriteBatch, gd);
 
             // GameState rendering
             level.Draw(spriteBatch);
 
-            gameObjectHandler.Draw(spriteBatch);
+            gameObjectHandler.Draw(spriteBatch, gd);
 
             ui.Draw(spriteBatch);
 

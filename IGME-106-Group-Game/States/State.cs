@@ -60,7 +60,7 @@ namespace IGME106GroupGame.States
         /// This method will draw the state
         /// </summary>
         /// <param name="_spriteBatch"></param>
-        public virtual void Draw(SpriteBatch _spriteBatch)
+        public virtual void Draw(SpriteBatch _spriteBatch, GraphicsDevice gd)
         {
             ui.Draw(_spriteBatch);
         }

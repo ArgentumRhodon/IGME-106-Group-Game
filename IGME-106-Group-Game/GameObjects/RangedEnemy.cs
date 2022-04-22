@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using IGME106GroupGame.MovementAndAI;
 using IGME106GroupGame.States;
+using IGME106GroupGame.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -12,6 +13,8 @@ namespace IGME106GroupGame.GameObjects
     {
         //Fields
         Random random;
+        private HealthBar healthBar;
+
         private int health;
         private bool collidedWithOtherEnemy = false;
         private Vector2 collisionPosition;
@@ -21,12 +24,15 @@ namespace IGME106GroupGame.GameObjects
         public int Health { get => health; set => health = value; }
         public int FireDelay => fireDelay;
 
+        public HealthBar HealthBar => healthBar;
+
         //Constructor
         public RangedEnemy (Texture2D sprite, Vector2 startPos, Player player) : 
             base(sprite, startPos)
         {
             movement = new RangedEnemyMovement(5, this, player);
             health = 1;
+            healthBar = new HealthBar(this, health);
             random = new Random();
             fireDelay = random.Next(45, 315);
         }
@@ -39,7 +45,7 @@ namespace IGME106GroupGame.GameObjects
 
             if(collidedWithOtherEnemy)
             {
-                Vector2 direction = position - collisionPosition;
+                Vector2 direction = Center - collisionPosition;
                 if (direction.Length() < 100)
                 {
                     direction = position - collisionPosition;
@@ -65,7 +71,7 @@ namespace IGME106GroupGame.GameObjects
 
         public override void HandleCollision(GameObject other)
         {
-            if(other is Projectile && !((Projectile)other).IsEnemyProjectile)
+            if(other is Projectile && !((Projectile)other).IsEnemyProjectile && ((Projectile)other).CurrentEnemy != this)
             {
                 health--;
             }

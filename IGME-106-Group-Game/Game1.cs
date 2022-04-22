@@ -81,7 +81,7 @@ namespace IGME106GroupGame
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
-            state.Draw(_spriteBatch);
+            state.Draw(_spriteBatch, GraphicsDevice);
             //player.Draw(_spriteBatch);
 
             _spriteBatch.End();
