@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,82 +9,83 @@ using System.Threading.Tasks;
 
 namespace IGME106GroupGame.UI
 {
-    public class Assets
+    public static class Assets
     {
         // - Fields -
-        private Game1 game;
-        private Dictionary<string, Texture2D> textures;
+        private static Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
 
-        // - Consturctor -
-        public Assets(Game1 game)
+        // - Property -
+        /// <summary>
+        /// A dictonary for all the game's textures
+        /// </summary>
+        public static Dictionary<string, Texture2D> Textures
         {
-            this.game = game;
-            textures = new Dictionary<string, Texture2D>();
-
-            LoadContent();
+            get => textures;
         }
 
         // - Methods -
         /// <summary>
-        /// Gets a texture based on its name
+        /// Loads all of the assets from all subfolders of content
         /// </summary>
-        /// <param name="key">The name of the texture</param>
-        /// <returns>The texture with the given name</returns>
-        public Texture2D Get(string key)
+        public static void LoadContent(ContentManager content)
         {
-            if(textures.ContainsKey(key))
-            {
-                return textures[key];
-            }
+            LoadUIContent(content);
+            LoadLevelContent(content);
+            LoadGameObjectContent(content);
+        }
 
-            else
+        /// <summary>
+        /// Loads all of the assets from the uiContent folder
+        /// </summary>
+        private static void LoadUIContent(ContentManager content)
+        {
+            DirectoryInfo[] uiDirectories = new DirectoryInfo(content.RootDirectory + "\\uiAssets").GetDirectories();
+            foreach(DirectoryInfo uiDirectory in uiDirectories)
             {
-                throw new KeyNotFoundException();
+                FileInfo[] fileInfos = uiDirectory.GetFiles("*.xnb");
+                foreach (FileInfo file in fileInfos)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(file.Name);
+                    Texture2D image = content.Load<Texture2D>("uiAssets\\" + uiDirectory.Name + "\\" + fileName);
+                    textures.Add(fileName, image);
+                }
             }
         }
 
         /// <summary>
-        /// Loads all game textures and puts them into a dictionary
+        /// Loads all of the assets from the levelAssets folder
         /// </summary>
-        private void LoadContent()
+        /// <param name="content"></param>
+        private static void LoadLevelContent(ContentManager content)
         {
-            // Game Screen UI Textures
-            textures.Add("continueText", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\continueText"));
-            textures.Add("gameOverTitle", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\gameOverTitle"));
-            textures.Add("halfHeart", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\halfHeart"));
-            textures.Add("smallHeart", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\smallHeart"));
-            textures.Add("heart", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\heart"));
-            textures.Add("pausedTitle", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\pausedTitle"));
-            textures.Add("quitTitleText", game.Content.Load<Texture2D>("uiAssets\\gameScreen\\quitTitleText"));
-
-            // Title Screen UI Textures
-            textures.Add("levelEditorText", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\levelEditorText"));
-            textures.Add("optionsText", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\optionsText"));
-            textures.Add("quitText", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\quitText"));
-            textures.Add("startAsGod", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\startAsGod"));
-            textures.Add("startText", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\startText"));
-            textures.Add("titleArt", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleArt"));
-            textures.Add("titleTexture", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleTexture"));
-
-            // Tiles Textures
-            textures.Add("floor", game.Content.Load<Texture2D>("floor"));
-            textures.Add("northWall", game.Content.Load<Texture2D>("wall\\north"));
-            textures.Add("eastWall", game.Content.Load<Texture2D>("wall\\east"));
-            textures.Add("southWall", game.Content.Load<Texture2D>("wall\\south"));
-            textures.Add("westWall", game.Content.Load<Texture2D>("wall\\west"));
-            textures.Add("topLeftWall", game.Content.Load<Texture2D>("corner\\topLeft"));
-            textures.Add("topRightWall", game.Content.Load<Texture2D>("corner\\topRight"));
-            textures.Add("bottomLeftWall", game.Content.Load<Texture2D>("corner\\bottomLeft"));
-            textures.Add("bottomRightWall", game.Content.Load<Texture2D>("corner\\bottomRight"));
-
-            // Game Objects Textures
-            textures.Add("base", game.Content.Load<Texture2D>("base"));
-            textures.Add("ninja", game.Content.Load<Texture2D>("gameObjects\\ninja"));
-            textures.Add("meleeNinja", game.Content.Load<Texture2D>("gameObjects\\meleeNinja"));
-            textures.Add("slimeBot", game.Content.Load<Texture2D>("gameObjects\\slimeBot"));
-            textures.Add("player", game.Content.Load<Texture2D>("gameObjects\\player"));
-            textures.Add("enemyStar", game.Content.Load<Texture2D>("gameObjects\\enemyStar"));
-            textures.Add("playerStar", game.Content.Load<Texture2D>("gameObjects\\playerStar"));
+            DirectoryInfo[] uiDirectories = new DirectoryInfo(content.RootDirectory + "\\levelAssets").GetDirectories();
+            foreach (DirectoryInfo uiDirectory in uiDirectories)
+            {
+                FileInfo[] fileInfos = uiDirectory.GetFiles("*.xnb");
+                foreach (FileInfo file in fileInfos)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(file.Name);
+                    Texture2D image = content.Load<Texture2D>("levelAssets\\" + uiDirectory.Name + "\\" + fileName);
+                    textures.Add(fileName, image);
+                }
+            }
         }
+
+        /// <summary>
+        /// Loads all of the content from the gameObjects folder
+        /// </summary>
+        /// <param name="content"></param>
+        private static void LoadGameObjectContent(ContentManager content)
+        {
+            DirectoryInfo dir = new DirectoryInfo(content.RootDirectory + "\\gameObjects");
+            FileInfo[] fileInfos = dir.GetFiles();
+            foreach (FileInfo file in fileInfos)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(file.Name);
+                Texture2D image = content.Load<Texture2D>(dir.Name + "\\" + fileName);
+                textures.Add(fileName, image);
+            }
+        }
+
     }
 }
