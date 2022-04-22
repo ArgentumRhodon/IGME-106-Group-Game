@@ -152,13 +152,5 @@ namespace IGME106GroupGame.States
                 }
             }
         }
-
-        private List<WallEntity> GetWallEntities() // Do this when WallEntity is created DO THIS IDIOT  
-        {
-            foreach (WallEntity wall in Walls)
-            {
-                
-            }
-        }
     }
 }

@@ -76,7 +76,9 @@ namespace IGME106GroupGame.GameObjects
 
             if (other is WallEntity) // Finish this
             {
-
+                Vector2 direction = position - collisionPosition;
+                direction.Normalize();
+                movement.Vector = direction * (5 / direction.Length());
             }
         }
     }

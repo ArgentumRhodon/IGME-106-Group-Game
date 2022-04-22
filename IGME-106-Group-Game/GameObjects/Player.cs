@@ -14,6 +14,7 @@ namespace IGME106GroupGame.GameObjects
         private int health;
         private int iFrames;
         private bool isInvincible;
+        private Vector2 collisionPosition;
 
         //Properties
         public int Health { get => health; set => health = value; }
@@ -77,7 +78,9 @@ namespace IGME106GroupGame.GameObjects
 
             if (other is WallEntity) // Finish this
             {
-                
+                Vector2 direction = position - collisionPosition;
+                direction.Normalize();
+                movement.Vector = direction * (5 / direction.Length());
             }
         }
     }

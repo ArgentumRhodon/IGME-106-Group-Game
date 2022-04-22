@@ -19,10 +19,11 @@ namespace LevelEditor
     public partial class LevelEditor : Form
     {
         // Fields
-        int mapWidth;
-        int mapHeight;
-        bool changes;
-        Form1 form;
+        private int mapWidth;
+        private int mapHeight;
+        private int colorLevel;
+        private bool changes;
+        private Form1 form;
 
         // Ease of use variables
         private int tileSize = 30; // For easy manipulation of tile size
@@ -38,21 +39,50 @@ namespace LevelEditor
         /// </summary>
         public int MapHeight { get { return mapHeight; } }
 
+        /// <summary>
+        /// This property allows the getting and setting of the color level
+        /// </summary>
+        public int ColorLevel { get { return colorLevel; } set { colorLevel = value; } }
+
         // Constructors
         /// <summary>
         /// This constructor will create a new LevelEditor
         /// </summary>
-        public LevelEditor(int mapWidth, int mapHeight, Form1 form)
+        public LevelEditor(int mapWidth, int mapHeight, int colorLevel, Form1 form)
         {
             InitializeComponent();
             this.mapWidth = mapWidth;
             this.mapHeight = mapHeight;
+            this.colorLevel = colorLevel;
             changes = false;
             this.form = form;
             Size = new Size(tileSize * MapWidth + 175, tileSize * MapHeight + 75);
+            LoadTileSprites(colorLevel);
         }
 
         // Methods
+        /// <summary>
+        /// This method will load the desired color level sprites into the buttons to use for the level
+        /// </summary>
+        /// <param name="color">The color level to load</param>
+        public void LoadTileSprites(int color)
+        {
+            // Floor
+            buttonFloor.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{color}/floor/floor.png");
+
+            // Walls
+            buttonEastWall.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{color}/wall/east.png");
+            buttonNorthWall.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{color}/wall/north.png");
+            buttonSouthWall.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{color}/wall/south.png");
+            buttonWestWall.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{color}/wall/west.png");
+
+            // Corners
+            buttonBottomLeftCorner.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{color}/corner/bottomLeft.png");
+            buttonBottomRightCorner.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{color}/corner/bottomRight.png");
+            buttonTopLeftCorner.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{color}/corner/topLeft.png");
+            buttonTopRightCorner.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{color}/corner/topRight.png");
+        }
+
         /// <summary>
         /// This method will set the colors of each tile to the corresponding color in the array
         /// </summary>
@@ -290,8 +320,8 @@ namespace LevelEditor
                 {
                     //output = new StreamWriter(prompt.FileName); ** For choice of directory
                     String[] splitDirectory = prompt.FileName.Split('\\');
-                    output = new StreamWriter($"../../../../IGME-106-Group-Game/bin/Debug/net5.0-windows/Content/{splitDirectory[splitDirectory.Length - 1]}");
-                    output.WriteLine($"{mapWidth},{mapHeight}");
+                    output = new StreamWriter($"../../../../IGME-106-Group-Game/Content/{splitDirectory[splitDirectory.Length - 1]}");
+                    output.WriteLine($"{mapWidth},{mapHeight},{colorLevel}");
                     for (int j = 0; j < MapHeight; j++)
                     {
                         for (int i = 0; i < MapWidth; i++)
