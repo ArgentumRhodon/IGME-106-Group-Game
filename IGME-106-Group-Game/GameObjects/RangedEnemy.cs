@@ -10,11 +10,12 @@ namespace IGME106GroupGame.GameObjects
 {
     public class RangedEnemy: Enemy
     {
+        public Random random;
         //Fields
         private int fireDelay;
 
         //Properties
-
+        public int FireDelay { get { return fireDelay; } set { fireDelay = value; } }
 
         //Constructor
         public RangedEnemy (Texture2D sprite, Vector2 startPos, Player player) : 

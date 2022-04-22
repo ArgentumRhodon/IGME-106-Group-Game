@@ -12,9 +12,6 @@ namespace IGME106GroupGame.GameObjects
 {
     public class MeleeEnemy : Enemy
     {
-        public int Health { get => health; set => health = value; }
-        public int Health { get => health; set => health = value; }
-        public int Health { get => health; set => health = value; }
 
         //Constructor
         public MeleeEnemy(Texture2D sprite, Vector2 startPos, Player player) :
@@ -28,33 +25,6 @@ namespace IGME106GroupGame.GameObjects
         public override void Update(GameObjectHandler gameObjectHandler)
         {
             position += movement.Vector;
-            //fireDelay--;
-            //-1 so there's a frame where it actually equals 0 for the handler to check
-            //if(fireDelay <= -1)
-            //{
-            //    fireDelay = rng.Next(45, 315);
-            //}
-        }
-
-            //if(fireDelay <= -1)
-            //{
-            //    fireDelay = rng.Next(45, 315);
-            //}
-        }
-
-            //if(fireDelay <= -1)
-            //{
-            //    fireDelay = rng.Next(45, 315);
-            //}
-        }
-
-            //if(fireDelay <= -1)
-            //{
-            //    fireDelay = rng.Next(45, 315);
-            //}
-        }
-
-            //}
         }
 
         public override void HandleCollision(GameObject other)
