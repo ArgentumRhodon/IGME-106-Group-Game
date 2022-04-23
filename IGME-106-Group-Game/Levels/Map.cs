@@ -24,8 +24,8 @@ namespace IGME106GroupGame.Levels
         private Texture2D baseSprite;
 
         // Tile information
-        private const int TileHeight = 18;
-        private const int TileWidth = 32;
+        private int TileHeight;
+        private int TileWidth;
         private const int TileSize = 60;
 
         // Constructor
@@ -46,7 +46,7 @@ namespace IGME106GroupGame.Levels
         /// This method loads content from the wall and corner folders under \Content\
         /// </summary>
         /// <param name="content"></param>
-        private void LoadContent(ContentManager content) // Needs editing
+        private void LoadContent(ContentManager content) // Needs editing, add support for colors
         {
             cornerSprites = new Texture2D[4];
             string[] cornerImages= Directory.GetFiles("content\\corner");
@@ -68,6 +68,21 @@ namespace IGME106GroupGame.Levels
 
             floorSprite = content.Load<Texture2D>("floor");
             baseSprite = content.Load<Texture2D>("base");
+        }
+
+        /// <summary>
+        /// This method gets info about level info
+        /// </summary>
+        private void GetLevelInfo()
+        {
+            try
+            {
+
+            }
+            catch (Exception e)
+            {
+
+            }
         }
 
         /// <summary>
