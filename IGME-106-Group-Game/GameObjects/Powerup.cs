@@ -11,7 +11,7 @@ namespace IGME106GroupGame.GameObjects
 {
     public class Powerup : GameObject, IPickup
     {
-        private bool isCollected;
+        protected bool isCollected;
 
         public bool IsCollected { get => isCollected; set => isCollected = value; }
         //Constructor
