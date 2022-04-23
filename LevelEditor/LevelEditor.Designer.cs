@@ -45,12 +45,14 @@ namespace LevelEditor
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.groupBoxMap = new System.Windows.Forms.GroupBox();
+            this.buttonInvert = new System.Windows.Forms.Button();
             this.groupBoxTileSelector.SuspendLayout();
             this.groupBoxCurrentTile.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxTileSelector
             // 
+            this.groupBoxTileSelector.Controls.Add(this.buttonInvert);
             this.groupBoxTileSelector.Controls.Add(this.buttonBottomLeftCorner);
             this.groupBoxTileSelector.Controls.Add(this.buttonEastWall);
             this.groupBoxTileSelector.Controls.Add(this.buttonSouthWall);
@@ -188,7 +190,6 @@ namespace LevelEditor
             // buttonCurrentTile
             // 
             this.buttonCurrentTile.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.buttonCurrentTile.Image = ((System.Drawing.Image)(resources.GetObject("buttonCurrentTile.Image")));
             this.buttonCurrentTile.Location = new System.Drawing.Point(20, 22);
             this.buttonCurrentTile.Name = "buttonCurrentTile";
             this.buttonCurrentTile.Size = new System.Drawing.Size(66, 61);
@@ -230,6 +231,16 @@ namespace LevelEditor
             this.groupBoxMap.TabStop = false;
             this.groupBoxMap.Text = "Map";
             // 
+            // buttonInvert
+            // 
+            this.buttonInvert.Location = new System.Drawing.Point(58, 222);
+            this.buttonInvert.Name = "buttonInvert";
+            this.buttonInvert.Size = new System.Drawing.Size(49, 44);
+            this.buttonInvert.TabIndex = 9;
+            this.buttonInvert.Text = "Invert";
+            this.buttonInvert.UseVisualStyleBackColor = true;
+            this.buttonInvert.Click += new System.EventHandler(this.buttonInvert_Click);
+            // 
             // LevelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -267,5 +278,6 @@ namespace LevelEditor
         private System.Windows.Forms.Button buttonBottomLeftCorner;
         private System.Windows.Forms.Button buttonEastWall;
         private System.Windows.Forms.Button buttonSouthWall;
+        private System.Windows.Forms.Button buttonInvert;
     }
 }

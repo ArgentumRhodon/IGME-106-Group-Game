@@ -65,15 +65,18 @@ namespace IGME106GroupGame.UI
             textures.Add("titleTexture", game.Content.Load<Texture2D>("uiAssets\\titleScreen\\titleTexture"));
 
             // Tiles Textures
-            textures.Add("floor", game.Content.Load<Texture2D>("floor"));
-            textures.Add("northWall", game.Content.Load<Texture2D>("wall\\north"));
-            textures.Add("eastWall", game.Content.Load<Texture2D>("wall\\east"));
-            textures.Add("southWall", game.Content.Load<Texture2D>("wall\\south"));
-            textures.Add("westWall", game.Content.Load<Texture2D>("wall\\west"));
-            textures.Add("topLeftWall", game.Content.Load<Texture2D>("corner\\topLeft"));
-            textures.Add("topRightWall", game.Content.Load<Texture2D>("corner\\topRight"));
-            textures.Add("bottomLeftWall", game.Content.Load<Texture2D>("corner\\bottomLeft"));
-            textures.Add("bottomRightWall", game.Content.Load<Texture2D>("corner\\bottomRight"));
+            for (int i = 0; i < 5; i++)
+            {
+                textures.Add($"floor{i}", game.Content.Load<Texture2D>($"Tiles\\{i}\\floor\\floor"));
+                textures.Add($"northWall{i}", game.Content.Load<Texture2D>($"Tiles\\{i}\\wall\\north"));
+                textures.Add($"eastWall{i}", game.Content.Load<Texture2D>($"Tiles\\{i}\\wall\\east"));
+                textures.Add($"southWall{i}", game.Content.Load<Texture2D>($"Tiles\\{i}\\wall\\south"));
+                textures.Add($"westWall{i}", game.Content.Load<Texture2D>($"Tiles\\{i}\\wall\\west"));
+                textures.Add($"topLeftWall{i}", game.Content.Load<Texture2D>($"Tiles\\{i}\\corner\\topLeft"));
+                textures.Add($"topRightWall{i}", game.Content.Load<Texture2D>($"Tiles\\{i}\\corner\\topRight"));
+                textures.Add($"bottomLeftWall{i}", game.Content.Load<Texture2D>($"Tiles\\{i}\\corner\\bottomLeft"));
+                textures.Add($"bottomRightWall{i}", game.Content.Load<Texture2D>($"Tiles\\{i}\\corner\\bottomRight"));
+            }
 
             // Game Objects Textures
             textures.Add("base", game.Content.Load<Texture2D>("base"));

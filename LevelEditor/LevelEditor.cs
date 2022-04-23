@@ -23,6 +23,7 @@ namespace LevelEditor
         private int mapHeight;
         private int colorLevel;
         private bool changes;
+        private bool inverted;
         private Form1 form;
 
         // Ease of use variables
@@ -55,6 +56,7 @@ namespace LevelEditor
             this.mapHeight = mapHeight;
             this.colorLevel = colorLevel;
             changes = false;
+            inverted = false;
             this.form = form;
             Size = new Size(tileSize * MapWidth + 175, tileSize * MapHeight + 75);
             LoadTileSprites(colorLevel);
@@ -101,49 +103,78 @@ namespace LevelEditor
                     switch (tiles[x,y])
                     {
                         case '-': // Floor
-                            pb.Image = buttonFloor.Image;
-                            pb.Tag = buttonFloor.Tag;
-                            break;
-
-                        case '2': // Top Right Corner
-                            pb.Image = buttonTopRightCorner.Image;
-                            pb.Tag = buttonTopRightCorner.Tag;
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/floor/floor.png");
+                            pb.Tag = "Floor";
                             break;
 
                         case '1': // Top Left Corner
-                            pb.Image = buttonTopLeftCorner.Image;
-                            pb.Tag = buttonTopLeftCorner.Tag;
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/corner/topLeft.png");
+                            pb.Tag = "TopLeftCorner";
                             break;
 
-                        case '4': // Bottom Right Corner
-                            pb.Image = buttonBottomRightCorner.Image;
-                            pb.Tag = buttonBottomRightCorner.Tag;
+                        case '2': // Top Right Corner
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/corner/topRight.png");
+                            pb.Tag = "TopRightCorner";
                             break;
 
                         case '3': // Bottom Left Corner
-                            pb.Image = buttonBottomLeftCorner.Image;
-                            pb.Tag = buttonBottomLeftCorner.Tag;
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/corner/bottomLeft.png");
+                            pb.Tag = "BottomLeftCorner";
+                            break;
+
+                        case '4': // Bottom Right Corner
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/corner/bottomRight.png");
+                            pb.Tag = "BottomRightCorner";
+                            break;
+
+                        case '5': // Inverted Top Left Corner
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/outCorner/topLeft.1.png");
+                            pb.Tag = "InvertedTopLeftCorner";
+                            break;
+
+                        case '6': // Inverted Top Right Corner
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/outCorner/topRight.1.png");
+                            pb.Tag = "InvertedTopRightCorner";
+                            break;
+
+                        case '7': // Inverted Bottom Left Corner
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/outCorner/bottomLeft.1.png");
+                            pb.Tag = "InvertedBottomLeftCorner";
+                            break;
+
+                        case '8': // Inverted Bottom Right Corner
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/outCorner/bottomRight.1.png");
+                            pb.Tag = "InvertedBottomRightCorner";
                             break;
 
                         case 'A': // North Wall
-                            pb.Image = buttonNorthWall.Image;
-                            pb.Tag = buttonNorthWall.Tag;
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/wall/north.png");
+                            pb.Tag = "NorthWall";
                             break;
 
                         case 'B': // East Wall
-                            pb.Image = buttonEastWall.Image;
-                            pb.Tag = buttonEastWall.Tag;
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/wall/east.png");
+                            pb.Tag = "EastWall";
                             break;
 
                         case 'C': // South Wall
-                            pb.Image = buttonSouthWall.Image;
-                            pb.Tag = buttonSouthWall.Tag;
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/wall/south.png");
+                            pb.Tag = "SouthWall";
                             break;
 
                         case 'D': // West Wall
-                            pb.Image = buttonWestWall.Image;
-                            pb.Tag = buttonWestWall.Tag;
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/wall/west.png");
+                            pb.Tag = "WestWall";
                             break;
+
+                        case '~': // Center Wall
+                            pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/wall/center.png");
+                            pb.Tag = "CenterWall";
+                            break;
+
+                        case '\n': // Need to ignore newline characters
+                            break;
+
                         default: // Invalid input
                             MessageBox.Show("Invalid input detected in level file, check to make sure valid characters are used in the file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -320,15 +351,15 @@ namespace LevelEditor
                 {
                     //output = new StreamWriter(prompt.FileName); ** For choice of directory
                     String[] splitDirectory = prompt.FileName.Split('\\');
-                    output = new StreamWriter($"../../../../IGME-106-Group-Game/Content/{splitDirectory[splitDirectory.Length - 1]}");
+                    output = new StreamWriter($"../../../../IGME-106-Group-Game/Content/Levels/{splitDirectory[splitDirectory.Length - 1]}");
                     output.WriteLine($"{mapWidth},{mapHeight},{colorLevel}");
                     for (int j = 0; j < MapHeight; j++)
                     {
                         for (int i = 0; i < MapWidth; i++)
                         {
-                            if (j != MapWidth) output.Write($"{images[i,j]}");
-                            else output.Write($"{images[i,j]}\n");
+                            output.Write($"{images[i,j]}");
                         }
+                        output.Write("\n");
                     }
                     MessageBox.Show("Save successful.", "File Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Text = $"Level Editor - {splitDirectory[splitDirectory.Length - 1]}";
@@ -376,6 +407,18 @@ namespace LevelEditor
                         case "BottomRightCorner":
                             images[x, y] = '4';
                             break;
+                        case "InvertedTopLeftCorner":
+                            images[x, y] = '5';
+                            break;
+                        case "InvertedTopRightCorner":
+                            images[x, y] = '6';
+                            break;
+                        case "InvertedBottomLeftCorner":
+                            images[x, y] = '7';
+                            break;
+                        case "InvertedBottomRightCorner":
+                            images[x, y] = '8';
+                            break;
                         case "NorthWall":
                             images[x, y] = 'A';
                             break;
@@ -388,11 +431,46 @@ namespace LevelEditor
                         case "WestWall":
                             images[x, y] = 'D';
                             break;
+                        case "CenterWall":
+                            images[x, y] = '~';
+                            break;
                     }
                 }
             }
 
             return images;
+        }
+
+        private void buttonInvert_Click(object sender, EventArgs e)
+        {
+            if (inverted)
+            {
+                buttonBottomLeftCorner.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/corner/bottomLeft.png");
+                buttonBottomLeftCorner.Tag = "BottomLeftCorner";
+                buttonBottomRightCorner.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/corner/bottomRight.png");
+                buttonBottomRightCorner.Tag = "BottomRightCorner";
+                buttonTopLeftCorner.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/corner/topLeft.png");
+                buttonTopLeftCorner.Tag = "TopLeftCorner";
+                buttonTopRightCorner.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/corner/topRight.png");
+                buttonTopRightCorner.Tag = "TopRightCorner";
+                buttonFloor.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/floor/floor.png");
+                buttonFloor.Tag = "Floor";
+                inverted = false;
+            }
+            else
+            {
+                buttonBottomLeftCorner.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/outCorner/bottomLeft.1.png");
+                buttonBottomLeftCorner.Tag = "InvertedBottomLeftCorner";
+                buttonBottomRightCorner.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/outCorner/bottomRight.1.png");
+                buttonBottomRightCorner.Tag = "InvertedBottomRightCorner";
+                buttonTopLeftCorner.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/outCorner/topLeft.1.png");
+                buttonTopLeftCorner.Tag = "InvertedTopLeftCorner";
+                buttonTopRightCorner.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/outCorner/topRight.1.png");
+                buttonTopRightCorner.Tag = "InvertedTopRightCorner";
+                buttonFloor.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/wall/center.png");
+                buttonFloor.Tag = "CenterWall";
+                inverted = true;
+            }
         }
     }
 }

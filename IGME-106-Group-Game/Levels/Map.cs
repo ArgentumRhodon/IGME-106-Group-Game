@@ -71,17 +71,17 @@ namespace IGME106GroupGame.Levels
         }
 
         /// <summary>
-        /// This method gets info about level info
+        /// This method gets info about the level
         /// </summary>
-        private void GetLevelInfo()
+        private void GetLevelInfo(StreamReader streamReader)
         {
             try
             {
-
+                String[] info = streamReader.ReadLine().Split(',');
             }
-            catch (Exception e)
+            catch (IOException)
             {
-
+                throw new Exception("Couldn't read from file " + filePath);
             }
         }
 
@@ -95,6 +95,7 @@ namespace IGME106GroupGame.Levels
             try
             {
                 streamReader = new StreamReader(filePath);
+                GetLevelInfo(streamReader);
                 LoadTiles(streamReader);
             }
             catch(IOException)
@@ -139,10 +140,10 @@ namespace IGME106GroupGame.Levels
         }
 
         /*
-         * 1 -> top right corner
-         * 2 -> top left corner
-         * 3 -> bottom right corner
-         * 4 -> bottom left corner
+         * 1 -> top left corner
+         * 2 -> top right corner
+         * 3 -> bottom left corner
+         * 4 -> bottom right corner
          * 
          * A -> north wall
          * B -> east wall
@@ -161,13 +162,13 @@ namespace IGME106GroupGame.Levels
             switch (tileRepresentative)
             {
                 case '1':
-                    return assets.Get("topRightWall");
-                case '2':
                     return assets.Get("topLeftWall");
+                case '2':
+                    return assets.Get("topRightWall");
                 case '3':
-                    return assets.Get("bottomRightWall");
-                case '4':
                     return assets.Get("bottomLeftWall");
+                case '4':
+                    return assets.Get("bottomRightWall");
                 case 'A':
                     return assets.Get("northWall");
                 case 'B':
