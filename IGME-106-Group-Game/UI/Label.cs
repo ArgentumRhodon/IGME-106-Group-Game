@@ -38,6 +38,15 @@ namespace IGME106GroupGame.UI
             set { position.Y = value; }
         }
 
+        /// <summary>
+        /// The text being displayed by the label
+        /// </summary>
+        public string Text
+        {
+            get { return text; }
+            set { text = value; }
+        }
+
         // - Constructor -
         public Label(string text, SpriteFont font, int x, int y, Color tint, Alignment hAlign, Alignment vAlign, GraphicsDeviceManager graphics)
         {

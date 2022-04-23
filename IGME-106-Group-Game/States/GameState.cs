@@ -29,6 +29,8 @@ namespace IGME106GroupGame.States
         private MouseState currentMouseState;
         private MouseState previousMouseState;
 
+        private int wave;
+
         /// <summary>
         /// This boolean will be used to check if the game is paused
         /// </summary>
@@ -36,6 +38,15 @@ namespace IGME106GroupGame.States
         {
             get => paused;
             set => paused = value;
+        }
+
+        /// <summary>
+        /// The wave the player is currently on
+        /// </summary>
+        public int Wave
+        {
+            get => wave;
+            set => wave = value;
         }
 
         public bool GodModeEnabled => godMode;
@@ -56,6 +67,8 @@ namespace IGME106GroupGame.States
             ui = new GameUI(game, gameObjectHandler.Player);
             pauseUI = new PauseUI(game);
             deathUI = new DeathUI(game);
+
+            wave = 0;
         }
 
         /// <summary>
@@ -124,14 +137,14 @@ namespace IGME106GroupGame.States
         /// This method will draw enemies, projectiles, and the player to the screen, and also draw UI when applicable
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, GraphicsDevice gd)
         {
-            base.Draw(spriteBatch);
+            base.Draw(spriteBatch, gd);
 
             // GameState rendering
             level.Draw(spriteBatch);
 
-            gameObjectHandler.Draw(spriteBatch);
+            gameObjectHandler.Draw(spriteBatch, gd);
 
             ui.Draw(spriteBatch);
 
@@ -145,6 +158,11 @@ namespace IGME106GroupGame.States
                 spriteBatch.Draw(Assets.Textures["default"], new Rectangle(0, 0, 1920, 1080), new Color(0, 0, 0, 150));
                 deathUI.Draw(spriteBatch);
             }
+        }
+
+        public void SetBossWave()
+        {
+            ((GameUI)ui).WaveLabel.Text = "Final Boss";
         }
     }
 }

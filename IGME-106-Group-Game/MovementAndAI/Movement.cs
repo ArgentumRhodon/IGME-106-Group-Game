@@ -22,6 +22,8 @@ namespace IGME106GroupGame.MovementAndAI
             set => vector = value;
         }
 
+        public float Speed => speed;
+
         // Constructor
         public Movement(float speed)
         {

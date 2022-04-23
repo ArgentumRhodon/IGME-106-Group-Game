@@ -13,6 +13,7 @@ namespace IGME106GroupGame.UI
     {
         // - Fields -
         private static Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
+        private static Dictionary<string, SpriteFont> fonts = new Dictionary<string, SpriteFont>();
 
         // - Property -
         /// <summary>
@@ -21,6 +22,11 @@ namespace IGME106GroupGame.UI
         public static Dictionary<string, Texture2D> Textures
         {
             get => textures;
+        }
+
+        public static Dictionary<string, SpriteFont> Fonts
+        {
+            get => fonts;
         }
 
         // - Methods -
@@ -32,6 +38,7 @@ namespace IGME106GroupGame.UI
             LoadUIContent(content);
             LoadLevelContent(content);
             LoadGameObjectContent(content);
+            LoadFontContent(content);
         }
 
         /// <summary>
@@ -87,5 +94,13 @@ namespace IGME106GroupGame.UI
             }
         }
 
+        /// <summary>
+        /// Loads all of the fonts from the content folder
+        /// </summary>
+        private static void LoadFontContent(ContentManager content)
+        {
+            fonts.Add("heading", content.Load<SpriteFont>("headingFont"));
+            fonts.Add("normal", content.Load<SpriteFont>("normalFont"));
+        }
     }
 }

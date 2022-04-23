@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using IGME106GroupGame.MovementAndAI;
 using IGME106GroupGame.States;
+using IGME106GroupGame.UI;
 
 namespace IGME106GroupGame.GameObjects
 {
@@ -12,8 +13,10 @@ namespace IGME106GroupGame.GameObjects
     {
         //Fields
         private int health;
+        private HealthBar healthBar;
         private int iFrames;
         private bool isInvincible;
+        private int fireDelay;
 
         //Properties
         public int Health { get => health; set => health = value; }
@@ -29,12 +32,19 @@ namespace IGME106GroupGame.GameObjects
                 iFrames = value;
             }
         }
+        public int FireDelay
+        {
+            get => fireDelay;
+            set => fireDelay = value;
+        }
+
+        public HealthBar HealthBar => throw new NotImplementedException();
 
         //Constructor
         public Player(Texture2D sprite, Vector2 startPos, bool isInvincible) :
             base(sprite, startPos)
         {
-            movement = new PlayerMovement(8, this);
+            movement = new PlayerMovement(10, this);
             this.isInvincible = isInvincible;
             health = 6;
         }
@@ -49,6 +59,10 @@ namespace IGME106GroupGame.GameObjects
             if(iFrames > 0)
             {
                 iFrames--;
+            }
+            if(fireDelay > 0)
+            {
+                fireDelay--;
             }
         }
 
@@ -66,7 +80,7 @@ namespace IGME106GroupGame.GameObjects
 
         public override void HandleCollision(GameObject other)
         {
-            if(other is RangedEnemy || other is MeleeEnemy || (other is Projectile && ((Projectile)other).IsEnemyProjectile))
+            if(other is RangedEnemy || other is MeleeEnemy || other is Boss || (other is Projectile && ((Projectile)other).IsEnemyProjectile))
             {
                 if(iFrames == 0 && !isInvincible)
                 {

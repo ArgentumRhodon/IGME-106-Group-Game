@@ -88,10 +88,10 @@ namespace IGME106GroupGame.Levels
         }
 
         /*
-         * 1 -> top right corner
-         * 2 -> top left corner
-         * 3 -> bottom right corner
-         * 4 -> bottom left corner
+         * 1 -> top left corner
+         * 2 -> top right corner
+         * 3 -> bottom left corner
+         * 4 -> bottom right corner
          * 
          * A -> north wall
          * B -> east wall
@@ -110,13 +110,13 @@ namespace IGME106GroupGame.Levels
             switch (tileRepresentative)
             {
                 case '1':
-                    return Assets.Textures["topRight"];
-                case '2':
                     return Assets.Textures["topLeft"];
+                case '2':
+                    return Assets.Textures["topRight"];
                 case '3':
-                    return Assets.Textures["bottomRight"];
-                case '4':
                     return Assets.Textures["bottomLeft"];
+                case '4':
+                    return Assets.Textures["bottomRight"];
                 case 'A':
                     return Assets.Textures["north"];
                 case 'B':

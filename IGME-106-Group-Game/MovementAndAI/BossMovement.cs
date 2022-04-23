@@ -1,4 +1,5 @@
-﻿using IGME106GroupGame.GameObjects;
+﻿
+using IGME106GroupGame.GameObjects;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -8,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace IGME106GroupGame.MovementAndAI
 {
-    public class MeleeEnemyMovement : Movement
+    public class BossMovement : Movement
     {
-        private GameObject enemy;
+        private Boss boss;
         private Player player;
 
         private float deltaX = 0;
         private float deltaY = 0;
 
-        public MeleeEnemyMovement(float speed, GameObject enemy, Player player)
+        public BossMovement(float speed, Boss boss, Player player)
             : base(speed)
         {
-            this.enemy = enemy;
+            this.boss = boss;
             this.player = player;
         }
 
@@ -28,7 +29,7 @@ namespace IGME106GroupGame.MovementAndAI
             deltaX = 0;
             deltaY = 0;
 
-            Vector2 direction = player.Center - enemy.Center;
+            Vector2 direction = player.Position - boss.Position;
 
             if (direction.Length() > speed)
             {

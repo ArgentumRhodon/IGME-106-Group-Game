@@ -13,12 +13,16 @@ namespace IGME106GroupGame.GameObjects
     public class Enemy : GameObject, IEntity
     {
         //Fields
-        protected int health;
-        protected bool collidedWithOtherEnemy = false;
-        protected Vector2 collisionPosition;
+        private int health;
+        //private int fireDelay;
 
         //Properties
         public int Health { get => health; set => health = value; }
+        public Rectangle CollisionBox
+        { 
+            get => new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
+        }
+        //public int FireDelay { get => fireDelay; set => fireDelay = value; }
 
         //Constructor
         public Enemy(Texture2D sprite, Vector2 startPos, Player player) :
@@ -51,12 +55,6 @@ namespace IGME106GroupGame.GameObjects
             }
 
             position += movement.Vector;
-            //fireDelay--;
-            //-1 so there's a frame where it actually equals 0 for the handler to check
-            //if(fireDelay <= -1)
-            //{
-            //    fireDelay = rng.Next(45, 315);
-            //}
         }
 
         public override void HandleCollision(GameObject other)
