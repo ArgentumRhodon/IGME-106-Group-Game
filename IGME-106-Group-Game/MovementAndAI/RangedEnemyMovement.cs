@@ -11,7 +11,7 @@ namespace IGME106GroupGame.MovementAndAI
     class RangedEnemyMovement : EnemyMovement
     {
 
-        public RangedEnemyMovement(float speed, RangedEnemy enemy, Player player)
+        public RangedEnemyMovement(float speed, Enemy enemy, Player player)
             : base(speed, enemy, player)
         {
         }

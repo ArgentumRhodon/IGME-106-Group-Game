@@ -13,16 +13,9 @@ namespace IGME106GroupGame.GameObjects
 {
     public class MeleeEnemy : Enemy
     {
-        //Fields
-        private int health;
-        private HealthBar healthBar;
-        private bool collidedWithOtherEnemy = false;
-        private Vector2 collisionPosition;
+        //Fields (no new ones needed, inherited from Enemy)
 
-        //Properties
-        public int Health { get => health; set => health = value; }
-
-        public HealthBar HealthBar => healthBar;
+        //Properties (no new ones needed, inherited from Enemy)
 
         //Constructor
         public MeleeEnemy(Texture2D sprite, Vector2 startPos, Player player) :
@@ -36,7 +29,7 @@ namespace IGME106GroupGame.GameObjects
         // Methods
         public override void Update(GameObjectHandler gameObjectHandler)
         {
-            position += movement.Vector;
+            base.Update(gameObjectHandler);
         }
 
         public override void HandleCollision(GameObject other)

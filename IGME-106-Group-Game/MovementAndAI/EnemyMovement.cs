@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace IGME106GroupGame.MovementAndAI
 {
-    class EnemyMovement : Movement
+    public class EnemyMovement : Movement
     {
         protected Enemy enemy;
         protected Player player;

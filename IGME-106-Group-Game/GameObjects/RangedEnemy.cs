@@ -13,18 +13,10 @@ namespace IGME106GroupGame.GameObjects
     {
         public Random random;
         //Fields
-        Random random;
-        private HealthBar healthBar;
-
-        private int health;
-        private bool collidedWithOtherEnemy = false;
-        private Vector2 collisionPosition;
         private int fireDelay;
 
         //Properties
         public int FireDelay { get { return fireDelay; } set { fireDelay = value; } }
-
-        public HealthBar HealthBar => healthBar;
 
         //Constructor
         public RangedEnemy (Texture2D sprite, Vector2 startPos, Player player) : 

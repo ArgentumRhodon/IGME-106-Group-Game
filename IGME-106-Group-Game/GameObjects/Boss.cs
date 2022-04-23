@@ -18,26 +18,20 @@ namespace IGME106GroupGame.GameObjects
     }
 
 
-    public class Boss : GameObject, IEntity
+    public class Boss : Enemy
     {
         private BossState state;
-        private HealthBar healthBar;
 
         private Random random;
-        private int health;
         private Player player;
         private int fireDelay;
 
         private int stateSwitchTimer;
-
-        public int Health { get { return health; } set { health = value; } }
         public int FireDelay { get { return fireDelay; } set { fireDelay = value; } }
         public BossState State => state;
 
-        public HealthBar HealthBar => healthBar;
-
         public Boss(Texture2D sprite, Vector2 startPos, Player player)
-            : base(sprite, startPos)
+            : base(sprite, startPos, player)
         {
             this.player = player;
             movement = new RangedEnemyMovement(8, this, player);

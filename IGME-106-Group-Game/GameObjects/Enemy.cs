@@ -7,22 +7,21 @@ using IGME106GroupGame.MovementAndAI;
 using IGME106GroupGame.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using IGME106GroupGame.UI;
 
 namespace IGME106GroupGame.GameObjects
 {
     public class Enemy : GameObject, IEntity
     {
         //Fields
-        private int health;
-        //private int fireDelay;
+        protected int health;
+        protected HealthBar healthBar;
+        protected bool collidedWithOtherEnemy = false;
+        protected Vector2 collisionPosition;
 
         //Properties
         public int Health { get => health; set => health = value; }
-        public Rectangle CollisionBox
-        { 
-            get => new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
-        }
-        //public int FireDelay { get => fireDelay; set => fireDelay = value; }
+        public HealthBar HealthBar { get => healthBar; set => healthBar = value; }
 
         //Constructor
         public Enemy(Texture2D sprite, Vector2 startPos, Player player) :

@@ -8,41 +8,17 @@ using System.Threading.Tasks;
 
 namespace IGME106GroupGame.MovementAndAI
 {
-    public class MeleeEnemyMovement : Movement
+    public class MeleeEnemyMovement : EnemyMovement
     {
-        private GameObject enemy;
-        private Player player;
 
-        private float deltaX = 0;
-        private float deltaY = 0;
-
-        public MeleeEnemyMovement(float speed, GameObject enemy, Player player)
-            : base(speed)
+        public MeleeEnemyMovement(float speed, Enemy enemy, Player player)
+            : base(speed, enemy, player)
         {
-            this.enemy = enemy;
-            this.player = player;
         }
 
         public override void Update()
         {
-            deltaX = 0;
-            deltaY = 0;
-
-            Vector2 direction = player.Center - enemy.Center;
-
-            if (direction.Length() > speed)
-            {
-                deltaX = direction.X;
-                deltaY = direction.Y;
-            }
-
-            vector = new Vector2(deltaX, deltaY);
-            if (vector.X != 0 || vector.Y != 0)
-            {
-                vector.Normalize();
-            }
-
-            vector *= speed;
+            base.Update(); 
         }
     }
 }
