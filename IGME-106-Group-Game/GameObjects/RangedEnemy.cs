@@ -31,10 +31,10 @@ namespace IGME106GroupGame.GameObjects
             base(sprite, startPos)
         {
             movement = new RangedEnemyMovement(5, this, player);
-            health = 1;
+            health = 4;
             healthBar = new HealthBar(this, health);
             random = new Random();
-            fireDelay = random.Next(45, 315);
+            fireDelay = random.Next(45, 90);
         }
 
         // Methods
@@ -65,7 +65,7 @@ namespace IGME106GroupGame.GameObjects
             //-1 so there's a frame where it actually equals 0 for the handler to check
             if (fireDelay <= -1)
             {
-                fireDelay = random.Next(45, 125);
+                fireDelay = random.Next(45, 90);
             }
         }
 

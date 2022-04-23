@@ -40,7 +40,7 @@ namespace IGME106GroupGame.GameObjects
             : base(sprite, startPos)
         {
             this.player = player;
-            movement = new RangedEnemyMovement(6, this, player);
+            movement = new RangedEnemyMovement(8, this, player);
             health = 100;
             healthBar = new HealthBar(this, health);
             random = new Random();

@@ -20,6 +20,13 @@ namespace IGME106GroupGame.UI.Menus
         private int wave;
         private Label waveLabel;
 
+        // - Properties -
+        public Label WaveLabel
+        {
+            get => waveLabel;
+            set => waveLabel = value;
+        }
+
         // - Consturctor -
         public GameUI(Game1 game, Player player)
         {
@@ -51,7 +58,11 @@ namespace IGME106GroupGame.UI.Menus
             health = player.Health;
 
             GameState gameState = (GameState)state;
-            waveLabel.Text = $"Wave {gameState.Wave}";
+
+            if(gameState.Wave <= 5)
+            {
+                waveLabel.Text = $"Wave {gameState.Wave}";
+            }
         }
 
         /// <summary>

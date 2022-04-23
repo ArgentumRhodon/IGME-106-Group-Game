@@ -159,5 +159,10 @@ namespace IGME106GroupGame.States
                 deathUI.Draw(spriteBatch);
             }
         }
+
+        public void SetBossWave()
+        {
+            ((GameUI)ui).WaveLabel.Text = "Final Boss";
+        }
     }
 }

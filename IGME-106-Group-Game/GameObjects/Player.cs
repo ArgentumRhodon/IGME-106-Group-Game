@@ -44,7 +44,7 @@ namespace IGME106GroupGame.GameObjects
         public Player(Texture2D sprite, Vector2 startPos, bool isInvincible) :
             base(sprite, startPos)
         {
-            movement = new PlayerMovement(8, this);
+            movement = new PlayerMovement(10, this);
             this.isInvincible = isInvincible;
             health = 6;
         }
