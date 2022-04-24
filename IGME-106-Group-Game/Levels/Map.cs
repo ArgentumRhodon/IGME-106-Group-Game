@@ -20,6 +20,7 @@ namespace IGME106GroupGame.Levels
         // Tile sprites
         private Texture2D[] cornerSprites;
         private Texture2D[] wallSprites;
+        private Texture2D[] outCornerSprites;
         private Texture2D floorSprite;
         private Texture2D baseSprite;
 
@@ -27,6 +28,7 @@ namespace IGME106GroupGame.Levels
         private int TileHeight;
         private int TileWidth;
         private const int TileSize = 60;
+        private int colorLevel;
 
         // Constructor
         /// <summary>
@@ -34,9 +36,8 @@ namespace IGME106GroupGame.Levels
         /// </summary>
         /// <param name="content">The Content Manager</param>
         /// <param name="filePath">The file path of the map</param>
-        public Map(Assets assets, string filePath)
+        public Map(Assets assets)
         {
-            this.filePath = filePath;
             this.assets = assets;
             InitializeMap();
         }
@@ -46,27 +47,36 @@ namespace IGME106GroupGame.Levels
         /// This method loads content from the wall and corner folders under \Content\
         /// </summary>
         /// <param name="content"></param>
-        private void LoadContent(ContentManager content) // Needs editing, add support for colors
+        private void LoadContent(ContentManager content) // Needs editing, add support for colors and outCorners and center wall
         {
             cornerSprites = new Texture2D[4];
-            string[] cornerImages= Directory.GetFiles("content\\corner");
+            string[] cornerImages= Directory.GetFiles($"Content\\Tiles\\corner\\{colorLevel}\\");
             for(int i = 0; i < cornerImages.Length; i++)
             {
-                string filePath = cornerImages[i].Remove(0, "content\\".Length);
+                string filePath = cornerImages[i].Remove(0, $"content\\Tiles\\{colorLevel}".Length);
                 filePath = filePath.Substring(0, filePath.Length - 4);
                 cornerSprites[i] = content.Load<Texture2D>(filePath);
             }
 
-            wallSprites = new Texture2D[4];
-            string[] wallImages = Directory.GetFiles("content\\wall");
+            outCornerSprites = new Texture2D[4];
+            string[] outCornerImages = Directory.GetFiles($"Content\\Tiles\\outCorner\\{colorLevel}\\");
+            for (int i = 0; i < outCornerImages.Length; i++)
+            {
+                string filePath = outCornerImages[i].Remove(0, $"content\\Tiles\\{colorLevel}".Length);
+                filePath = filePath.Substring(0, filePath.Length - 4);
+                outCornerSprites[i] = content.Load<Texture2D>(filePath);
+            }
+
+            wallSprites = new Texture2D[5];
+            string[] wallImages = Directory.GetFiles($"Content\\Tiles\\wall\\{colorLevel}\\");
             for (int i = 0; i < wallImages.Length; i++)
             {
-                string filePath = wallImages[i].Remove(0, "content\\".Length);
+                string filePath = wallImages[i].Remove(0, $"Content\\Tiles\\{colorLevel}\\".Length);
                 filePath = filePath.Substring(0, filePath.Length - 4);
                 wallSprites[i] = content.Load<Texture2D>(filePath);
             }
 
-            floorSprite = content.Load<Texture2D>("floor");
+            floorSprite = content.Load<Texture2D>($"Content\\Tiles\\{colorLevel}\\floor\\floor");
             baseSprite = content.Load<Texture2D>("base");
         }
 
@@ -78,6 +88,9 @@ namespace IGME106GroupGame.Levels
             try
             {
                 String[] info = streamReader.ReadLine().Split(',');
+                TileWidth = int.Parse(info[0]);
+                TileHeight = int.Parse(info[1]);
+                colorLevel = int.Parse(info[2]);
             }
             catch (IOException)
             {
@@ -125,6 +138,17 @@ namespace IGME106GroupGame.Levels
         }
 
         /// <summary>
+        /// This method will update the level (currently disabled or be needed at all lol)
+        /// </summary>
+        public void Update()
+        {
+            //foreach(GameObject gameObject in objects)
+            //{
+            //    gameObject.Update();
+            //}
+        }
+
+        /// <summary>
         /// This method will draw the map to the screen
         /// </summary>
         /// <param name="_spriteBatch"></param>
@@ -144,6 +168,10 @@ namespace IGME106GroupGame.Levels
          * 2 -> top right corner
          * 3 -> bottom left corner
          * 4 -> bottom right corner
+         * 5 -> inverted top left corner
+         * 6 -> inverted top right corner
+         * 7 -> inverted bottom left corner
+         * 8 -> inverted bottom right corner
          * 
          * A -> north wall
          * B -> east wall
@@ -168,6 +196,14 @@ namespace IGME106GroupGame.Levels
                 case '3':
                     return assets.Get("bottomLeftWall");
                 case '4':
+                    return assets.Get("bottomRightWall");
+                case '5':
+                    return assets.Get("topLeftWall");
+                case '6':
+                    return assets.Get("topRightWall");
+                case '7':
+                    return assets.Get("bottomLeftWall");
+                case '8':
                     return assets.Get("bottomRightWall");
                 case 'A':
                     return assets.Get("northWall");

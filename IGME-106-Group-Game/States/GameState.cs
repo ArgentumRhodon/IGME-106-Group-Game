@@ -16,7 +16,7 @@ namespace IGME106GroupGame.States
         // Fields
         private GameObjectHandler gameObjectHandler;
 
-        private Level level;
+        private Map map;
         private bool paused;
         private bool godMode;
         private PauseUI pauseUI;
@@ -50,7 +50,7 @@ namespace IGME106GroupGame.States
         {
             this.godMode = godMode;
             paused = false;
-            level = new Level(game.Assets);
+            map = new Map(game.Assets, );
             gameObjectHandler = new GameObjectHandler(new Player(Game.Assets.Get("player"), new Vector2(930, 510), godMode));
             ui = new GameUI(game, gameObjectHandler.Player);
             pauseUI = new PauseUI(game);
@@ -128,7 +128,7 @@ namespace IGME106GroupGame.States
             base.Draw(spriteBatch);
 
             // GameState rendering
-            level.Draw(spriteBatch);
+            map.Draw(spriteBatch);
 
             gameObjectHandler.Draw(spriteBatch);
 
