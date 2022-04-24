@@ -1,5 +1,6 @@
 ﻿using IGME106GroupGame.MovementAndAI;
 using IGME106GroupGame.States;
+using IGME106GroupGame.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -14,20 +15,22 @@ namespace IGME106GroupGame.GameObjects
     {
         //Fields
         private int health;
+        private HealthBar healthBar;
         private bool collidedWithOtherEnemy = false;
         private Vector2 collisionPosition;
-        //private int fireDelay;
 
         //Properties
         public int Health { get => health; set => health = value; }
+
+        public HealthBar HealthBar => healthBar;
 
         //Constructor
         public MeleeEnemy(Texture2D sprite, Vector2 startPos, Player player) :
             base(sprite, startPos)
         {
-            movement = new MeleeEnemyMovement(6, this, player);
-            health = 1;
-            //fireDelay = rng.Next(45, 315);
+            movement = new MeleeEnemyMovement(5, this, player);
+            health = 2;
+            healthBar = new HealthBar(this, health);
         }
 
         // Methods
@@ -53,17 +56,11 @@ namespace IGME106GroupGame.GameObjects
             }
 
             position += movement.Vector;
-            //fireDelay--;
-            //-1 so there's a frame where it actually equals 0 for the handler to check
-            //if(fireDelay <= -1)
-            //{
-            //    fireDelay = rng.Next(45, 315);
-            //}
         }
 
         public override void HandleCollision(GameObject other)
         {
-            if (other is Projectile && !((Projectile)other).IsEnemyProjectile)
+            if (other is Projectile && !((Projectile)other).IsEnemyProjectile && ((Projectile)other).CurrentEnemy != this)
             {
                 health--;
             }

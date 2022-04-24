@@ -10,13 +10,13 @@ namespace IGME106GroupGame.MovementAndAI
 {
     public class MeleeEnemyMovement : Movement
     {
-        private MeleeEnemy enemy;
+        private GameObject enemy;
         private Player player;
 
         private float deltaX = 0;
         private float deltaY = 0;
 
-        public MeleeEnemyMovement(float speed, MeleeEnemy enemy, Player player)
+        public MeleeEnemyMovement(float speed, GameObject enemy, Player player)
             : base(speed)
         {
             this.enemy = enemy;
@@ -28,7 +28,7 @@ namespace IGME106GroupGame.MovementAndAI
             deltaX = 0;
             deltaY = 0;
 
-            Vector2 direction = player.Position - enemy.Position;
+            Vector2 direction = player.Center - enemy.Center;
 
             if (direction.Length() > speed)
             {

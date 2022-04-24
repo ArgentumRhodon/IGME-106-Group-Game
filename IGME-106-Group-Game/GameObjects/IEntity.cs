@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using IGME106GroupGame.UI;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,11 @@ namespace IGME106GroupGame.GameObjects
 {
     // I made Entity an interface instead of a class since it only defines
     // fields and not unique functionalities for Entity classes.
-    interface IEntity
+    public interface IEntity
     {
         int Health { get; set; }
         Rectangle CollisionBox { get; }
         // Weapon EquippedWeapon { get; set; }
+        HealthBar HealthBar { get; }
     }
 }
