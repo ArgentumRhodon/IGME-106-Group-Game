@@ -13,12 +13,17 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin font.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
+#begin gameObjects/bossStar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:font.spritefont
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:gameObjects/bossStar.png
 
 #begin gameObjects/enemyStar.png
 /importer:TextureImporter
@@ -43,6 +48,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:gameObjects/meleeNinja.png
+
+#begin gameObjects/monocrome.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:gameObjects/monocrome.png
 
 #begin gameObjects/ninja.png
 /importer:TextureImporter
@@ -91,6 +108,13 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:gameObjects/slimeBot.png
+
+#begin headingFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:headingFont.spritefont
 
 #begin levelAssets/corners/bottomLeft.png
 /importer:TextureImporter
@@ -223,6 +247,13 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:levelAssets/wall/west.png
+
+#begin normalFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:normalFont.spritefont
 
 #begin uiAssets/gameScreen/continueText.png
 /importer:TextureImporter

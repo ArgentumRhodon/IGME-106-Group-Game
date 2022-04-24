@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using IGME106GroupGame.MovementAndAI;
 using IGME106GroupGame.States;
+using IGME106GroupGame.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -22,9 +23,10 @@ namespace IGME106GroupGame.GameObjects
             base(sprite, startPos, player)
         {
             movement = new RangedEnemyMovement(5, this, player);
-            health = 1;
+            health = 4;
+            healthBar = new HealthBar(this, health);
             random = new Random();
-            fireDelay = random.Next(45, 125);
+            fireDelay = random.Next(45, 90);
         }
 
         // Methods
@@ -35,7 +37,7 @@ namespace IGME106GroupGame.GameObjects
             //-1 so there's a frame where it actually equals 0 for the handler to check
             if (fireDelay <= -1)
             {
-                fireDelay = random.Next(45, 125);
+                fireDelay = random.Next(45, 90);
             }
         }
 

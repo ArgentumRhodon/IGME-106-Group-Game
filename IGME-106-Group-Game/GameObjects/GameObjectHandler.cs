@@ -16,8 +16,10 @@ namespace IGME106GroupGame.States
         //number of frames between when an enemy fires a projectile
         private int enemyFireTime;
         Random rng = new Random();
+
         // Fields
         private Player player;
+        private Boss boss;
         private Powerup pickup;
         private int pickupThresh;
         private List<GameObject> gameObjects;
@@ -56,14 +58,39 @@ namespace IGME106GroupGame.States
             HandleCollectedPickups();
             UpdateGameObjects(state);
             HandleDeadEntities();
-            UpdateEnemyCount();
+
+            if(Enemies.Count <= 0)
+            {
+                if(state.Wave < 5)
+                {
+                    UpdateEnemyCount(state);
+                    state.Wave++;
+                }
+                else
+                {
+                    if (boss == null)
+                    {
+                        state.Wave++;
+                        gameObjects.Add(boss = new Boss(Assets.Textures["monocrome"], new Vector2(60, 60), player));
+                        state.SetBossWave();
+                    }
+                }
+            }
         }
 
         private void UpdateGameObjects(GameState state)
         {
-            foreach(GameObject gameObject in gameObjects)
+            foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Update(this);
+
+                if (gameObject is IEntity)
+                {
+                    if (!(gameObject is Player || gameObject is Projectile))
+                    {
+                        ((IEntity)gameObject).HealthBar.Update();
+                    }
+                }
             }
 
             foreach (Projectile proj in Projectiles)
@@ -75,7 +102,7 @@ namespace IGME106GroupGame.States
             }
             foreach (RangedEnemy rangedEnemy in RangedEnemies)
             {
-                if(rangedEnemy.FireDelay <= 0)
+                if (rangedEnemy.FireDelay <= 0)
                 {
                     AddEnemyProjectile(Assets.Textures["enemyStar"], GetRandomRangedEnemyPosition(), player.Position);
                 }
@@ -90,7 +117,30 @@ namespace IGME106GroupGame.States
             {
                 pickupThresh = 10;
             }
+
+            if (gameObjects.Contains(boss) && boss.State == BossState.Ranged)
+            {
+                if (boss.FireDelay <= 0)
+                {
+                    ShootBossProjectile();
+                }
+            }
+
             enemyFireTime--;
+        }
+
+        private Texture2D GetTexture(GraphicsDevice gd)
+        {
+            Texture2D healthBar = new Texture2D(gd, 1, 1);
+            healthBar.SetData(new[] { Color.White });
+            return healthBar;
+        }
+
+        private void ShootBossProjectile()
+        {
+            int spreadFactor = 120;
+            Vector2 spread = new Vector2(rng.Next(-spreadFactor, spreadFactor), rng.Next(-spreadFactor, spreadFactor));
+            AddEnemyProjectile(Assets.Textures["bossStar"], boss.Center, player.Position + spread);
         }
 
         private Vector2 GetRandomRangedEnemyPosition()
@@ -101,7 +151,11 @@ namespace IGME106GroupGame.States
 
         public void AddPlayerProjectile(Texture2D sprite, Vector2 p1, Vector2 p2)
         {
-            gameObjects.Add(new Projectile(sprite, p1, p2, false, 18));
+            if (player.FireDelay <= 0)
+            {
+                gameObjects.Add(new Projectile(sprite, p1, p2, false, 18));
+                player.FireDelay = 15;
+            }
         }
 
         private void AddEnemyProjectile(Texture2D sprite, Vector2 p1, Vector2 p2)
@@ -115,11 +169,19 @@ namespace IGME106GroupGame.States
             gameObjects.Add(pickup);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GraphicsDevice gd)
         {
-            foreach(GameObject gameObject in gameObjects)
+            foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Draw(spriteBatch);
+
+                if (gameObject is IEntity)
+                {
+                    if (!(gameObject is Player || gameObject is Projectile))
+                    {
+                        spriteBatch.Draw(GetTexture(gd), ((IEntity)gameObject).HealthBar.Bounds, new Color(255, 86, 203));
+                    }
+                }
             }
             if(pickup != null)
             {
@@ -136,9 +198,9 @@ namespace IGME106GroupGame.States
         private void HandleDeadEntities()
         {
             List<GameObject> entities = Entities;
-            for(int i = 0; i < entities.Count; i++)
+            for (int i = 0; i < entities.Count; i++)
             {
-                if(((IEntity)entities[i]).Health <= 0)
+                if (((IEntity)entities[i]).Health <= 0)
                 {
                     gameObjects.Remove(entities[i]);
                 }
@@ -154,12 +216,12 @@ namespace IGME106GroupGame.States
                 pickup = null;
             }
         }
-        private void UpdateEnemyCount()
+        private void UpdateEnemyCount(GameState state)
         {
             Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
             Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
 
-            while (Enemies.Count < 7)
+            while (Enemies.Count < 5 + state.Wave * 3)
             {
                 Vector2 randomPosition = new Vector2(-1, -1);
 
@@ -172,6 +234,7 @@ namespace IGME106GroupGame.States
                     randomPosition.Y = (new Random()).Next(60, 900);
                 }
 
+                #region NormalEnemySpawning
                 //50 - 50 chance of spawning a ranged or melee enemy
                 if (rng.Next(0, 2) == 0)
                 {
@@ -187,6 +250,7 @@ namespace IGME106GroupGame.States
                     gameObjects.Add(new MeleeEnemy(Assets.Textures["slimeBot"], randomPosition, player));
                 }
                 pickupThresh--;
+                #endregion
             }
         }
     }

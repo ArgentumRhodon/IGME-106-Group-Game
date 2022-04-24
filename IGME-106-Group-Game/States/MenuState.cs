@@ -36,9 +36,9 @@ namespace IGME106GroupGame.States
         /// This method will draw the menu
         /// </summary>
         /// <param name="_spriteBatch"></param>
-        public override void Draw(SpriteBatch _spriteBatch)
+        public override void Draw(SpriteBatch _spriteBatch, GraphicsDevice gd)
         {
-            base.Draw(_spriteBatch);
+            base.Draw(_spriteBatch, gd);
         }
     }
 }

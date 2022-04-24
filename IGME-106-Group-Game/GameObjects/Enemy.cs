@@ -7,6 +7,7 @@ using IGME106GroupGame.MovementAndAI;
 using IGME106GroupGame.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using IGME106GroupGame.UI;
 
 namespace IGME106GroupGame.GameObjects
 {
@@ -14,11 +15,13 @@ namespace IGME106GroupGame.GameObjects
     {
         //Fields
         protected int health;
+        protected HealthBar healthBar;
         protected bool collidedWithOtherEnemy = false;
         protected Vector2 collisionPosition;
 
         //Properties
         public int Health { get => health; set => health = value; }
+        public HealthBar HealthBar { get => healthBar; set => healthBar = value; }
 
         //Constructor
         public Enemy(Texture2D sprite, Vector2 startPos, Player player) :
