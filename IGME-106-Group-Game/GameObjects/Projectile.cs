@@ -45,6 +45,11 @@ namespace IGME106GroupGame.GameObjects
                 currentEnemy = (RangedEnemy)other;
                 health--;
             }
+
+            if (other is WallEntity)
+            {
+                health = 0;
+            }
         }
     }
 }

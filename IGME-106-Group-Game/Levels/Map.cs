@@ -132,7 +132,9 @@ namespace IGME106GroupGame.Levels
             {
                 for(int j = 0; j < TileWidth; j++)
                 {
-                    tiles[i, j] = new Tile(GetTileSprite((char)streamReader.Read()));
+                    char tileRepresentative = (char)streamReader.Read();
+                    tiles[i, j] = new Tile(GetTileSprite(tileRepresentative));
+                    // Possible spot to implement WallEntity, more likely to go into GameObjectHandler
                 }
                 streamReader.ReadLine();
             }
