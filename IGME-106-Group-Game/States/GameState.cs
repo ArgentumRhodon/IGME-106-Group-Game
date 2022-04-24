@@ -98,7 +98,6 @@ namespace IGME106GroupGame.States
                 if (LeftMouseNewlyClicked())
                 {
                     gameObjectHandler.AddPlayerProjectile(Assets.Textures["playerStar"], gameObjectHandler.Player.Position, mouseManager.Position);
-                    //gameObjectHandler.AddProjectile(this);
                 }
             }
             else if(paused && gameObjectHandler.Player.Health > 0)

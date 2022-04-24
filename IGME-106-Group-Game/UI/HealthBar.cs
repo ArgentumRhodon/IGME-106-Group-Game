@@ -14,7 +14,7 @@ namespace IGME106GroupGame.UI
         private GameObject parent;
         private Rectangle bounds;
         private int maxHealth;
-        private int health;
+        private double health;
 
         public Rectangle Bounds => bounds;
 

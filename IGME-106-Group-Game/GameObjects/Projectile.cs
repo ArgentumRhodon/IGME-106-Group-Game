@@ -30,13 +30,13 @@ namespace IGME106GroupGame.GameObjects
         public HealthBar HealthBar => throw new NotImplementedException();
 
         //Constructor
-        public Projectile (Texture2D sprite, Vector2 p_1, Vector2 p_2, bool isEnemyProjectile, float speed) :
+        public Projectile (Texture2D sprite, Vector2 p_1, Vector2 p_2, bool isEnemyProjectile, float speed, int health, int damage) :
             base(sprite, p_1)
         {
             this.isEnemyProjectile = isEnemyProjectile;
             movement = new ProjectileMovement(p_1, p_2, speed);
-            health = 2;
-            damage = 1;
+            this.health = health;
+            this.damage = damage;
         }
 
         public override void HandleCollision(GameObject other)

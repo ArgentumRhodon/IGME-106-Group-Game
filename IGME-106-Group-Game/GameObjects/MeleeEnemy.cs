@@ -22,7 +22,7 @@ namespace IGME106GroupGame.GameObjects
             base(sprite, startPos, player)
         {
             movement = new MeleeEnemyMovement(5, this, player);
-            health = 2;
+            health = 6;
             healthBar = new HealthBar(this, health);
         }
 

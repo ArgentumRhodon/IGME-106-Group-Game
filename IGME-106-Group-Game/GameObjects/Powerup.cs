@@ -33,7 +33,6 @@ namespace IGME106GroupGame.GameObjects
         //Methods
         public virtual void OnPickup(Player player)
         {
-            player.Health+=2;
             isCollected = true;
         }
     }

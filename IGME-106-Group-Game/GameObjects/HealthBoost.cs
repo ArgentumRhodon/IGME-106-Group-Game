@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IGME106GroupGame.GameObjects;
+using IGME106GroupGame.MovementAndAI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using IGME106GroupGame.States;
-using IGME106GroupGame.GameObjects;
-using IGME106GroupGame.MovementAndAI;
 
 namespace IGME106GroupGame.GameObjects
 {
-    public class PierceBoost : Powerup
+    public class HealthBoost : Powerup
     {
-        public PierceBoost(Texture2D sprite, Vector2 position) :
+        public HealthBoost(Texture2D sprite, Vector2 position) :
             base(sprite, position)
         {
         }
+
         public override void OnPickup(Player player)
         {
-            player.Pierce++;
+            player.Health += 2;
             base.OnPickup(player);
         }
     }

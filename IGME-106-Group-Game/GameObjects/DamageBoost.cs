@@ -11,15 +11,16 @@ using IGME106GroupGame.MovementAndAI;
 
 namespace IGME106GroupGame.GameObjects
 {
-    public class PierceBoost : Powerup
+    public class DamageBoost : Powerup
     {
-        public PierceBoost(Texture2D sprite, Vector2 position) :
+        public DamageBoost(Texture2D sprite, Vector2 position) :
             base(sprite, position)
         {
         }
+
         public override void OnPickup(Player player)
         {
-            player.Pierce++;
+            player.Damage++;
             base.OnPickup(player);
         }
     }

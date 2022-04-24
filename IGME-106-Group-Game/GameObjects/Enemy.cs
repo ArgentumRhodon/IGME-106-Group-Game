@@ -60,7 +60,7 @@ namespace IGME106GroupGame.GameObjects
         {
             if (other is Projectile && !((Projectile)other).IsEnemyProjectile && ((Projectile)other).CurrentEnemy != this)
             {
-                health--;
+                health -= ((Projectile)other).Damage;
             }
 
             if (other is IEntity && !(other is Projectile))

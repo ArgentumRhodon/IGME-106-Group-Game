@@ -23,7 +23,7 @@ namespace IGME106GroupGame.GameObjects
             base(sprite, startPos, player)
         {
             movement = new RangedEnemyMovement(5, this, player);
-            health = 4;
+            health = 12;
             healthBar = new HealthBar(this, health);
             random = new Random();
             fireDelay = random.Next(45, 90);

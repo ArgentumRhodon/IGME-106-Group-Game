@@ -17,10 +17,15 @@ namespace IGME106GroupGame.GameObjects
         private int iFrames;
         private bool isInvincible;
         private int fireDelay;
+        private int staticDelay;
         private Vector2 collisionPosition;
+        private int damage;
+        private int pierce;
 
         //Properties
         public int Health { get => health; set => health = value; }
+        public int Pierce { get => pierce; set => pierce = value; }
+        public int Damage { get => damage; set => damage = value; }
         public int IFrames
         {
             get => iFrames;
@@ -38,6 +43,7 @@ namespace IGME106GroupGame.GameObjects
             get => fireDelay;
             set => fireDelay = value;
         }
+        public int StaticDelay { get => staticDelay; set => staticDelay = value; }
 
         public HealthBar HealthBar => throw new NotImplementedException();
 
@@ -48,6 +54,9 @@ namespace IGME106GroupGame.GameObjects
             movement = new PlayerMovement(10, this);
             this.isInvincible = isInvincible;
             health = 6;
+            pierce = 2;
+            damage = 3;
+            staticDelay = 15;
         }
 
         /// <summary>

@@ -14,7 +14,6 @@ namespace IGME106GroupGame.GameObjects
     {
         int Health { get; set; }
         Rectangle CollisionBox { get; }
-        // Weapon EquippedWeapon { get; set; }
         HealthBar HealthBar { get; }
     }
 }

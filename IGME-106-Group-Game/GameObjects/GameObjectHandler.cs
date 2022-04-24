@@ -23,6 +23,7 @@ namespace IGME106GroupGame.States
         private Powerup pickup;
         private int pickupThresh;
         private List<GameObject> gameObjects;
+        private List<Powerup> powerups;
 
         public Player Player => player;
         public List<GameObject> GameObjects
@@ -48,6 +49,7 @@ namespace IGME106GroupGame.States
             this.pickup = null;
             
             gameObjects.Add(player);
+            powerups = new List<Powerup>() { new HealthBoost(Assets.Textures["smallHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new PierceBoost(Assets.Textures["halfHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new DamageBoost(Assets.Textures["bossStar"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))) };
         }
 
 
@@ -108,7 +110,7 @@ namespace IGME106GroupGame.States
             }
             if(pickupThresh <= 0)
             {
-                AddPickup(state);
+                AddPickup();
                 pickupThresh = 10;
             }
             //this is to "freeze" the pickup thershold timer
@@ -152,20 +154,21 @@ namespace IGME106GroupGame.States
         {
             if (player.FireDelay <= 0)
             {
-                gameObjects.Add(new Projectile(sprite, p1, p2, false, 18));
-                player.FireDelay = 15;
+                gameObjects.Add(new Projectile(sprite, p1, p2, false, 18, player.Pierce, player.Damage));
+                player.FireDelay = player.StaticDelay;
             }
         }
 
         private void AddEnemyProjectile(Texture2D sprite, Vector2 p1, Vector2 p2)
         {
-            gameObjects.Add(new Projectile(sprite, p1, p2, true, 15));
+            gameObjects.Add(new Projectile(sprite, p1, p2, true, 15, 1, 1));
         }
 
-        public void AddPickup(State state)
+        public void AddPickup()
         {
-            pickup = new Powerup(Assets.Textures["smallHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900)));
+            pickup = powerups[rng.Next(0, powerups.Count)];
             gameObjects.Add(pickup);
+            powerups = new List<Powerup>() { new HealthBoost(Assets.Textures["smallHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new PierceBoost(Assets.Textures["halfHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new DamageBoost(Assets.Textures["bossStar"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new AtkSpdBoost(Assets.Textures["playerStar"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))) };
         }
 
         public void Draw(SpriteBatch spriteBatch, GraphicsDevice gd)
