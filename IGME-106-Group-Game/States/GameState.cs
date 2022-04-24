@@ -62,7 +62,7 @@ namespace IGME106GroupGame.States
         {
             this.godMode = godMode;
             paused = false;
-            map = new Map("..\\..\\..\\Content\\Levels\\level3.txt");
+            map = new Map("..\\..\\..\\Content\\Levels\\level1.txt");
             gameObjectHandler = new GameObjectHandler(new Player(Assets.Textures["player"], new Vector2(930, 510), godMode));
             ui = new GameUI(game, gameObjectHandler.Player);
             pauseUI = new PauseUI(game);
@@ -146,6 +146,8 @@ namespace IGME106GroupGame.States
 
             gameObjectHandler.Draw(spriteBatch, gd);
 
+            // Draw game state UI and wave number shadow
+            spriteBatch.Draw(Assets.Textures["default0"], new Rectangle(680, 10, 550, 75), new Color(0, 0, 0, 150));
             ui.Draw(spriteBatch);
 
             if (paused && gameObjectHandler.Player.Health > 0)
@@ -163,6 +165,15 @@ namespace IGME106GroupGame.States
         public void SetBossWave()
         {
             ((GameUI)ui).WaveLabel.Text = "Final Boss";
+        }
+
+        /// <summary>
+        /// Move on to next wave and change the map
+        /// </summary>
+        public void NextWave()
+        {
+            wave++;
+            map = new Map($"..\\..\\..\\Content\\Levels\\level{wave}.txt");
         }
     }
 }

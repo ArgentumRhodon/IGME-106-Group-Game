@@ -28,13 +28,11 @@ namespace IGME106GroupGame.States
             get => gameObjects;
             set => gameObjects = value;
         }
-
         private List<GameObject> Enemies => gameObjects.FindAll(gameObject => gameObject is RangedEnemy || gameObject is MeleeEnemy);
         private List<GameObject> RangedEnemies => gameObjects.FindAll(gameObject => gameObject is RangedEnemy);
         private List<GameObject> MeleeEnemies => gameObjects.FindAll(gameObject => gameObject is MeleeEnemy);
         private List<GameObject> Projectiles => gameObjects.FindAll(gameObject => gameObject is Projectile);
         private List<GameObject> Entities => gameObjects.FindAll(gameObject => gameObject is IEntity);
-        private List<GameObject> Walls => gameObjects.FindAll(gameObject => gameObject is WallEntity);
 
         // Constructor
         public GameObjectHandler(Player player)
@@ -51,20 +49,20 @@ namespace IGME106GroupGame.States
         public void Update(GameState state)
         {
             UpdateGameObjects(state);
-            HandleDeadEntities();
+            HandleDeadEntities(state);
 
             if(Enemies.Count <= 0)
             {
                 if(state.Wave < 5)
                 {
                     UpdateEnemyCount(state);
-                    state.Wave++;
+                    state.NextWave();
                 }
                 else
                 {
                     if (boss == null)
                     {
-                        state.Wave++;
+                        state.NextWave();
                         gameObjects.Add(boss = new Boss(Assets.Textures["monocrome"], new Vector2(60, 60), player));
                         state.SetBossWave();
                     }
@@ -161,13 +159,19 @@ namespace IGME106GroupGame.States
             return gameObjects.FindAll(gameObject => gameObject != check && gameObject.NextCollisionBox.Intersects(check.NextCollisionBox));
         }
 
-        private void HandleDeadEntities()
+        private void HandleDeadEntities(GameState state)
         {
             List<GameObject> entities = Entities;
             for (int i = 0; i < entities.Count; i++)
             {
                 if (((IEntity)entities[i]).Health <= 0)
                 {
+                    // If the boss dies, move on to the final level
+                    if(entities[i] is Boss)
+                    {
+                        state.NextWave();
+                    }
+
                     gameObjects.Remove(entities[i]);
                 }
             }
