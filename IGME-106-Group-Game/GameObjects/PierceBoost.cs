@@ -11,12 +11,15 @@ using IGME106GroupGame.MovementAndAI;
 
 namespace IGME106GroupGame.GameObjects
 {
-    public class PierceBoost : Powerup
+    public class AttackSpeedBoost : Powerup
     {
-        private Random rng = new Random();
-        public PierceBoost(Texture2D sprite, Vector2 position) :
+        public AttackSpeedBoost(Texture2D sprite, Vector2 position) :
             base(sprite, position)
         {
+        }
+        public override void OnPickup(Player player)
+        {
+            player.FireDelay -= 5;
         }
     }
 }

@@ -46,7 +46,6 @@ namespace IGME106GroupGame.States
             gameObjects = new List<GameObject>();
             this.pickupThresh = 10;
             this.pickup = null;
-            gameObjects = new List<GameObject>();
             
             gameObjects.Add(player);
         }

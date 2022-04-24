@@ -58,7 +58,7 @@ namespace IGME106GroupGame.GameObjects
 
         public override void HandleCollision(GameObject other)
         {
-            if (other is Projectile && !((Projectile)other).IsEnemyProjectile)
+            if (other is Projectile && !((Projectile)other).IsEnemyProjectile && ((Projectile)other).CurrentEnemy != this)
             {
                 health--;
             }
