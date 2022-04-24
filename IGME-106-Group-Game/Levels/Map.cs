@@ -15,7 +15,6 @@ namespace IGME106GroupGame.Levels
         // Fields
         private Tile[,] tiles;
         private string filePath;
-        private Assets assets;
 
         // Tile sprites
         private Texture2D[] cornerSprites;
@@ -36,10 +35,9 @@ namespace IGME106GroupGame.Levels
         /// </summary>
         /// <param name="content">The Content Manager</param>
         /// <param name="filePath">The file path of the map</param>
-        public Map(Assets assets, String filePath)
+        public Map(String filePath)
         {
             this.filePath = filePath;
-            this.assets = assets;
             InitializeMap();
         }
 
@@ -196,35 +194,35 @@ namespace IGME106GroupGame.Levels
             switch (tileRepresentative)
             {
                 case '1':
-                    return assets.Get($"topLeftWall{colorLevel}");
+                    return Assets.Textures[$"topLeftWall{colorLevel}"];
                 case '2':
-                    return assets.Get($"topRightWall{colorLevel}");
+                    return Assets.Textures[$"topRightWall{colorLevel}"];
                 case '3':
-                    return assets.Get($"bottomLeftWall{colorLevel}");
+                    return Assets.Textures[$"bottomLeftWall{colorLevel}"];
                 case '4':
-                    return assets.Get($"bottomRightWall{colorLevel}");
+                    return Assets.Textures[$"bottomRightWall{colorLevel}"];
                 case '5':
-                    return assets.Get($"invertedTopLeftWall{colorLevel}");
+                    return Assets.Textures[$"invertedTopLeftWall{colorLevel}"];
                 case '6':
-                    return assets.Get($"invertedTopRightWall{colorLevel}");
+                    return Assets.Textures[$"invertedTopRightWall{colorLevel}"];
                 case '7':
-                    return assets.Get($"invertedBottomLeftWall{colorLevel}");
+                    return Assets.Textures[$"invertedBottomLeftWall{colorLevel}"];
                 case '8':
-                    return assets.Get($"invertedBottomRightWall{colorLevel}");
+                    return Assets.Textures[$"invertedBottomRightWall{colorLevel}"];
                 case 'A':
-                    return assets.Get($"northWall{colorLevel}");
+                    return Assets.Textures[$"northWall{colorLevel}"];
                 case 'B':
-                    return assets.Get($"eastWall{colorLevel}");
+                    return Assets.Textures[$"eastWall{colorLevel}"];
                 case 'C':
-                    return assets.Get($"southWall{colorLevel}");
+                    return Assets.Textures[$"southWall{colorLevel}"];
                 case 'D':
-                    return assets.Get($"westWall{colorLevel}");
+                    return Assets.Textures[$"westWall{colorLevel}"];
                 case '-':
-                    return assets.Get($"floor{colorLevel}");
+                    return Assets.Textures[$"floor{colorLevel}"];
                 case '~':
-                    return assets.Get($"centerWall{colorLevel}");
+                    return Assets.Textures[$"centerWall{colorLevel}"];
                 default:
-                    return assets.Get($"base{colorLevel}");
+                    return Assets.Textures[$"base{colorLevel}"];
             }
         }
 

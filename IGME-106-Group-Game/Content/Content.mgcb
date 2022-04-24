@@ -25,13 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:gameObjects/bossStar.png
 
-#begin font.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:font.spritefont
-
 #begin gameObjects/enemyStar.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -103,6 +96,32 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:gameObjects/slimeBot.png
+
+#begin headingFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:headingFont.spritefont
+
+#begin levelAssets/corners/bottomLeft.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:levelAssets/corners/bottomLeft.png
+
+#begin normalFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:normalFont.spritefont
 
 #begin Tiles/0/corner/bottomLeft.png
 /importer:TextureImporter
@@ -848,31 +867,7 @@
 /processorParam:TextureFormat=Color
 /build:Tiles/4/corner/bottomRight.png
 
-#begin gameObjects/ninja.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:gameObjects/ninja.png
-
-#begin gameObjects/player.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:gameObjects/player.png
-
-#begin gameObjects/playerStar.png
+#begin Tiles/4/corner/topLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -895,28 +890,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Tiles/4/corner/topRight.png
-
-#begin Tiles/4/floor/default.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:headingFont.spritefont
-
-#begin levelAssets/corners/bottomLeft.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:levelAssets/corners/bottomLeft.png
 
 #begin Tiles/4/floor/floor.png
 /importer:TextureImporter
@@ -1037,13 +1010,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Tiles/4/wall/west.png
-
-#begin normalFont.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:normalFont.spritefont
 
 #begin uiAssets/gameScreen/continueText.png
 /importer:TextureImporter
