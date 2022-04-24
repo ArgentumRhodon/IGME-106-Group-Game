@@ -50,7 +50,7 @@ namespace IGME106GroupGame.States
         {
             this.godMode = godMode;
             paused = false;
-            map = new Map(game.Assets);
+            map = new Map(game.Assets, "..\\..\\..\\Content\\Levels\\level6.txt");
             gameObjectHandler = new GameObjectHandler(new Player(Game.Assets.Get("player"), new Vector2(930, 510), godMode));
             ui = new GameUI(game, gameObjectHandler.Player);
             pauseUI = new PauseUI(game);

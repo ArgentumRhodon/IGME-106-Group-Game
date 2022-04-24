@@ -92,6 +92,7 @@ namespace IGME106GroupGame.Levels
                 TileWidth = int.Parse(info[0]);
                 TileHeight = int.Parse(info[1]);
                 colorLevel = int.Parse(info[2]);
+                tiles = new Tile[TileHeight, TileWidth];
             }
             catch (IOException)
             {
@@ -128,12 +129,12 @@ namespace IGME106GroupGame.Levels
         /// <param name="streamReader"></param>
         private void LoadTiles(StreamReader streamReader)
         {
-            for(int i = 0; i < TileHeight; i++)
+            for(int y = 0; y < TileHeight; y++)
             {
-                for(int j = 0; j < TileWidth; j++)
+                for(int x = 0; x < TileWidth; x++)
                 {
                     char tileRepresentative = (char)streamReader.Read();
-                    tiles[i, j] = new Tile(GetTileSprite(tileRepresentative));
+                    tiles[y, x] = new Tile(GetTileSprite(tileRepresentative));
                     // Possible spot to implement WallEntity, more likely to go into GameObjectHandler
                 }
                 streamReader.ReadLine();
@@ -157,11 +158,11 @@ namespace IGME106GroupGame.Levels
         /// <param name="_spriteBatch"></param>
         public void Draw(SpriteBatch _spriteBatch)
         {
-            for(int i = 0; i < TileHeight; i++)
+            for(int y = 0; y < TileHeight; y++)
             {
-                for(int j = 0; j < TileWidth; j++)
+                for(int x = 0; x < TileWidth; x++)
                 {
-                    _spriteBatch.Draw(tiles[i,j].Sprite, new Vector2(j * TileSize, i * TileSize), Color.White);
+                    _spriteBatch.Draw(tiles[y,x].Sprite, new Vector2(x * TileSize, y * TileSize), Color.White);
                 }
             }
         }
@@ -203,13 +204,13 @@ namespace IGME106GroupGame.Levels
                 case '4':
                     return assets.Get($"bottomRightWall{colorLevel}");
                 case '5':
-                    return assets.Get($"topLeftWall{colorLevel}");
+                    return assets.Get($"invertedTopLeftWall{colorLevel}");
                 case '6':
-                    return assets.Get($"topRightWall{colorLevel}");
+                    return assets.Get($"invertedTopRightWall{colorLevel}");
                 case '7':
-                    return assets.Get($"bottomLeftWall{colorLevel}");
+                    return assets.Get($"invertedBottomLeftWall{colorLevel}");
                 case '8':
-                    return assets.Get($"bottomRightWall{colorLevel}");
+                    return assets.Get($"invertedBottomRightWall{colorLevel}");
                 case 'A':
                     return assets.Get($"northWall{colorLevel}");
                 case 'B':
