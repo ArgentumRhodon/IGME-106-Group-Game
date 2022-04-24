@@ -62,7 +62,7 @@ namespace IGME106GroupGame.States
         {
             this.godMode = godMode;
             paused = false;
-            map = new Map("..\\..\\..\\Content\\Levels\\level6.txt");
+            map = new Map("..\\..\\..\\Content\\Levels\\level3.txt");
             gameObjectHandler = new GameObjectHandler(new Player(Assets.Textures["player"], new Vector2(930, 510), godMode));
             ui = new GameUI(game, gameObjectHandler.Player);
             pauseUI = new PauseUI(game);
@@ -150,12 +150,12 @@ namespace IGME106GroupGame.States
 
             if (paused && gameObjectHandler.Player.Health > 0)
             {
-                spriteBatch.Draw(Assets.Textures["default"], new Rectangle(0, 0, 1920, 1080), new Color(0,0,0,150));
+                spriteBatch.Draw(Assets.Textures["default0"], new Rectangle(0, 0, 1920, 1080), new Color(0,0,0,150));
                 pauseUI.Draw(spriteBatch);
             }
             else if(paused)
             {
-                spriteBatch.Draw(Assets.Textures["default"], new Rectangle(0, 0, 1920, 1080), new Color(0, 0, 0, 150));
+                spriteBatch.Draw(Assets.Textures["default0"], new Rectangle(0, 0, 1920, 1080), new Color(0, 0, 0, 150));
                 deathUI.Draw(spriteBatch);
             }
         }

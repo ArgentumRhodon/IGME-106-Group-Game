@@ -104,18 +104,6 @@
 /processorParam:TextureFormat=Compressed
 /build:headingFont.spritefont
 
-#begin levelAssets/corners/bottomLeft.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:levelAssets/corners/bottomLeft.png
-
 #begin normalFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -195,7 +183,7 @@
 /processorParam:TextureFormat=Color
 /build:Tiles/0/floor/floor.png
 
-#begin Tiles/0/outCorners/bottomLeft.png
+#begin Tiles/0/outCorners/invertedBottomLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -205,9 +193,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/0/outCorners/bottomLeft.png
+/build:Tiles/0/outCorners/invertedBottomLeft.png
 
-#begin Tiles/0/outCorners/bottomRight.png
+#begin Tiles/0/outCorners/invertedBottomRight.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -217,9 +205,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/0/outCorners/bottomRight.png
+/build:Tiles/0/outCorners/invertedBottomRight.png
 
-#begin Tiles/0/outCorners/topLeft.png
+#begin Tiles/0/outCorners/invertedTopLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -229,9 +217,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/0/outCorners/topLeft.png
+/build:Tiles/0/outCorners/invertedTopLeft.png
 
-#begin Tiles/0/outCorners/topRight.png
+#begin Tiles/0/outCorners/invertedTopRight.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -241,7 +229,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/0/outCorners/topRight.png
+/build:Tiles/0/outCorners/invertedTopRight.png
 
 #begin Tiles/0/wall/center.png
 /importer:TextureImporter
@@ -375,7 +363,7 @@
 /processorParam:TextureFormat=Color
 /build:Tiles/1/floor/floor.png
 
-#begin Tiles/1/outCorners/bottomLeft.png
+#begin Tiles/1/outCorners/invertedBottomLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -385,9 +373,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/1/outCorners/bottomLeft.png
+/build:Tiles/1/outCorners/invertedBottomLeft.png
 
-#begin Tiles/1/outCorners/bottomRight.png
+#begin Tiles/1/outCorners/invertedBottomRight.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -397,9 +385,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/1/outCorners/bottomRight.png
+/build:Tiles/1/outCorners/invertedBottomRight.png
 
-#begin Tiles/1/outCorners/topLeft.png
+#begin Tiles/1/outCorners/invertedTopLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -409,9 +397,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/1/outCorners/topLeft.png
+/build:Tiles/1/outCorners/invertedTopLeft.png
 
-#begin Tiles/1/outCorners/topRight.png
+#begin Tiles/1/outCorners/invertedTopRight.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -421,7 +409,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/1/outCorners/topRight.png
+/build:Tiles/1/outCorners/invertedTopRight.png
 
 #begin Tiles/1/wall/center.png
 /importer:TextureImporter
@@ -555,7 +543,7 @@
 /processorParam:TextureFormat=Color
 /build:Tiles/2/floor/floor.png
 
-#begin Tiles/2/outCorners/bottomLeft.png
+#begin Tiles/2/outCorners/invertedBottomLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -565,9 +553,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/2/outCorners/bottomLeft.png
+/build:Tiles/2/outCorners/invertedBottomLeft.png
 
-#begin Tiles/2/outCorners/bottomRight.png
+#begin Tiles/2/outCorners/invertedBottomRight.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -577,9 +565,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/2/outCorners/bottomRight.png
+/build:Tiles/2/outCorners/invertedBottomRight.png
 
-#begin Tiles/2/outCorners/topLeft.png
+#begin Tiles/2/outCorners/invertedTopLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -589,9 +577,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/2/outCorners/topLeft.png
+/build:Tiles/2/outCorners/invertedTopLeft.png
 
-#begin Tiles/2/outCorners/topRight.png
+#begin Tiles/2/outCorners/invertedTopRight.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -601,7 +589,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/2/outCorners/topRight.png
+/build:Tiles/2/outCorners/invertedTopRight.png
 
 #begin Tiles/2/wall/center.png
 /importer:TextureImporter
@@ -735,7 +723,7 @@
 /processorParam:TextureFormat=Color
 /build:Tiles/3/floor/floor.png
 
-#begin Tiles/3/outCorners/bottomLeft.png
+#begin Tiles/3/outCorners/invertedBottomLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -745,9 +733,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/3/outCorners/bottomLeft.png
+/build:Tiles/3/outCorners/invertedBottomLeft.png
 
-#begin Tiles/3/outCorners/bottomRight.png
+#begin Tiles/3/outCorners/invertedBottomRight.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -757,9 +745,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/3/outCorners/bottomRight.png
+/build:Tiles/3/outCorners/invertedBottomRight.png
 
-#begin Tiles/3/outCorners/topLeft.png
+#begin Tiles/3/outCorners/invertedTopLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -769,9 +757,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/3/outCorners/topLeft.png
+/build:Tiles/3/outCorners/invertedTopLeft.png
 
-#begin Tiles/3/outCorners/topRight.png
+#begin Tiles/3/outCorners/invertedTopRight.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -781,7 +769,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/3/outCorners/topRight.png
+/build:Tiles/3/outCorners/invertedTopRight.png
 
 #begin Tiles/3/wall/center.png
 /importer:TextureImporter
@@ -903,7 +891,7 @@
 /processorParam:TextureFormat=Color
 /build:Tiles/4/floor/floor.png
 
-#begin Tiles/4/outCorners/bottomLeft.png
+#begin Tiles/4/outCorners/invertedBottomLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -913,9 +901,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/4/outCorners/bottomLeft.png
+/build:Tiles/4/outCorners/invertedBottomLeft.png
 
-#begin Tiles/4/outCorners/bottomRight.png
+#begin Tiles/4/outCorners/invertedBottomRight.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -925,9 +913,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/4/outCorners/bottomRight.png
+/build:Tiles/4/outCorners/invertedBottomRight.png
 
-#begin Tiles/4/outCorners/topLeft.png
+#begin Tiles/4/outCorners/invertedTopLeft.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -937,9 +925,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/4/outCorners/topLeft.png
+/build:Tiles/4/outCorners/invertedTopLeft.png
 
-#begin Tiles/4/outCorners/topRight.png
+#begin Tiles/4/outCorners/invertedTopRight.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -949,7 +937,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Tiles/4/outCorners/topRight.png
+/build:Tiles/4/outCorners/invertedTopRight.png
 
 #begin Tiles/4/wall/center.png
 /importer:TextureImporter

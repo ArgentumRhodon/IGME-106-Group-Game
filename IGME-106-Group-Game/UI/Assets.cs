@@ -65,15 +65,21 @@ namespace IGME106GroupGame.UI
         /// <param name="content"></param>
         private static void LoadLevelContent(ContentManager content)
         {
-            DirectoryInfo[] uiDirectories = new DirectoryInfo(content.RootDirectory + "\\levelAssets").GetDirectories();
-            foreach (DirectoryInfo uiDirectory in uiDirectories)
+            DirectoryInfo[] staurationLevels = new DirectoryInfo(content.RootDirectory + "\\Tiles").GetDirectories();
+            foreach (DirectoryInfo staurationLevel in staurationLevels)
             {
-                FileInfo[] fileInfos = uiDirectory.GetFiles("*.xnb");
-                foreach (FileInfo file in fileInfos)
+                DirectoryInfo[] assetTypes = staurationLevel.GetDirectories();
+
+                foreach(DirectoryInfo assetType in assetTypes)
                 {
-                    string fileName = Path.GetFileNameWithoutExtension(file.Name);
-                    Texture2D image = content.Load<Texture2D>("levelAssets\\" + uiDirectory.Name + "\\" + fileName);
-                    textures.Add(fileName, image);
+                    FileInfo[] fileInfos = assetType.GetFiles("*.xnb");
+
+                    foreach(FileInfo file in fileInfos)
+                    {
+                        string fileName = Path.GetFileNameWithoutExtension(file.Name);
+                        Texture2D image = content.Load<Texture2D>("Tiles\\" + staurationLevel.Name + "\\" + assetType.Name + "\\" + fileName);
+                        textures.Add(fileName + staurationLevel.Name, image);
+                    }
                 }
             }
         }

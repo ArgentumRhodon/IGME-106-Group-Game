@@ -27,7 +27,7 @@ namespace IGME106GroupGame.Levels
         private int TileHeight;
         private int TileWidth;
         private const int TileSize = 60;
-        private int colorLevel;
+        private int saturationLevel;
 
         // Constructor
         /// <summary>
@@ -49,33 +49,33 @@ namespace IGME106GroupGame.Levels
         private void LoadContent(ContentManager content) // Needs editing, add support for colors and outCorners and center wall
         {
             cornerSprites = new Texture2D[4];
-            string[] cornerImages= Directory.GetFiles($"Content\\Tiles\\corner\\{colorLevel}\\");
+            string[] cornerImages= Directory.GetFiles($"Content\\Tiles\\corner\\{saturationLevel}\\");
             for(int i = 0; i < cornerImages.Length; i++)
             {
-                string filePath = cornerImages[i].Remove(0, $"Content\\Tiles\\{colorLevel}".Length);
+                string filePath = cornerImages[i].Remove(0, $"Content\\Tiles\\{saturationLevel}".Length);
                 filePath = filePath.Substring(0, filePath.Length - 4);
                 cornerSprites[i] = content.Load<Texture2D>(filePath);
             }
 
             outCornerSprites = new Texture2D[4];
-            string[] outCornerImages = Directory.GetFiles($"Content\\Tiles\\outCorner\\{colorLevel}\\");
+            string[] outCornerImages = Directory.GetFiles($"Content\\Tiles\\outCorner\\{saturationLevel}\\");
             for (int i = 0; i < outCornerImages.Length; i++)
             {
-                string filePath = outCornerImages[i].Remove(0, $"Content\\Tiles\\{colorLevel}".Length);
+                string filePath = outCornerImages[i].Remove(0, $"Content\\Tiles\\{saturationLevel}".Length);
                 filePath = filePath.Substring(0, filePath.Length - 4);
                 outCornerSprites[i] = content.Load<Texture2D>(filePath);
             }
 
             wallSprites = new Texture2D[5];
-            string[] wallImages = Directory.GetFiles($"Content\\Tiles\\wall\\{colorLevel}\\");
+            string[] wallImages = Directory.GetFiles($"Content\\Tiles\\wall\\{saturationLevel}\\");
             for (int i = 0; i < wallImages.Length; i++)
             {
-                string filePath = wallImages[i].Remove(0, $"Content\\Tiles\\{colorLevel}\\".Length);
+                string filePath = wallImages[i].Remove(0, $"Content\\Tiles\\{saturationLevel}\\".Length);
                 filePath = filePath.Substring(0, filePath.Length - 4);
                 wallSprites[i] = content.Load<Texture2D>(filePath);
             }
 
-            floorSprite = content.Load<Texture2D>($"Content\\Tiles\\{colorLevel}\\floor\\floor");
+            floorSprite = content.Load<Texture2D>($"Content\\Tiles\\{saturationLevel}\\floor\\floor");
             baseSprite = content.Load<Texture2D>("base");
         }
 
@@ -89,7 +89,7 @@ namespace IGME106GroupGame.Levels
                 String[] info = streamReader.ReadLine().Split(',');
                 TileWidth = int.Parse(info[0]);
                 TileHeight = int.Parse(info[1]);
-                colorLevel = int.Parse(info[2]);
+                saturationLevel = int.Parse(info[2]);
                 tiles = new Tile[TileHeight, TileWidth];
             }
             catch (IOException)
@@ -194,35 +194,35 @@ namespace IGME106GroupGame.Levels
             switch (tileRepresentative)
             {
                 case '1':
-                    return Assets.Textures[$"topLeftWall{colorLevel}"];
+                    return Assets.Textures[$"topLeft{saturationLevel}"];
                 case '2':
-                    return Assets.Textures[$"topRightWall{colorLevel}"];
+                    return Assets.Textures[$"topRight{saturationLevel}"];
                 case '3':
-                    return Assets.Textures[$"bottomLeftWall{colorLevel}"];
+                    return Assets.Textures[$"bottomLeft{saturationLevel}"];
                 case '4':
-                    return Assets.Textures[$"bottomRightWall{colorLevel}"];
+                    return Assets.Textures[$"bottomRight{saturationLevel}"];
                 case '5':
-                    return Assets.Textures[$"invertedTopLeftWall{colorLevel}"];
+                    return Assets.Textures[$"invertedTopLeft{saturationLevel}"];
                 case '6':
-                    return Assets.Textures[$"invertedTopRightWall{colorLevel}"];
+                    return Assets.Textures[$"invertedTopRight{saturationLevel}"];
                 case '7':
-                    return Assets.Textures[$"invertedBottomLeftWall{colorLevel}"];
+                    return Assets.Textures[$"invertedBottomLeft{saturationLevel}"];
                 case '8':
-                    return Assets.Textures[$"invertedBottomRightWall{colorLevel}"];
+                    return Assets.Textures[$"invertedBottomRight{saturationLevel}"];
                 case 'A':
-                    return Assets.Textures[$"northWall{colorLevel}"];
+                    return Assets.Textures[$"north{saturationLevel}"];
                 case 'B':
-                    return Assets.Textures[$"eastWall{colorLevel}"];
+                    return Assets.Textures[$"east{saturationLevel}"];
                 case 'C':
-                    return Assets.Textures[$"southWall{colorLevel}"];
+                    return Assets.Textures[$"south{saturationLevel}"];
                 case 'D':
-                    return Assets.Textures[$"westWall{colorLevel}"];
+                    return Assets.Textures[$"west{saturationLevel}"];
                 case '-':
-                    return Assets.Textures[$"floor{colorLevel}"];
+                    return Assets.Textures[$"floor{saturationLevel}"];
                 case '~':
-                    return Assets.Textures[$"centerWall{colorLevel}"];
+                    return Assets.Textures[$"center{saturationLevel}"];
                 default:
-                    return Assets.Textures[$"base{colorLevel}"];
+                    return Assets.Textures[$"base{saturationLevel}"];
             }
         }
 
