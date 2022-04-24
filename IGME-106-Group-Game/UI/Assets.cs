@@ -80,6 +80,7 @@ namespace IGME106GroupGame.UI
                 textures.Add($"invertedTopRightWall{i}", game.Content.Load<Texture2D>($"Tiles\\{i}\\corner\\topRight"));
                 textures.Add($"invertedBottomLeftWall{i}", game.Content.Load<Texture2D>($"Tiles\\{i}\\corner\\bottomLeft"));
                 textures.Add($"invertedBottomRightWall{i}", game.Content.Load<Texture2D>($"Tiles\\{i}\\corner\\bottomRight"));
+                textures.Add($"centerWall{i}", game.Content.Load<Texture2D>($"Tiles\\{i}\\wall\\center"));
             }
 
             // Game Objects Textures

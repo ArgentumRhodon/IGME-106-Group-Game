@@ -36,8 +36,9 @@ namespace IGME106GroupGame.Levels
         /// </summary>
         /// <param name="content">The Content Manager</param>
         /// <param name="filePath">The file path of the map</param>
-        public Map(Assets assets)
+        public Map(Assets assets, String filePath)
         {
+            this.filePath = filePath;
             this.assets = assets;
             InitializeMap();
         }
@@ -53,7 +54,7 @@ namespace IGME106GroupGame.Levels
             string[] cornerImages= Directory.GetFiles($"Content\\Tiles\\corner\\{colorLevel}\\");
             for(int i = 0; i < cornerImages.Length; i++)
             {
-                string filePath = cornerImages[i].Remove(0, $"content\\Tiles\\{colorLevel}".Length);
+                string filePath = cornerImages[i].Remove(0, $"Content\\Tiles\\{colorLevel}".Length);
                 filePath = filePath.Substring(0, filePath.Length - 4);
                 cornerSprites[i] = content.Load<Texture2D>(filePath);
             }
@@ -62,7 +63,7 @@ namespace IGME106GroupGame.Levels
             string[] outCornerImages = Directory.GetFiles($"Content\\Tiles\\outCorner\\{colorLevel}\\");
             for (int i = 0; i < outCornerImages.Length; i++)
             {
-                string filePath = outCornerImages[i].Remove(0, $"content\\Tiles\\{colorLevel}".Length);
+                string filePath = outCornerImages[i].Remove(0, $"Content\\Tiles\\{colorLevel}".Length);
                 filePath = filePath.Substring(0, filePath.Length - 4);
                 outCornerSprites[i] = content.Load<Texture2D>(filePath);
             }
@@ -168,6 +169,7 @@ namespace IGME106GroupGame.Levels
          * 2 -> top right corner
          * 3 -> bottom left corner
          * 4 -> bottom right corner
+         * 
          * 5 -> inverted top left corner
          * 6 -> inverted top right corner
          * 7 -> inverted bottom left corner
@@ -179,6 +181,7 @@ namespace IGME106GroupGame.Levels
          * D -> west wall
          * 
          * - -> floor
+         * ~ -> center wall
          */
         /// <summary>
         /// This method will get the tile sprites of each coordinate of the map (see key above for conversion)
@@ -190,33 +193,35 @@ namespace IGME106GroupGame.Levels
             switch (tileRepresentative)
             {
                 case '1':
-                    return assets.Get("topLeftWall");
+                    return assets.Get($"topLeftWall{colorLevel}");
                 case '2':
-                    return assets.Get("topRightWall");
+                    return assets.Get($"topRightWall{colorLevel}");
                 case '3':
-                    return assets.Get("bottomLeftWall");
+                    return assets.Get($"bottomLeftWall{colorLevel}");
                 case '4':
-                    return assets.Get("bottomRightWall");
+                    return assets.Get($"bottomRightWall{colorLevel}");
                 case '5':
-                    return assets.Get("topLeftWall");
+                    return assets.Get($"topLeftWall{colorLevel}");
                 case '6':
-                    return assets.Get("topRightWall");
+                    return assets.Get($"topRightWall{colorLevel}");
                 case '7':
-                    return assets.Get("bottomLeftWall");
+                    return assets.Get($"bottomLeftWall{colorLevel}");
                 case '8':
-                    return assets.Get("bottomRightWall");
+                    return assets.Get($"bottomRightWall{colorLevel}");
                 case 'A':
-                    return assets.Get("northWall");
+                    return assets.Get($"northWall{colorLevel}");
                 case 'B':
-                    return assets.Get("eastWall");
+                    return assets.Get($"eastWall{colorLevel}");
                 case 'C':
-                    return assets.Get("southWall");
+                    return assets.Get($"southWall{colorLevel}");
                 case 'D':
-                    return assets.Get("westWall");
+                    return assets.Get($"westWall{colorLevel}");
                 case '-':
-                    return assets.Get("floor");
+                    return assets.Get($"floor{colorLevel}");
+                case '~':
+                    return assets.Get($"centerWall{colorLevel}");
                 default:
-                    return assets.Get("base");
+                    return assets.Get($"base{colorLevel}");
             }
         }
 
@@ -233,7 +238,7 @@ namespace IGME106GroupGame.Levels
             {
                 for (int x = 0; x < tiles.GetLength(0); x++)
                 {
-                    if (tiles[x, y].Sprite != assets.Get("floor")) // Note: Needs to be updated if color levels implemented
+                    if (tiles[x, y].Sprite.Name != "floor")
                     {
                         result.Add(new Vector2(60 * x, 60 * y));
                     }
