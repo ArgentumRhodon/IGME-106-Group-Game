@@ -45,12 +45,14 @@ namespace LevelEditor
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.groupBoxMap = new System.Windows.Forms.GroupBox();
+            this.buttonInvert = new System.Windows.Forms.Button();
             this.groupBoxTileSelector.SuspendLayout();
             this.groupBoxCurrentTile.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxTileSelector
             // 
+            this.groupBoxTileSelector.Controls.Add(this.buttonInvert);
             this.groupBoxTileSelector.Controls.Add(this.buttonBottomLeftCorner);
             this.groupBoxTileSelector.Controls.Add(this.buttonEastWall);
             this.groupBoxTileSelector.Controls.Add(this.buttonSouthWall);
@@ -178,7 +180,7 @@ namespace LevelEditor
             // groupBoxCurrentTile
             // 
             this.groupBoxCurrentTile.Controls.Add(this.buttonCurrentTile);
-            this.groupBoxCurrentTile.Location = new System.Drawing.Point(12, 297);
+            this.groupBoxCurrentTile.Location = new System.Drawing.Point(12, 307);
             this.groupBoxCurrentTile.Name = "groupBoxCurrentTile";
             this.groupBoxCurrentTile.Size = new System.Drawing.Size(107, 89);
             this.groupBoxCurrentTile.TabIndex = 1;
@@ -188,7 +190,6 @@ namespace LevelEditor
             // buttonCurrentTile
             // 
             this.buttonCurrentTile.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.buttonCurrentTile.Image = ((System.Drawing.Image)(resources.GetObject("buttonCurrentTile.Image")));
             this.buttonCurrentTile.Location = new System.Drawing.Point(20, 22);
             this.buttonCurrentTile.Name = "buttonCurrentTile";
             this.buttonCurrentTile.Size = new System.Drawing.Size(66, 61);
@@ -199,7 +200,7 @@ namespace LevelEditor
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSave.Location = new System.Drawing.Point(3, 392);
+            this.buttonSave.Location = new System.Drawing.Point(3, 402);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(59, 46);
             this.buttonSave.TabIndex = 2;
@@ -210,7 +211,7 @@ namespace LevelEditor
             // buttonLoad
             // 
             this.buttonLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonLoad.Location = new System.Drawing.Point(64, 392);
+            this.buttonLoad.Location = new System.Drawing.Point(64, 402);
             this.buttonLoad.Name = "buttonLoad";
             this.buttonLoad.Size = new System.Drawing.Size(55, 46);
             this.buttonLoad.TabIndex = 3;
@@ -229,6 +230,16 @@ namespace LevelEditor
             this.groupBoxMap.TabIndex = 4;
             this.groupBoxMap.TabStop = false;
             this.groupBoxMap.Text = "Map";
+            // 
+            // buttonInvert
+            // 
+            this.buttonInvert.Location = new System.Drawing.Point(58, 222);
+            this.buttonInvert.Name = "buttonInvert";
+            this.buttonInvert.Size = new System.Drawing.Size(49, 44);
+            this.buttonInvert.TabIndex = 9;
+            this.buttonInvert.Text = "Invert";
+            this.buttonInvert.UseVisualStyleBackColor = true;
+            this.buttonInvert.Click += new System.EventHandler(this.buttonInvert_Click);
             // 
             // LevelEditor
             // 
@@ -267,5 +278,6 @@ namespace LevelEditor
         private System.Windows.Forms.Button buttonBottomLeftCorner;
         private System.Windows.Forms.Button buttonEastWall;
         private System.Windows.Forms.Button buttonSouthWall;
+        private System.Windows.Forms.Button buttonInvert;
     }
 }

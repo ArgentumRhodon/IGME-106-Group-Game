@@ -14,8 +14,9 @@ namespace LevelEditor
     public partial class Form1 : Form
     {
         // Fields
-        int width;
-        int height;
+        private int width;
+        private int height;
+        private int color;
 
         // Properties
         /// <summary>
@@ -27,6 +28,11 @@ namespace LevelEditor
         /// Allows the getting of the ValidHeight boolean
         /// </summary>
         public bool ValidHeight { get { return int.TryParse(textBoxHeight.Text, out height); } }
+
+        /// <summary>
+        /// Allows the getting of the ValidColorLevel boolean
+        /// </summary>
+        public bool ValidColorLevel { get { return int.TryParse(textBoxColorLevel.Text, out color); } }
 
         // Constructors
         public Form1()
@@ -58,7 +64,7 @@ namespace LevelEditor
 
                     // Get the width and height and instantiate the LevelEditor with the correct dimensions before reading in tiles
                     data = input.ReadLine().Split(',');
-                    level = new LevelEditor(int.Parse(data[0]), int.Parse(data[1]), this);
+                    level = new LevelEditor(int.Parse(data[0]), int.Parse(data[1]), int.Parse(data[2]), this);
                     char[,] tileArray = new char[int.Parse(data[0]), int.Parse(data[1])];
                     // Swap the line below with the two above when level size is ready to implement
                     //level = new LevelEditor(32, 18, this);
@@ -117,6 +123,11 @@ namespace LevelEditor
             else if (height < 10) errorMessages += "\n - Height must be 10 tiles or more";
             else if (height > 50) errorMessages += "\n - Height must be 50 tiles or less";
 
+            // Check for valid colorLevel
+            if (!ValidColorLevel) errorMessages += "\n - Color Level not valid";
+            else if (color < 0) errorMessages += "\n - Color Level must be 0 or more";
+            else if (color > 4) errorMessages += "\n - Color Level must be 4 or less";
+
             if (errorMessages != "Errors:")
             {
                 MessageBox.Show(errorMessages, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -124,7 +135,7 @@ namespace LevelEditor
             else
             {
                 // Create the new map
-                LevelEditor level = new LevelEditor(width, height, this);
+                LevelEditor level = new LevelEditor(width, height, color, this);
                 level.CreateMap();
                 level.ShowDialog();
             }

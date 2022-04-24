@@ -17,7 +17,7 @@ namespace IGME106GroupGame.States
         // Fields
         private GameObjectHandler gameObjectHandler;
 
-        private Level level;
+        private Map map;
         private bool paused;
         private bool godMode;
         private PauseUI pauseUI;
@@ -62,7 +62,7 @@ namespace IGME106GroupGame.States
         {
             this.godMode = godMode;
             paused = false;
-            level = new Level();
+            map = new Map("..\\..\\..\\Content\\Levels\\level1.txt");
             gameObjectHandler = new GameObjectHandler(new Player(Assets.Textures["player"], new Vector2(930, 510), godMode));
             ui = new GameUI(game, gameObjectHandler.Player);
             pauseUI = new PauseUI(game);
@@ -142,20 +142,22 @@ namespace IGME106GroupGame.States
             base.Draw(spriteBatch, gd);
 
             // GameState rendering
-            level.Draw(spriteBatch);
+            map.Draw(spriteBatch);
 
             gameObjectHandler.Draw(spriteBatch, gd);
 
+            // Draw game state UI and wave number shadow
+            spriteBatch.Draw(Assets.Textures["default0"], new Rectangle(680, 10, 550, 75), new Color(0, 0, 0, 150));
             ui.Draw(spriteBatch);
 
             if (paused && gameObjectHandler.Player.Health > 0)
             {
-                spriteBatch.Draw(Assets.Textures["default"], new Rectangle(0, 0, 1920, 1080), new Color(0,0,0,150));
+                spriteBatch.Draw(Assets.Textures["default0"], new Rectangle(0, 0, 1920, 1080), new Color(0,0,0,150));
                 pauseUI.Draw(spriteBatch);
             }
             else if(paused)
             {
-                spriteBatch.Draw(Assets.Textures["default"], new Rectangle(0, 0, 1920, 1080), new Color(0, 0, 0, 150));
+                spriteBatch.Draw(Assets.Textures["default0"], new Rectangle(0, 0, 1920, 1080), new Color(0, 0, 0, 150));
                 deathUI.Draw(spriteBatch);
             }
         }
@@ -163,6 +165,15 @@ namespace IGME106GroupGame.States
         public void SetBossWave()
         {
             ((GameUI)ui).WaveLabel.Text = "Final Boss";
+        }
+
+        /// <summary>
+        /// Move on to next wave and change the map
+        /// </summary>
+        public void NextWave()
+        {
+            wave++;
+            map = new Map($"..\\..\\..\\Content\\Levels\\level{wave}.txt");
         }
     }
 }

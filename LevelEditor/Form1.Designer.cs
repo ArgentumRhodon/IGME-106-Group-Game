@@ -36,6 +36,8 @@ namespace LevelEditor
             this.textBoxWidth = new System.Windows.Forms.TextBox();
             this.labelHeight = new System.Windows.Forms.Label();
             this.labelWidth = new System.Windows.Forms.Label();
+            this.textBoxColorLevel = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBoxCreate.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +53,8 @@ namespace LevelEditor
             // 
             // groupBoxCreate
             // 
+            this.groupBoxCreate.Controls.Add(this.label1);
+            this.groupBoxCreate.Controls.Add(this.textBoxColorLevel);
             this.groupBoxCreate.Controls.Add(this.buttonCreate);
             this.groupBoxCreate.Controls.Add(this.textBoxHeight);
             this.groupBoxCreate.Controls.Add(this.textBoxWidth);
@@ -75,7 +79,7 @@ namespace LevelEditor
             // 
             // textBoxHeight
             // 
-            this.textBoxHeight.Location = new System.Drawing.Point(93, 76);
+            this.textBoxHeight.Location = new System.Drawing.Point(93, 43);
             this.textBoxHeight.Name = "textBoxHeight";
             this.textBoxHeight.Size = new System.Drawing.Size(100, 23);
             this.textBoxHeight.TabIndex = 3;
@@ -83,7 +87,7 @@ namespace LevelEditor
             // 
             // textBoxWidth
             // 
-            this.textBoxWidth.Location = new System.Drawing.Point(93, 35);
+            this.textBoxWidth.Location = new System.Drawing.Point(93, 16);
             this.textBoxWidth.Name = "textBoxWidth";
             this.textBoxWidth.Size = new System.Drawing.Size(100, 23);
             this.textBoxWidth.TabIndex = 2;
@@ -92,7 +96,7 @@ namespace LevelEditor
             // labelHeight
             // 
             this.labelHeight.AutoSize = true;
-            this.labelHeight.Location = new System.Drawing.Point(6, 79);
+            this.labelHeight.Location = new System.Drawing.Point(6, 46);
             this.labelHeight.Name = "labelHeight";
             this.labelHeight.Size = new System.Drawing.Size(88, 15);
             this.labelHeight.TabIndex = 1;
@@ -101,11 +105,28 @@ namespace LevelEditor
             // labelWidth
             // 
             this.labelWidth.AutoSize = true;
-            this.labelWidth.Location = new System.Drawing.Point(6, 38);
+            this.labelWidth.Location = new System.Drawing.Point(6, 19);
             this.labelWidth.Name = "labelWidth";
             this.labelWidth.Size = new System.Drawing.Size(84, 15);
             this.labelWidth.TabIndex = 0;
             this.labelWidth.Text = "Width (in tiles)";
+            // 
+            // textBoxColorLevel
+            // 
+            this.textBoxColorLevel.Location = new System.Drawing.Point(93, 73);
+            this.textBoxColorLevel.Name = "textBoxColorLevel";
+            this.textBoxColorLevel.Size = new System.Drawing.Size(100, 23);
+            this.textBoxColorLevel.TabIndex = 5;
+            this.textBoxColorLevel.Text = "0";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(0, 76);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(94, 15);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Color Level (0-4)";
             // 
             // Form1
             // 
@@ -131,6 +152,8 @@ namespace LevelEditor
         private System.Windows.Forms.TextBox textBoxWidth;
         private System.Windows.Forms.Label labelHeight;
         private System.Windows.Forms.Label labelWidth;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxColorLevel;
     }
 }
 

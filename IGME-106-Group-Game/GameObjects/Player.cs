@@ -17,6 +17,7 @@ namespace IGME106GroupGame.GameObjects
         private int iFrames;
         private bool isInvincible;
         private int fireDelay;
+        private Vector2 collisionPosition;
 
         //Properties
         public int Health { get => health; set => health = value; }
@@ -87,6 +88,14 @@ namespace IGME106GroupGame.GameObjects
                     health--;
                     IFrames = 30;
                 }
+            }
+
+            if (other is WallEntity) // Finish this
+            {
+                collisionPosition = other.Position;
+                Vector2 direction = position - collisionPosition;
+                direction.Normalize();
+                movement.Vector = direction * (5 / direction.Length());
             }
             if(other is Powerup p)
             {

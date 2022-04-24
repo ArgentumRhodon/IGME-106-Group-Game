@@ -56,20 +56,20 @@ namespace IGME106GroupGame.States
         {
             HandleCollectedPickups();
             UpdateGameObjects(state);
-            HandleDeadEntities();
+            HandleDeadEntities(state);
 
             if(Enemies.Count <= 0)
             {
                 if(state.Wave < 5)
                 {
                     UpdateEnemyCount(state);
-                    state.Wave++;
+                    state.NextWave();
                 }
                 else
                 {
                     if (boss == null)
                     {
-                        state.Wave++;
+                        state.NextWave();
                         gameObjects.Add(boss = new Boss(Assets.Textures["monocrome"], new Vector2(60, 60), player));
                         state.SetBossWave();
                     }
@@ -194,13 +194,19 @@ namespace IGME106GroupGame.States
             return gameObjects.FindAll(gameObject => gameObject != check && gameObject.NextCollisionBox.Intersects(check.NextCollisionBox));
         }
 
-        private void HandleDeadEntities()
+        private void HandleDeadEntities(GameState state)
         {
             List<GameObject> entities = Entities;
             for (int i = 0; i < entities.Count; i++)
             {
                 if (((IEntity)entities[i]).Health <= 0)
                 {
+                    // If the boss dies, move on to the final level
+                    if(entities[i] is Boss)
+                    {
+                        state.NextWave();
+                    }
+
                     gameObjects.Remove(entities[i]);
                 }
             }
