@@ -35,7 +35,7 @@ namespace IGME106GroupGame.GameObjects
         {
             this.player = player;
             movement = new RangedEnemyMovement(4, this, player, 100);
-            health = 300;
+            health = 200;
             healthBar = new HealthBar(this, health);
             random = new Random();
             stateSwitchTimer = random.Next(120, 180);

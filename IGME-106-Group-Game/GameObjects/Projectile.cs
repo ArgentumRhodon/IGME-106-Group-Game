@@ -45,6 +45,7 @@ namespace IGME106GroupGame.GameObjects
             {
                 currentEnemy = (Enemy)other;
                 health--;
+                ((Enemy)other).Health -= this.Damage;
             }
 
             if (other is WallCollider)

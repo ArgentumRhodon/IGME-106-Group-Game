@@ -21,7 +21,6 @@ namespace IGME106GroupGame.States
         private Player player;
         private Boss boss;
         private Powerup pickup;
-        private int pickupThresh;
         private List<GameObject> gameObjects;
         private List<Powerup> powerups;
 
@@ -46,7 +45,6 @@ namespace IGME106GroupGame.States
             this.player = player;
 
             gameObjects = new List<GameObject>();
-            this.pickupThresh = 10;
             this.pickup = null;
             
             gameObjects.Add(player);
@@ -114,16 +112,6 @@ namespace IGME106GroupGame.States
                     AddEnemyProjectile(Assets.Textures["enemyStar"], GetRandomRangedEnemyPosition(), player.Position);
                 }
             }
-            if(pickupThresh <= 0)
-            {
-                AddPickup();
-                pickupThresh = 10;
-            }
-            //this is to "freeze" the pickup thershold timer
-            if(pickup != null && !pickup.IsCollected)
-            {
-                pickupThresh = 10;
-            }
 
             if (gameObjects.Contains(boss) && boss.State == BossState.Ranged)
             {
@@ -172,8 +160,13 @@ namespace IGME106GroupGame.States
 
         public void AddPickup()
         {
+            if(pickup != null)
+            {
+                gameObjects.Remove(pickup);
+            }
             pickup = powerups[rng.Next(0, powerups.Count)];
             gameObjects.Add(pickup);
+            //really messy
             powerups = new List<Powerup>() { new HealthBoost(Assets.Textures["smallHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new PierceBoost(Assets.Textures["halfHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new DamageBoost(Assets.Textures["bossStar"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new AtkSpdBoost(Assets.Textures["playerStar"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))) };
         }
 
@@ -294,7 +287,6 @@ namespace IGME106GroupGame.States
                 {
                     return false;
                 }
-                pickupThresh--;
             }
 
             return true;

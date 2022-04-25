@@ -174,6 +174,7 @@ namespace IGME106GroupGame.States
             UnloadLevelCollision();
             wave++;
             map = new Map($"..\\..\\..\\Content\\Levels\\level{wave}.txt");
+            gameObjectHandler.AddPickup();
             LoadLevelCollision(map);
         }
 
