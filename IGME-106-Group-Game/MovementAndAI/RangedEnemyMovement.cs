@@ -12,7 +12,7 @@ namespace IGME106GroupGame.MovementAndAI
     {
         private float range;
 
-        public RangedEnemyMovement(float speed, Enemy enemy, Player player)
+        public RangedEnemyMovement(float speed, Enemy enemy, Player player, float range)
             : base(speed, enemy, player)
         {
             this.range = range;

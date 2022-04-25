@@ -292,7 +292,6 @@ namespace IGME106GroupGame.States
                     return false;
                 }
                 pickupThresh--;
-                #endregion
             }
 
             return true;
