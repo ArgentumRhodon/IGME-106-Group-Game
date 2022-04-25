@@ -167,7 +167,7 @@ namespace IGME106GroupGame.States
             pickup = powerups[rng.Next(0, powerups.Count)];
             gameObjects.Add(pickup);
             //really messy
-            powerups = new List<Powerup>() { new HealthBoost(Assets.Textures["smallHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new PierceBoost(Assets.Textures["en"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new DamageBoost(Assets.Textures["bossStar"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new AtkSpdBoost(Assets.Textures["playerStar"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))) };
+            powerups = new List<Powerup>() { new HealthBoost(Assets.Textures["smallHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new PierceBoost(Assets.Textures["enemyStar"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new DamageBoost(Assets.Textures["bossStar"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new AtkSpdBoost(Assets.Textures["playerStar"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))) };
         }
 
         public void Draw(SpriteBatch spriteBatch, GraphicsDevice gd)
