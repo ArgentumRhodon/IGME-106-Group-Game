@@ -29,7 +29,7 @@ namespace IGME106GroupGame.GameObjects
             base(sprite, startPos)
         {
             movement = new MeleeEnemyMovement(5, this, player);
-            health = 2;
+            health = 3;
             healthBar = new HealthBar(this, health);
         }
 
@@ -65,27 +65,20 @@ namespace IGME106GroupGame.GameObjects
                 health--;
             }
 
-            if (other is IEntity && !(other is Projectile || other is WallEntity))
+            if (other is IEntity && !(other is Projectile || other is WallCollider))
             {
                 collidedWithOtherEnemy = true;
                 collisionPosition = other.Position;
             }
 
-            if (other is WallEntity)
+            if (other is WallCollider)
             {
-                collisionPosition = other.Position;
-                Vector2 direction = position - collisionPosition;
-                direction.Normalize();
+                movement.Stop(WillCollideX(other), WillCollideY(other));
 
-                if (direction.X != 0)
+                if(collisionPosition != Vector2.Zero)
                 {
-                    direction.X = 0;
+                    collisionPosition = other.Position;
                 }
-                if (direction.Y != 0)
-                {
-                    direction.Y = 0;
-                }
-                movement.Vector = direction;
             }
         }
     }

@@ -31,7 +31,7 @@ namespace IGME106GroupGame.GameObjects
             base(sprite, startPos)
         {
             movement = new RangedEnemyMovement(5, this, player);
-            health = 4;
+            health = 1;
             healthBar = new HealthBar(this, health);
             random = new Random();
             fireDelay = random.Next(45, 90);
@@ -76,27 +76,16 @@ namespace IGME106GroupGame.GameObjects
                 health--;
             }
 
-            if (other is IEntity && !(other is Projectile || other is WallEntity))
+            if (other is IEntity && !(other is Projectile || other is WallCollider))
             {
                 collidedWithOtherEnemy = true;
                 collisionPosition = other.Position;
             }
 
-            if (other is WallEntity)
+            if (other is WallCollider)
             {
+                movement.Stop(WillCollideX(other), WillCollideY(other));
                 collisionPosition = other.Position;
-                Vector2 direction = position - collisionPosition;
-                direction.Normalize();
-
-                if (direction.X != 0)
-                {
-                    direction.X = 0;
-                }
-                if (direction.Y != 0)
-                {
-                    direction.Y = 0;
-                }
-                movement.Vector = direction;
             }
         }
     }

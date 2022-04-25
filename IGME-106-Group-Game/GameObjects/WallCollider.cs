@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace IGME106GroupGame.GameObjects
 {
-    class WallEntity : GameObject
+    class WallCollider : GameObject
     {
         // Constructors
         /// <summary>
         /// This constructor will create a new WallEntity
         /// </summary>
-        public WallEntity(Texture2D sprite, Vector2 startingPosition) : base(sprite, startingPosition) { movement = new Movement(0); }
+        public WallCollider(Texture2D sprite, Vector2 startingPosition) : base(sprite, startingPosition) { movement = new Movement(0); }
 
         // Methods
         /// <summary>

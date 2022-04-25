@@ -33,7 +33,7 @@ namespace IGME106GroupGame.States
         private List<GameObject> MeleeEnemies => gameObjects.FindAll(gameObject => gameObject is MeleeEnemy);
         private List<GameObject> Projectiles => gameObjects.FindAll(gameObject => gameObject is Projectile);
         private List<GameObject> Entities => gameObjects.FindAll(gameObject => gameObject is IEntity);
-        private List<GameObject> Walls => gameObjects.FindAll(gameObject => gameObject is WallEntity);
+        private List<GameObject> Walls => gameObjects.FindAll(gameObject => gameObject is WallCollider);
 
         // Constructor
         public GameObjectHandler(Player player)
@@ -49,23 +49,28 @@ namespace IGME106GroupGame.States
         // Methods
         public void Update(GameState state)
         {
+            CheckForNextLevel(state);
             UpdateGameObjects(state);
             HandleDeadEntities(state);
+        }
 
-            if(Enemies.Count <= 0)
+        private void CheckForNextLevel(GameState state)
+        {
+            if (Enemies.Count <= 0)
             {
-                if(state.Wave < 5)
+                if (state.Wave < 5)
                 {
-                    UpdateEnemyCount(state);
                     state.NextWave();
+                    player.Position = new Vector2(950, 515);
+                    UpdateEnemyCount(state);
                 }
-                else
+                else if(state.Wave == 5)
                 {
                     if (boss == null)
                     {
                         state.NextWave();
-                        gameObjects.Add(boss = new Boss(Assets.Textures["monocrome"], new Vector2(1920/2, 1080/2), player));
-                        state.SetBossWave();
+                        gameObjects.Add(boss = new Boss(Assets.Textures["monocrome"], new Vector2(1920 / 2, 80), player));
+                        state.SetLabelText("Final Boss");
                     }
                 }
             }
@@ -130,7 +135,7 @@ namespace IGME106GroupGame.States
             if (player.FireDelay <= 0)
             {
                 gameObjects.Add(new Projectile(sprite, p1, p2, false, 18));
-                player.FireDelay = 15;
+                player.FireDelay = 10;
             }
         }
 
@@ -171,6 +176,7 @@ namespace IGME106GroupGame.States
                     if(entities[i] is Boss)
                     {
                         state.NextWave();
+                        state.SetLabelText("You Win!");
                     }
 
                     gameObjects.Remove(entities[i]);
@@ -180,42 +186,52 @@ namespace IGME106GroupGame.States
 
         private void UpdateEnemyCount(GameState state)
         {
-            Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
-            Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
-
             while (Enemies.Count < 5 + state.Wave * 3)
             {
-                Vector2 randomPosition = new Vector2(-1, -1);
+                Vector2 randomPosition = GetRandomPosition();
 
-                while (
-                      !leftSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
-                      && !rightSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
-                    )
-                {
-                    randomPosition.X = (new Random()).Next(60, 1800);
-                    randomPosition.Y = (new Random()).Next(60, 900);
-                }
-
-                #region NormalEnemySpawning
+                GameObject enemyToSpawn;
                 //50 - 50 chance of spawning a ranged or melee enemy
                 if (rng.Next(0, 2) == 0)
                 {
-                    RangedEnemy temp = new RangedEnemy(Assets.Textures["ninja"], randomPosition, player);
-                    if (ValidSpawn(temp)) gameObjects.Add(temp);
+                    enemyToSpawn = new RangedEnemy(Assets.Textures["ninja"], randomPosition, player);
                 }
                 // 50-50 chance of melee being ninja or slimebot
                 else if (rng.Next(0, 2) == 0)
                 {
-                    MeleeEnemy temp = new MeleeEnemy(Assets.Textures["meleeNinja"], randomPosition, player);
-                    if (ValidSpawn(temp)) gameObjects.Add(temp);
+                    enemyToSpawn = new MeleeEnemy(Assets.Textures["meleeNinja"], randomPosition, player);
                 }
                 else
                 {
-                    MeleeEnemy temp = new MeleeEnemy(Assets.Textures["slimeBot"], randomPosition, player);
-                    if (ValidSpawn(temp)) gameObjects.Add(temp);
+                    enemyToSpawn = new MeleeEnemy(Assets.Textures["slimeBot"], randomPosition, player);
                 }
-                #endregion
+
+                while (!ValidSpawnPosition(enemyToSpawn.CollisionBox))
+                {
+                    enemyToSpawn.Position = GetRandomPosition();
+                }
+
+                gameObjects.Add(enemyToSpawn);
             }
+        }
+
+        private Vector2 GetRandomPosition()
+        {
+            Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
+            Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
+
+            Vector2 randomPosition = new Vector2(-1, -1);
+
+            while (
+                  !leftSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
+                  && !rightSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
+                )
+            {
+                randomPosition.X = (new Random()).Next(60, 1800);
+                randomPosition.Y = (new Random()).Next(60, 900);
+            }
+
+            return randomPosition;
         }
 
         /// <summary>
@@ -223,12 +239,16 @@ namespace IGME106GroupGame.States
         /// </summary>
         /// <param name="gameObject">The game object to check</param>
         /// <returns></returns>
-        private bool ValidSpawn(GameObject gameObject)
+        private bool ValidSpawnPosition(Rectangle collisionBox)
         {
-            foreach (WallEntity wall in Walls)
+            foreach (WallCollider wall in Walls)
             {
-                if (gameObject.CollisionBox.Intersects(wall.CollisionBox)) return false;
+                if (wall.CollisionBox.Intersects(collisionBox))
+                {
+                    return false;
+                }
             }
+
             return true;
         }
     }

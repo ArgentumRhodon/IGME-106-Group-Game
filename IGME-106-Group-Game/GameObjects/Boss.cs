@@ -30,8 +30,6 @@ namespace IGME106GroupGame.GameObjects
 
         private int stateSwitchTimer;
 
-        private Vector2 collisionPosition;
-
         public int Health { get { return health; } set { health = value; } }
         public int FireDelay { get { return fireDelay; } set { fireDelay = value; } }
         public BossState State => state;
@@ -42,7 +40,7 @@ namespace IGME106GroupGame.GameObjects
             : base(sprite, startPos)
         {
             this.player = player;
-            movement = new RangedEnemyMovement(8, this, player);
+            movement = new RangedEnemyMovement(4, this, player, 100);
             health = 100;
             healthBar = new HealthBar(this, health);
             random = new Random();
@@ -77,13 +75,13 @@ namespace IGME106GroupGame.GameObjects
                 health--;
             }
 
-            if (other is WallEntity)
+            if (other is WallCollider)
             {
                 //Vector2 direction = position - collisionPosition;
                 //direction.Normalize();
                 //movement.Vector = direction;
 
-                movement.Vector = new Vector2(0, 0);
+                movement.Stop(WillCollideX(other), WillCollideY(other));
             }
         }
 
@@ -92,13 +90,13 @@ namespace IGME106GroupGame.GameObjects
             if(state == BossState.Melee)
             {
                 state = BossState.Ranged;
-                movement = new RangedEnemyMovement(movement.Speed, this, player);
+                movement = new RangedEnemyMovement(4, this, player, 100);
                 fireDelay = 90;
             }
             else
             {
                 state = BossState.Melee;
-                movement = new MeleeEnemyMovement(movement.Speed, this, player);
+                movement = new MeleeEnemyMovement(8, this, player);
             }
         }
     }

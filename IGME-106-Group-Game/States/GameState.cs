@@ -63,7 +63,7 @@ namespace IGME106GroupGame.States
             this.godMode = godMode;
             paused = false;
             map = new Map("..\\..\\..\\Content\\Levels\\level1.txt");
-            gameObjectHandler = new GameObjectHandler(new Player(Assets.Textures["player"], new Vector2(930, 510), godMode));
+            gameObjectHandler = new GameObjectHandler(new Player(Assets.Textures["player"], new Vector2(80, 80), godMode));
             ui = new GameUI(game, gameObjectHandler.Player);
             pauseUI = new PauseUI(game);
             deathUI = new DeathUI(game);
@@ -162,9 +162,9 @@ namespace IGME106GroupGame.States
             }
         }
 
-        public void SetBossWave()
+        public void SetLabelText(string text)
         {
-            ((GameUI)ui).WaveLabel.Text = "Final Boss";
+            ((GameUI)ui).WaveLabel.Text = text;
         }
 
         /// <summary>
@@ -187,9 +187,10 @@ namespace IGME106GroupGame.States
             List<Vector2> wallPos = map.GetWallPositions();
             for (int i = 0; i < wallPos.Count; i++)
             {
-                gameObjectHandler.GameObjects.Add(new WallEntity(Assets.Textures["default0"], wallPos[i]));
+                gameObjectHandler.GameObjects.Add(new WallCollider(Assets.Textures["default0"], wallPos[i]));
             }
         }
+
 
         /// <summary>
         /// This method will remove all WallEntity objects from GameObjects and therefore remove all level collision
@@ -198,7 +199,7 @@ namespace IGME106GroupGame.States
         {
             for (int i = 0; i < gameObjectHandler.GameObjects.Count; i++)
             {
-                if (gameObjectHandler.GameObjects[i] is WallEntity)
+                if (gameObjectHandler.GameObjects[i] is WallCollider)
                 {
                     gameObjectHandler.GameObjects.Remove(gameObjectHandler.GameObjects[i]);
                     i--;
