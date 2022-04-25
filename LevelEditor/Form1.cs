@@ -73,6 +73,7 @@ namespace LevelEditor
                         for (int i = 0; i < tileArray.GetLength(0); i++) // width
                         {
                             tileArray[i, j] = (char)input.Read();
+                            if (tileArray[i,j] == '\n') tileArray[i, j] = (char)input.Read();
                         }
                         input.Read();
                     }

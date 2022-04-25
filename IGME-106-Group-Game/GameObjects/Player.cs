@@ -13,11 +13,9 @@ namespace IGME106GroupGame.GameObjects
     {
         //Fields
         private int health;
-        private HealthBar healthBar;
         private int iFrames;
         private bool isInvincible;
         private int fireDelay;
-        private Vector2 collisionPosition;
 
         //Properties
         public int Health { get => health; set => health = value; }
@@ -47,7 +45,7 @@ namespace IGME106GroupGame.GameObjects
         {
             movement = new PlayerMovement(10, this);
             this.isInvincible = isInvincible;
-            health = 6;
+            health = 10;
         }
 
         /// <summary>
@@ -90,12 +88,9 @@ namespace IGME106GroupGame.GameObjects
                 }
             }
 
-            if (other is WallEntity) // Finish this
+            if (other is WallCollider)
             {
-                collisionPosition = other.Position;
-                Vector2 direction = position - collisionPosition;
-                direction.Normalize();
-                movement.Vector = direction * (5 / direction.Length());
+                movement.Stop(WillCollideX(other), WillCollideY(other));
             }
             if(other is Powerup p)
             {

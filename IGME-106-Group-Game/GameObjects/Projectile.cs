@@ -47,7 +47,7 @@ namespace IGME106GroupGame.GameObjects
                 health--;
             }
 
-            if (other is WallEntity)
+            if (other is WallCollider)
             {
                 health = 0;
             }

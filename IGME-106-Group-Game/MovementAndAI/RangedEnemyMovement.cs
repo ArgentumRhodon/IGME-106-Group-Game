@@ -10,11 +10,13 @@ namespace IGME106GroupGame.MovementAndAI
 {
     class RangedEnemyMovement : EnemyMovement
     {
+        private float range;
 
         public RangedEnemyMovement(float speed, Enemy enemy, Player player)
             : base(speed, enemy, player)
         {
-        }
+            this.range = range;
+         }
 
         public override void Update()
         {
@@ -23,7 +25,7 @@ namespace IGME106GroupGame.MovementAndAI
 
             Vector2 direction = player.Position - enemy.Position;
 
-            if (direction.Length() > 500)
+            if (direction.Length() > range)
             {
                 deltaX = direction.X;
                 deltaY = direction.Y;
