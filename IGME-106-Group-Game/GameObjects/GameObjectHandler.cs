@@ -48,7 +48,7 @@ namespace IGME106GroupGame.States
             this.pickup = null;
             
             gameObjects.Add(player);
-            powerups = new List<Powerup>() { new HealthBoost(Assets.Textures["smallHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new PierceBoost(Assets.Textures["halfHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new DamageBoost(Assets.Textures["bossStar"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))) };
+            powerups = new List<Powerup>() { new HealthBoost(Assets.Textures["smallHeart"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new PierceBoost(Assets.Textures["enemyStar"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))), new DamageBoost(Assets.Textures["bossStar"], new Vector2(rng.Next(100, 1800), rng.Next(100, 900))) };
         }
 
 
