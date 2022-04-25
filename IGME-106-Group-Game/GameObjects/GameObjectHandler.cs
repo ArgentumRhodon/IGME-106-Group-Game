@@ -36,6 +36,7 @@ namespace IGME106GroupGame.States
         private List<GameObject> MeleeEnemies => gameObjects.FindAll(gameObject => gameObject is MeleeEnemy);
         private List<GameObject> Projectiles => gameObjects.FindAll(gameObject => gameObject is Projectile);
         private List<GameObject> Entities => gameObjects.FindAll(gameObject => gameObject is IEntity);
+        private List<GameObject> Walls => gameObjects.FindAll(gameObject => gameObject is WallCollider);
 
         // Constructor
         public GameObjectHandler(Player player)
@@ -57,23 +58,28 @@ namespace IGME106GroupGame.States
         public void Update(GameState state)
         {
             HandleCollectedPickups();
+            CheckForNextLevel(state);
             UpdateGameObjects(state);
             HandleDeadEntities(state);
+        }
 
-            if(Enemies.Count <= 0)
+        private void CheckForNextLevel(GameState state)
+        {
+            if (Enemies.Count <= 0)
             {
-                if(state.Wave < 5)
+                if (state.Wave < 5)
                 {
-                    UpdateEnemyCount(state);
                     state.NextWave();
+                    player.Position = new Vector2(950, 515);
+                    UpdateEnemyCount(state);
                 }
-                else
+                else if(state.Wave == 5)
                 {
                     if (boss == null)
                     {
                         state.NextWave();
-                        gameObjects.Add(boss = new Boss(Assets.Textures["monocrome"], new Vector2(60, 60), player));
-                        state.SetBossWave();
+                        gameObjects.Add(boss = new Boss(Assets.Textures["monocrome"], new Vector2(1920 / 2, 80), player));
+                        state.SetLabelText("Final Boss");
                     }
                 }
             }
@@ -208,6 +214,7 @@ namespace IGME106GroupGame.States
                     if(entities[i] is Boss)
                     {
                         state.NextWave();
+                        state.SetLabelText("You Win!");
                     }
 
                     gameObjects.Remove(entities[i]);
@@ -226,40 +233,71 @@ namespace IGME106GroupGame.States
         }
         private void UpdateEnemyCount(GameState state)
         {
-            Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
-            Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
-
             while (Enemies.Count < 5 + state.Wave * 3)
             {
-                Vector2 randomPosition = new Vector2(-1, -1);
+                Vector2 randomPosition = GetRandomPosition();
 
-                while (
-                      !leftSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
-                      && !rightSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
-                    )
-                {
-                    randomPosition.X = (new Random()).Next(60, 1800);
-                    randomPosition.Y = (new Random()).Next(60, 900);
-                }
-
-                #region NormalEnemySpawning
+                GameObject enemyToSpawn;
                 //50 - 50 chance of spawning a ranged or melee enemy
                 if (rng.Next(0, 2) == 0)
                 {
-                    gameObjects.Add(new RangedEnemy(Assets.Textures["ninja"], randomPosition, player));
+                    enemyToSpawn = new RangedEnemy(Assets.Textures["ninja"], randomPosition, player);
                 }
                 // 50-50 chance of melee being ninja or slimebot
                 else if (rng.Next(0, 2) == 0)
                 {
-                    gameObjects.Add(new MeleeEnemy(Assets.Textures["meleeNinja"], randomPosition, player));
+                    enemyToSpawn = new MeleeEnemy(Assets.Textures["meleeNinja"], randomPosition, player);
                 }
                 else
                 {
-                    gameObjects.Add(new MeleeEnemy(Assets.Textures["slimeBot"], randomPosition, player));
+                    enemyToSpawn = new MeleeEnemy(Assets.Textures["slimeBot"], randomPosition, player);
+                }
+
+                while (!ValidSpawnPosition(enemyToSpawn.CollisionBox))
+                {
+                    enemyToSpawn.Position = GetRandomPosition();
+                }
+
+                gameObjects.Add(enemyToSpawn);
+            }
+        }
+
+        private Vector2 GetRandomPosition()
+        {
+            Rectangle leftSpawn = new Rectangle(60, 60, (int)player.Position.X - 200, 900);
+            Rectangle rightSpawn = new Rectangle((int)player.Position.X + 260, 60, 1600 - (int)player.Position.X, 900);
+
+            Vector2 randomPosition = new Vector2(-1, -1);
+
+            while (
+                  !leftSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
+                  && !rightSpawn.Contains(new Rectangle((int)randomPosition.X, (int)randomPosition.Y, 60, 60))
+                )
+            {
+                randomPosition.X = (new Random()).Next(60, 1800);
+                randomPosition.Y = (new Random()).Next(60, 900);
+            }
+
+            return randomPosition;
+        }
+
+        /// <summary>
+        /// This method checks to see if the enemy spawn is a valid spawn (assumes gameobject is an enemy)
+        /// </summary>
+        /// <param name="gameObject">The game object to check</param>
+        /// <returns></returns>
+        private bool ValidSpawnPosition(Rectangle collisionBox)
+        {
+            foreach (WallCollider wall in Walls)
+            {
+                if (wall.CollisionBox.Intersects(collisionBox))
+                {
+                    return false;
                 }
                 pickupThresh--;
-                #endregion
             }
+
+            return true;
         }
     }
 }

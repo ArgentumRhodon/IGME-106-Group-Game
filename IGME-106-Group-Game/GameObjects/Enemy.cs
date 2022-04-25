@@ -63,16 +63,20 @@ namespace IGME106GroupGame.GameObjects
                 health -= ((Projectile)other).Damage;
             }
 
-            if (other is IEntity && !(other is Projectile))
+            if (other is IEntity && !(other is Projectile || other is WallCollider))
             {
                 collidedWithOtherEnemy = true;
                 collisionPosition = other.Position;
             }
-            if (other is WallEntity) // Finish this
+
+            if (other is WallCollider)
             {
-                Vector2 direction = position - collisionPosition;
-                direction.Normalize();
-                movement.Vector = direction * (5 / direction.Length());
+                movement.Stop(WillCollideX(other), WillCollideY(other));
+
+                if (collisionPosition != Vector2.Zero)
+                {
+                    collisionPosition = other.Position;
+                }
             }
         }
     }

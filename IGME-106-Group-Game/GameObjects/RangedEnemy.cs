@@ -22,7 +22,7 @@ namespace IGME106GroupGame.GameObjects
         public RangedEnemy (Texture2D sprite, Vector2 startPos, Player player) : 
             base(sprite, startPos, player)
         {
-            movement = new RangedEnemyMovement(5, this, player);
+            movement = new RangedEnemyMovement(5, this, player, 300);
             health = 12;
             healthBar = new HealthBar(this, health);
             random = new Random();
