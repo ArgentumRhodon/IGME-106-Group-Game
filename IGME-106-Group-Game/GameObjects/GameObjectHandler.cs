@@ -33,6 +33,7 @@ namespace IGME106GroupGame.States
         private List<GameObject> MeleeEnemies => gameObjects.FindAll(gameObject => gameObject is MeleeEnemy);
         private List<GameObject> Projectiles => gameObjects.FindAll(gameObject => gameObject is Projectile);
         private List<GameObject> Entities => gameObjects.FindAll(gameObject => gameObject is IEntity);
+        private List<GameObject> Walls => gameObjects.FindAll(gameObject => gameObject is WallEntity);
 
         // Constructor
         public GameObjectHandler(Player player)
@@ -63,7 +64,7 @@ namespace IGME106GroupGame.States
                     if (boss == null)
                     {
                         state.NextWave();
-                        gameObjects.Add(boss = new Boss(Assets.Textures["monocrome"], new Vector2(60, 60), player));
+                        gameObjects.Add(boss = new Boss(Assets.Textures["monocrome"], new Vector2(1920/2, 1080/2), player));
                         state.SetBossWave();
                     }
                 }
@@ -199,19 +200,36 @@ namespace IGME106GroupGame.States
                 //50 - 50 chance of spawning a ranged or melee enemy
                 if (rng.Next(0, 2) == 0)
                 {
-                    gameObjects.Add(new RangedEnemy(Assets.Textures["ninja"], randomPosition, player));
+                    RangedEnemy temp = new RangedEnemy(Assets.Textures["ninja"], randomPosition, player);
+                    if (ValidSpawn(temp)) gameObjects.Add(temp);
                 }
                 // 50-50 chance of melee being ninja or slimebot
                 else if (rng.Next(0, 2) == 0)
                 {
-                    gameObjects.Add(new MeleeEnemy(Assets.Textures["meleeNinja"], randomPosition, player));
+                    MeleeEnemy temp = new MeleeEnemy(Assets.Textures["meleeNinja"], randomPosition, player);
+                    if (ValidSpawn(temp)) gameObjects.Add(temp);
                 }
                 else
                 {
-                    gameObjects.Add(new MeleeEnemy(Assets.Textures["slimeBot"], randomPosition, player));
+                    MeleeEnemy temp = new MeleeEnemy(Assets.Textures["slimeBot"], randomPosition, player);
+                    if (ValidSpawn(temp)) gameObjects.Add(temp);
                 }
                 #endregion
             }
+        }
+
+        /// <summary>
+        /// This method checks to see if the enemy spawn is a valid spawn (assumes gameobject is an enemy)
+        /// </summary>
+        /// <param name="gameObject">The game object to check</param>
+        /// <returns></returns>
+        private bool ValidSpawn(GameObject gameObject)
+        {
+            foreach (WallEntity wall in Walls)
+            {
+                if (gameObject.CollisionBox.Intersects(wall.CollisionBox)) return false;
+            }
+            return true;
         }
     }
 }

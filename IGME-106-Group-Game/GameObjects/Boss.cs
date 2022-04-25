@@ -30,6 +30,8 @@ namespace IGME106GroupGame.GameObjects
 
         private int stateSwitchTimer;
 
+        private Vector2 collisionPosition;
+
         public int Health { get { return health; } set { health = value; } }
         public int FireDelay { get { return fireDelay; } set { fireDelay = value; } }
         public BossState State => state;
@@ -73,6 +75,15 @@ namespace IGME106GroupGame.GameObjects
             if (other is Projectile && !((Projectile)other).IsEnemyProjectile && ((Projectile)other).CurrentEnemy != this)
             {
                 health--;
+            }
+
+            if (other is WallEntity)
+            {
+                //Vector2 direction = position - collisionPosition;
+                //direction.Normalize();
+                //movement.Vector = direction;
+
+                movement.Vector = new Vector2(0, 0);
             }
         }
 

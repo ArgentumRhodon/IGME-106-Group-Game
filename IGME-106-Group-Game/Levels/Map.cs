@@ -133,7 +133,6 @@ namespace IGME106GroupGame.Levels
                 {
                     char tileRepresentative = (char)streamReader.Read();
                     tiles[y, x] = new Tile(GetTileSprite(tileRepresentative));
-                    // Possible spot to implement WallEntity, more likely to go into GameObjectHandler
                 }
                 streamReader.ReadLine();
             }
@@ -239,9 +238,9 @@ namespace IGME106GroupGame.Levels
             {
                 for (int x = 0; x < tiles.GetLength(0); x++)
                 {
-                    if (tiles[x, y].Sprite.Name != "floor")
+                    if (tiles[x, y].Sprite != Assets.Textures[$"floor{saturationLevel}"])
                     {
-                        result.Add(new Vector2(60 * x, 60 * y));
+                        result.Add(new Vector2(60 * y, 60 * x));
                     }
                 }
             }

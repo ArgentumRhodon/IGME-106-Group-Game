@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using IGME106GroupGame.MovementAndAI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -14,16 +15,21 @@ namespace IGME106GroupGame.GameObjects
         /// <summary>
         /// This constructor will create a new WallEntity
         /// </summary>
-        public WallEntity(Texture2D sprite, Vector2 startingPosition) : base(sprite, startingPosition) { }
+        public WallEntity(Texture2D sprite, Vector2 startingPosition) : base(sprite, startingPosition) { movement = new Movement(0); }
 
         // Methods
         /// <summary>
-        /// 
+        /// Because WallEntity doesn't actually need to handle collisions itself, just return
         /// </summary>
-        /// <param name="other"></param>
+        /// <param name="other">The other object to check against</param>
         public override void HandleCollision(GameObject other)
         {
-            throw new NotImplementedException();
+            return;
+        }
+
+        public override void Draw(SpriteBatch _spriteBatch)
+        {
+            
         }
     }
 }

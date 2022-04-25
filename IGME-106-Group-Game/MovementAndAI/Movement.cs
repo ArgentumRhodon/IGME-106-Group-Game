@@ -9,7 +9,7 @@ using IGME106GroupGame.GameObjects;
 
 namespace IGME106GroupGame.MovementAndAI
 {
-    public abstract class Movement
+    public class Movement
     {
         // Fields
         protected Vector2 vector;
@@ -32,7 +32,9 @@ namespace IGME106GroupGame.MovementAndAI
         }
 
         // Methods
-        public abstract void Update();
+        public virtual void Update()
+        {
+        }
 
         public void Stop(bool stopX, bool stopY)
         {

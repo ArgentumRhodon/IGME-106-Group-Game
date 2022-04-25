@@ -172,8 +172,38 @@ namespace IGME106GroupGame.States
         /// </summary>
         public void NextWave()
         {
+            UnloadLevelCollision();
             wave++;
             map = new Map($"..\\..\\..\\Content\\Levels\\level{wave}.txt");
+            LoadLevelCollision(map);
+        }
+
+        /// <summary>
+        /// This method will load all the collision for walls in the selected map
+        /// </summary>
+        /// <param name="map">The map to load collision for</param>
+        private void LoadLevelCollision(Map map)
+        {
+            List<Vector2> wallPos = map.GetWallPositions();
+            for (int i = 0; i < wallPos.Count; i++)
+            {
+                gameObjectHandler.GameObjects.Add(new WallEntity(Assets.Textures["default0"], wallPos[i]));
+            }
+        }
+
+        /// <summary>
+        /// This method will remove all WallEntity objects from GameObjects and therefore remove all level collision
+        /// </summary>
+        private void UnloadLevelCollision()
+        {
+            for (int i = 0; i < gameObjectHandler.GameObjects.Count; i++)
+            {
+                if (gameObjectHandler.GameObjects[i] is WallEntity)
+                {
+                    gameObjectHandler.GameObjects.Remove(gameObjectHandler.GameObjects[i]);
+                    i--;
+                }
+            }
         }
     }
 }

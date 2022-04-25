@@ -100,7 +100,7 @@ namespace LevelEditor
                     pb.Size = new Size(tileSize, tileSize);
 
                     // Set the image to the corresponding image in the array
-                    switch (tiles[x,y])
+                    switch (tiles[x, y])
                     {
                         case '-': // Floor
                             pb.Image = Image.FromFile($"../../../../LevelEditor/Tiles/{colorLevel}/floor/floor.png");
@@ -357,7 +357,7 @@ namespace LevelEditor
                     {
                         for (int i = 0; i < MapWidth; i++)
                         {
-                            output.Write($"{images[i,j]}");
+                            output.Write($"{images[i, j]}");
                         }
                         output.Write("\n");
                     }
@@ -374,7 +374,7 @@ namespace LevelEditor
                     if (output != null) output.Close();
                 }
             }
-        } 
+        }
 
         /// <summary>
         /// This method will return a 2D array of chars that represent the images on the map

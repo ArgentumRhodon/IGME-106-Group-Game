@@ -45,7 +45,7 @@ namespace IGME106GroupGame.MovementAndAI
                 deltaX++;
             }
 
-            // Normalize movement for consisten diagonal velocity
+            // Normalize movement for consistent diagonal velocity
             vector = new Vector2(deltaX, deltaY);
             if (vector.X != 0 || vector.Y != 0)
             {
